@@ -1,37 +1,27 @@
-
-
-/**
- * Creation de la classe Map 
- */
 public class Map
 {
+	/** Tableau de case qui forme la map. */
 	 private final Case[][] map;
 	
-	 /**
-	 * Création du constructeur permettant d'initialiser la Map avec une taille de 30/30
-	 */
+	 /** Constructeur permettant d'initialiser la Map avec une taille de 50/50 */
 	public Map(){
-		 map = new Case[30][30];
+		 map = new Case[50][50];
 	 }
 	 
-	 /**
-	 * méthode permettant d'afficher la map
-	 */
+	 /** Retourne graphiquement la map (IHM). */
 	public void afficherMap()
 	 {
 		 
 	 }
 	 
-	 /**
-	 * méthode permettant de faire une mise a jour du plateau
-	 */
+	 /** Met Ã  jour le plateau. */
 	public void miseAJourPlateau()
 	 {
 		 
 	 }
 	 
 	 /**
-	 * méthode permettant d'afficher l'ennemi
+	 * Retourne graphiquement les ennemis (IHM).
 	 * @param ennemi
 	 */
 	public void afficherEnnemi(Ennemi ennemi)
@@ -40,7 +30,7 @@ public class Map
 	 }
 	 
 	 /**
-	 * méthode permettant d'afficher la tour
+	 * Retourne graphiquement les tours (IHM).
 	 * @param tour
 	 */
 	public void afficherTour(Tour tour)

@@ -1,30 +1,20 @@
-
-/**
- * Création de la classe Case
- *
- */
 public class Case
 {
+	/** Ã‰tat de la case. */
 	private boolean casePleine;
 	
-	
-	/**
-	 * constructeur de case, par défault false (vide)
-	 */
+	/** Constructeur de case. */
 	public Case()
 	{
 		this.casePleine = false;
 	}
 
-	 /**
-	 * methode permettant de renvoyer l'état d'une case, vide ou pleine (booléen)
-	 */
+	 /** Retourne l'ï¿½tat d'une case, true=occupÃ©e, false=libre. */
 	public boolean obtenirContenu()
 	 {
 		 if (this.casePleine==false)
 			 return true;
 		 else
 			 return false;
-						
 	 }
 }
