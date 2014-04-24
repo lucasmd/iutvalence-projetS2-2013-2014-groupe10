@@ -4,12 +4,13 @@
  * @author Groupe 10
  *
  */
-public class Ennemi 
+public abstract class Ennemi 
 {
 	private Position positionEnnemi;
 	private String nomEnnemi;
 	private int vie_Ennemi;
 	private int pointDegats;
+
 	
 	/**
 	 * Constructeur ennemi
@@ -29,17 +30,26 @@ public class Ennemi
 	 * Methode qui permet d'attaquer une tour
 	 * @param tourAttaque
 	 */
-	public void attaquer(Tour tourAttaque)
-	{
-		
-	}
+	public abstract void attaquer(Tour tourAttaque);
 	
 	/**
 	 * Methode qui permet à l'ennemi d'avancer(elle a été omise dans D2)
 	 * @param positionOrigine
 	 */
-	public void ennemiAvancer(Position positionOrigine)
+	public abstract void ennemiAvancer(Position positionOrigine);
+	
+	public Position obtenirPosition()
 	{
-		
+		return this.positionEnnemi;
+	}
+	
+	public int obtenirVie()
+	{
+		return this.vie_Ennemi;
+	}
+	
+	public int obtenirPtDegats()
+	{
+		return this.pointDegats;
 	}
 }
