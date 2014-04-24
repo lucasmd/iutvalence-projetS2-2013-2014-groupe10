@@ -1,20 +1,14 @@
-public class Case
-{
+public class Case {
 	/** État de la case. */
-	private boolean casePleine;
-	
+	private static boolean casePleine;
+
 	/** Constructeur de case. */
-	public Case()
-	{
+	public Case() {
 		this.casePleine = false;
 	}
 
-	 /** Retourne l'�tat d'une case, true=occupée, false=libre. */
-	public boolean obtenirContenu()
-	 {
-		 if (this.casePleine==false)
-			 return true;
-		 else
-			 return false;
-	 }
+	/** Retourne l'état d'une case, true=occupée, false=libre. */
+	public static boolean obtenirContenu() {
+		return casePleine;
+	}
 }
