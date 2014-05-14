@@ -6,7 +6,7 @@ public class Option {
     }
     
     /** Creer les options. */
-    public void creerOption(Option o){
+    public Option(Option o){
 	
     }
     
