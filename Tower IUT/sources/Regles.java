@@ -5,7 +5,7 @@ public class Regles
 	
 	/** Constructeur des règles. */
 	public Regles(){
-		this.texteDesRegles="Vous devez empêcher les GEA et les TC d'entrer dans la salle informatique...";
+		this.texteDesRegles="Vous devez emp�cher les GEA et les TC d'entrer dans la salle informatique...";
 	}
 	
 	/** Affiche les règles (IHM). */

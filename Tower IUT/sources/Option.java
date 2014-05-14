@@ -1,13 +1,18 @@
 public class Option {
     
-    /** Affiche les options (IHM). */
-    public void afficheOption(){
-	
-    }
-    
+   //test
+	public Option()
+	{
+		
+	}
     /** Creer les options. */
     public Option(Option o){
 	
+    }
+    
+    /** Affiche les options (IHM). */
+    public String afficheOption(){
+    	return("Voici un affichage des options");
     }
     
     /** Modifie les options. */
