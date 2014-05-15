@@ -16,7 +16,6 @@ public class Position {
 	 */
 	private int posiColonne;
 	
-	private Etat posiEtat;
 
 	/**
 	 * Permet d'initialiser une position
@@ -24,40 +23,19 @@ public class Position {
 	 * @param posiLigne
 	 * @param posiColonne
 	 */
-	public Position(int posiLigne, int posiColonne, Etat etatOrigine) 
+	public Position(int posiLigne, int posiColonne) 
 	{
 		this.posiLigne = posiLigne;
 		this.posiColonne = posiColonne;
-		this.posiEtat= etatOrigine;
 	}
 	
-	
-
 	/**
 	 * Retourne le numéro de colonne
 	 */
 	public int obtenirPositionColonne() {
 		return this.posiColonne;
 	}
-	
-	public void changerPositionLigne(int num)
-	{
-		this.posiLigne= this.posiLigne+num;
-	}
-	
-	public void changerPositionColonne(int num)
-	{
-		this.posiColonne= this.posiColonne+num;
-	}
-	
-	public void changerPosiEtat(Etat nouvelEtat)
-	{
-		this.posiEtat=nouvelEtat;
-	}
-	
-	public Etat obtenirPositionEtat() {
-		return this.posiEtat;
-	}
+
 	/**
 	 * Retourne le numéro de ligne
 	 */

@@ -33,78 +33,77 @@ public abstract class Ennemi
 	 */
 	public abstract void attaquer(Tour tourAttaque);
 	//faire des methode pour obetenir l'etat des position dessous dessus droite gauche
-	public void avancer()
+	public Case[] definitionChemin(Case caseDeDepart)
 	{
-		Position posiGauche=this.positionEnnemi;
-		posiGauche.changerPositionLigne(-1);
+		Case[] chemin;
+		CaseAvecParent[] listeCaseTraitee = new CaseAvecParent[900];
+		CaseAvecParent[] listeCaseATraitee = new CaseAvecParent[900];
 		
-		Position posiDroit=this.positionEnnemi;
-		posiGauche.changerPositionLigne(1);
 		
-		Position posiDessus=this.positionEnnemi;
-		posiGauche.changerPositionColonne(1);
 		
-		Position posiDessous=this.positionEnnemi;
-		posiGauche.changerPositionLigne(-1);
-		
-		if (posiDessus.obtenirPositionEtat()==Etat.VIDE)
-		{
-			this.avancerAuDessus();
-		}
-		
-		if ((posiDroit.obtenirPositionEtat()==Etat.VIDE) && (posiGauche.obtenirPositionEtat()==Etat.VIDE))
-		{
-			SecureRandom genarateurAleatoireDeDirection= new SecureRandom();
-			int deplacement=genarateurAleatoireDeDirection.nextInt(1);
-			if(deplacement==0)
-			{
-				this.avancerADroite();
-			}
-			else
-			{
-				this.avancerAGauche();
-			}
-		}
-		else
-		{
-			if (posiDroit.obtenirPositionEtat()==Etat.VIDE)
-				this.avancerAGauche();
-			if (posiGauche.obtenirPositionEtat()==Etat.VIDE)
-				this.avancerADroite();
-			else
-				this.avancerAuDessous();
-		}
+		return chemin;
 	}
-
-	public void avancerADroite()
+		
+	public CaseAvecParent[] trouverCaseAdjacentes(Case caseParent, Map laMap)
 	{
-		this.positionEnnemi.changerPosiEtat(Etat.VIDE);
-		this.positionEnnemi.changerPositionLigne(-1);
-		this.positionEnnemi.changerPosiEtat(Etat.ENNEMI);
+		int indice =0;
+		Case[] caseAdjacentes= new Case[8];
+		CaseAvecParent[] caseAdjacentesAvecParent= new CaseAvecParent[8]; 
+		
+		int positionLigneParent=caseParent.obtenirPosiCase().obtenirPositionLigne();
+		int positionColonneParent=caseParent.obtenirPosiCase().obtenirPositionColonne();
+		
+		if (positionColonneParent-1>=0)
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent][positionColonneParent-1];
+			indice++;
+		}
+		if (positionColonneParent+1<=29)
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent][positionColonneParent+1];
+			indice++;
+		}
+		if (positionLigneParent-1>=0)
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent-1][positionColonneParent];
+			indice++;
+		}
+		if (positionLigneParent+1<=29)
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent+1][positionColonneParent];
+			indice++;
+		}
+		
+		
+		if ((positionLigneParent-1>=0) && (positionColonneParent-1>=0))
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent-1][positionColonneParent-1];
+			indice++;
+		}
+		if ((positionLigneParent-1>=0) && (positionColonneParent+1<=29))
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent+1][positionColonneParent-1];
+			indice++;
+		}
+		if ((positionLigneParent+1<=29) && (positionColonneParent)-1>=0))
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent-1][positionColonneParent+1];
+			indice++;
+		}
+		if ((positionLigneParent+1<=29) && (positionColonneParent+1<=29))
+		{
+			caseAdjacentes[indice]=laMap[positionLigneParent+1][positionColonneParent+1];
+			indice++;
+		}
+		
+		
+		caseAdjacentes
+		
 		
 	}
 	
-	public void avancerAGauche()
-	{
-		this.positionEnnemi.changerPosiEtat(Etat.VIDE);
-		this.positionEnnemi.changerPositionLigne(1);
-		this.positionEnnemi.changerPosiEtat(Etat.ENNEMI);
-	}
 	
-	public void avancerAuDessus()
-	{
-		this.positionEnnemi.changerPosiEtat(Etat.VIDE);
-		this.positionEnnemi.changerPositionColonne(1);
-		this.positionEnnemi.changerPosiEtat(Etat.ENNEMI);
-	}
 	
-	public void avancerAuDessous()
-	{
-		this.positionEnnemi.changerPosiEtat(Etat.VIDE);
-		this.positionEnnemi.changerPositionColonne(-1);
-		this.positionEnnemi.changerPosiEtat(Etat.ENNEMI);
-	}
-
 	public Position obtenirPosition()
 	{
 		return this.positionEnnemi;

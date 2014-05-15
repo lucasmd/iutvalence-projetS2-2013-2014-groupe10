@@ -1,14 +1,34 @@
 public class Case {
 	/** État de la case. */
-	private static boolean casePleine;
+	
+	private Position posiCase;
+	
+	private Etat etatCase;
 
 	/** Constructeur de case. */
-	public Case() {
-		this.casePleine = false;
+	public Case(int posiCaseLigne, int posiCaseColonne) 
+	{
+		this.etatCase = Etat.VIDE;
+		this.posiCase= new Position(posiCaseLigne,posiCaseColonne);
 	}
-
-	/** Retourne l'état d'une case, true=occupée, false=libre. */
-	public static boolean obtenirContenu() {
-		return casePleine;
+	
+	public void changerPosiEtat(Etat nouvelEtat)
+	{
+		this.etatCase=nouvelEtat;
 	}
+	
+	public Etat obtenirCaseEtat() 
+	{
+		return this.etatCase;
+	}
+	
+	 public String toString() 
+	 {
+	    return("|"+this.etatCase+"|");
+	 }
+	 public Position obtenirPosiCase()
+	 {
+		 return this.posiCase;
+	 }
+	 
 }
