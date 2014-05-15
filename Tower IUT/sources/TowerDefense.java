@@ -26,7 +26,7 @@ public class TowerDefense{
 	
 	public static void afficherMenu()
 	{
-		boolean saisieCorrecte = false;
+		
 		Scanner saisieClavierMenu = new Scanner(System.in);
 		
 		/**TODO demander comment eviter d'utiliser une valeur ici
@@ -36,7 +36,9 @@ public class TowerDefense{
 		int choixMenu=1;
 		
 		//gestion erreur choix menu
-		while (!saisieCorrecte)
+		while(true)
+		{
+		while (true)
 		{
 			System.out.println(" Menu\n --------\n 1 Jouer\n 2 Regles\n 3 Options\n 4 Tableau des scores\n --------\n Votre choix ? ");
 			choixMenu = saisieClavierMenu.nextInt();
@@ -66,7 +68,7 @@ public class TowerDefense{
 			int choixNiveau=1;
 			
 			//gestion erreur choix niveau
-			while (!saisieCorrecte)
+			while (true)
 			{
 				System.out.println(" Choix du niveau\n --------\n 1 Facile\n 2 Normal\n 3 Difficile\n --------\n Votre choix ? ");
 				choixNiveau = saisieClavierNiveau.nextInt();
@@ -81,28 +83,27 @@ public class TowerDefense{
 			
 			
 			Partie partie= new Partie(JoueurDeLaPartie, choixNiveau);
+			
+			System.out.println("Je joue et je termine ma partie");
 			//partie.jouer();
 			break;
 			
 		case 2:
 			Regles regle= new Regles();
 			System.out.println(regle.afficherTexte()+"\n");
-			
-			TowerDefense.afficherMenu();
 			break;
 			
 		case 3:
 			Option option = new Option();
 			System.out.println(option.afficheOption()+"\n");
-			TowerDefense.afficherMenu();
 			break;
 			
 		case 4:
 			/**TODO Faire rubrique menu */
 			System.out.println("affichage des score\n");
-			TowerDefense.afficherMenu();
 			break;
 			
 		}
 	}
+  }
 }
