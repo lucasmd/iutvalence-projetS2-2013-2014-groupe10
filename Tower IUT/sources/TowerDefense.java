@@ -1,3 +1,4 @@
+import java.awt.Toolkit;
 import java.util.*;
 
 public class TowerDefense{
@@ -47,7 +48,7 @@ public class TowerDefense{
 			{
 				break;
 			}
-			System.out.println(" Vous n'avez pas séléctionné une rubrique valide\n");
+			System.out.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ une rubrique valide\n");
 		}
 		
 		switch (choixMenu)
@@ -77,7 +78,7 @@ public class TowerDefense{
 				{
 					break;
 				}
-				System.out.println(" Vous n'avez pas séléctionné un niveau valide\n");
+				System.out.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ un niveau valide\n");
 			}
 			
 			

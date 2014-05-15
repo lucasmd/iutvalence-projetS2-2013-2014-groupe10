@@ -5,11 +5,11 @@ public class Son extends Option {
     
     /** Retourne le volume. */
     public int obtenirSon(){
-	return son;
+    	return son;
     }
     
     /** Modifie le volume. */
     public void modifierSon(int vol){
-	this.son = vol;
+    	this.son = vol;
     }
 }
