@@ -1,5 +1,5 @@
 /**
- * Définition d'une tour
+ * Dï¿½finition d'une tour
  * 
  * @author prinsacn
  * 
@@ -21,25 +21,25 @@ public class Tour {
 	public Tour(EnumTour typeTour)
 	{
 		if (typeTour==petiteTour){
-			this.taille=;//à décider
-			this.perimettreAttaque=;//à décider
-			this.prix=;//à décider
-			this.puissanceAttaque=;//à décider
-			this.pointDegats=;//à décider
+			this.taille=1;//ï¿½ dï¿½cider
+			this.perimettreAttaque=3;//ï¿½ dï¿½cider
+			this.prix=5;//ï¿½ dï¿½cider
+			this.puissanceAttaque=3;//ï¿½ dï¿½cider
+			this.pointDegats=5;//ï¿½ dï¿½cider
 		}
 		else if (typeTour==moyenneTour){
-			this.taille=;//à décider
-			this.perimettreAttaque=;//à décider
-			this.prix=;//à décider
-			this.puissanceAttaque=;//à décider
-			this.pointDegats=;//à décider
+			this.taille=1;//ï¿½ dï¿½cider
+			this.perimettreAttaque=4;//ï¿½ dï¿½cider
+			this.prix=10;//ï¿½ dï¿½cider
+			this.puissanceAttaque=2;//ï¿½ dï¿½cider
+			this.pointDegats=10;//ï¿½ dï¿½cider
 		}
 		else if (typeTour==grosseTour){
-			this.taille=;//à décider
-			this.perimettreAttaque=;//à décider
-			this.prix=;//à décider
-			this.puissanceAttaque=;//à décider
-			this.pointDegats=;//à décider
+			this.taille=1;//ï¿½ dï¿½cider
+			this.perimettreAttaque=6;//ï¿½ dï¿½cider
+			this.prix=20;//ï¿½ dï¿½cider
+			this.puissanceAttaque=1;//ï¿½ dï¿½cider
+			this.pointDegats=20;//ï¿½ dï¿½cider
 		}
 	}
 
