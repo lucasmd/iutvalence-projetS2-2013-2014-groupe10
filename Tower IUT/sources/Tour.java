@@ -1,66 +1,88 @@
 /**
- * D�finition d'une tour
+ * Définition d'une tour
  * 
  * @author prinsacn
  * 
  */
 
-public class Tour {
+public class Tour
+{
 
-	private int taille;
 	private int perimettreAttaque;
 	private int prix;
 	private int puissanceAttaque;
-	private int pointDegats;
-	private EnumTour petiteTour;
-	private EnumTour moyenneTour;
-	private EnumTour grosseTour;
-	private int positionLigne;
-	private int positionColonne;
+	private int pointDeVie;
+	private EnumTour typeTour;
+	private Case positionTour;
 
-	public Tour(EnumTour typeTour)
+	private final static int PERIMETRE_PETITE_TOUR = 2;
+	private final static int PRIX_PETITE_TOUR = 5;
+	private final static int PUISSANCE_ATTAQUE_PETITE_TOUR = 2;
+	private final static int POINT_DE_VIE_PETITE_TOUR = 5;
+
+	private final static int PERIMETRE_MOYENNE_TOUR = 4;
+	private final static int PRIX_MOYENNE_TOUR = 10;
+	private final static int PUISSANCE_ATTAQUE_MOYENNE_TOUR = 5;
+	private final static int POINT_DE_VIE_MOYENNE_TOUR = 10;
+
+	private final static int PERIMETRE_GRANDE_TOUR = 4;
+	private final static int PRIX_GRANDE_TOUR = 25;
+	private final static int PUISSANCE_ATTAQUE_GRANDE_TOUR = 15;
+	private final static int POINT_DE_VIE_GRANDE_TOUR = 15;
+
+	/**
+	 * Permet de creer une nouvelle tour
+	 * @param typeTour Type de la tour à creer (Petite, Moyenne ou grande)
+	 * @param positionTour position où l'on souhaite creer la tour
+	 * @throws CasePleineException si la case est pleine on ne peut pas creer de tour
+	 */
+	public Tour(EnumTour typeTour, Case positionTour)
+			throws CasePleineException
 	{
-		if (typeTour==petiteTour){
-			this.taille=1;//� d�cider
-			this.perimettreAttaque=3;//� d�cider
-			this.prix=5;//� d�cider
-			this.puissanceAttaque=3;//� d�cider
-			this.pointDegats=5;//� d�cider
+		if (positionTour.obtenirCaseEtat() == Etat.VIDE)
+		{
+
+			if (typeTour == EnumTour.petiteTour)
+			{
+				this.positionTour = positionTour;
+				this.perimettreAttaque = PERIMETRE_PETITE_TOUR;
+				this.prix = PRIX_PETITE_TOUR;
+				this.puissanceAttaque = PUISSANCE_ATTAQUE_PETITE_TOUR;
+				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
+			}
+			else if (typeTour == EnumTour.moyenneTour)
+			{
+				this.positionTour = positionTour;
+				this.perimettreAttaque = PERIMETRE_MOYENNE_TOUR;
+				this.prix = PRIX_MOYENNE_TOUR;
+				this.puissanceAttaque = PUISSANCE_ATTAQUE_MOYENNE_TOUR;
+				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
+			}
+			else if (typeTour == EnumTour.grosseTour)
+			{
+				this.positionTour = positionTour;
+				this.perimettreAttaque = PERIMETRE_GRANDE_TOUR;
+				this.prix = PRIX_GRANDE_TOUR;
+				this.puissanceAttaque = PUISSANCE_ATTAQUE_GRANDE_TOUR;
+				this.pointDeVie = POINT_DE_VIE_GRANDE_TOUR;
+			}
 		}
-		else if (typeTour==moyenneTour){
-			this.taille=1;//� d�cider
-			this.perimettreAttaque=4;//� d�cider
-			this.prix=10;//� d�cider
-			this.puissanceAttaque=2;//� d�cider
-			this.pointDegats=10;//� d�cider
-		}
-		else if (typeTour==grosseTour){
-			this.taille=1;//� d�cider
-			this.perimettreAttaque=6;//� d�cider
-			this.prix=20;//� d�cider
-			this.puissanceAttaque=1;//� d�cider
-			this.pointDegats=20;//� d�cider
-		}
+		else
+			throw new CasePleineException();
 	}
 
-	public void poserTour() {
-		if (Case.obtenirContenu() == false) {
-			Case.casePleine = true;
-		}
+	
+	public void suppressionTour()
+	{
+		this.positionTour.changerPosiEtat(Etat.VIDE);
+		/**TODO Comment supprimer ma tour ?*/
+		//this.finalize();
 	}
 
-	public void suppressionTour() {
-		if (Case.obtenirContenu() == true) {
-			Case.casePleine = false;
-		}
-	}
-
-	public void attaquer() {
-
-	}
-
-	public void creerTour(EnumTour typeTour) {
+	public void attaquer()
+	{
 		
+
 	}
 
 }
