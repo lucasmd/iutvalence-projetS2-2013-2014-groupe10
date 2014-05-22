@@ -20,12 +20,16 @@ public class TowerDefense{
 	
 	public static void main (String[] args)
 	{
+		
+		TableScore score = new TableScore();
+		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
+		/*score.afficherScore();
+		score.modifierScore(new Joueur("Alex"));*/
+		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
+		
+		
 		SwingUtilities.invokeLater(new JeuxIHM());
 		TowerDefense.afficherMenu();
-		
-		
-		
-		
 	}
 	
 	public static void afficherMenu()
