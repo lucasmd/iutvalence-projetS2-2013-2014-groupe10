@@ -1,4 +1,5 @@
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 /**
  * 
@@ -7,7 +8,7 @@ import java.security.SecureRandom;
  */
 public abstract class Ennemi 
 {
-	private Position positionEnnemi;
+	private Case caseEnnemi;
 	private String nomEnnemi;
 	private int vie_Ennemi;
 	private int pointDegats;
@@ -20,9 +21,9 @@ public abstract class Ennemi
 	 * @param degat
 	 * @param posiDepart
 	 */
-	public Ennemi(String nom, int vie, int degat, Position posiDepart)
+	public Ennemi(String nom, int vie, int degat, Case caseDepart)
 	{
-		positionEnnemi = posiDepart;
+		caseEnnemi = caseDepart;
 		nomEnnemi = nom;
 		vie_Ennemi = vie;
 		pointDegats = degat;
@@ -33,80 +34,15 @@ public abstract class Ennemi
 	 */
 	public abstract void attaquer(Tour tourAttaque);
 	//faire des methode pour obetenir l'etat des position dessous dessus droite gauche
-	public Case[] definitionChemin(Case caseDeDepart)
+		
+	public Case obtenirCase()
 	{
-		Case[] chemin;
-		CaseAvecParent[] listeCaseTraitee = new CaseAvecParent[900];
-		CaseAvecParent[] listeCaseATraitee = new CaseAvecParent[900];
-		
-		
-		
-		return chemin;
-	}
-		
-	public CaseAvecParent[] trouverCaseAdjacentes(Case caseParent, Map laMap)
-	{
-		int indice =0;
-		Case[] caseAdjacentes= new Case[8];
-		CaseAvecParent[] caseAdjacentesAvecParent= new CaseAvecParent[8]; 
-		
-		int positionLigneParent=caseParent.obtenirPosiCase().obtenirPositionLigne();
-		int positionColonneParent=caseParent.obtenirPosiCase().obtenirPositionColonne();
-		
-		if (positionColonneParent-1>=0)
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent][positionColonneParent-1];
-			indice++;
-		}
-		if (positionColonneParent+1<=29)
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent][positionColonneParent+1];
-			indice++;
-		}
-		if (positionLigneParent-1>=0)
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent-1][positionColonneParent];
-			indice++;
-		}
-		if (positionLigneParent+1<=29)
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent+1][positionColonneParent];
-			indice++;
-		}
-		
-		
-		if ((positionLigneParent-1>=0) && (positionColonneParent-1>=0))
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent-1][positionColonneParent-1];
-			indice++;
-		}
-		if ((positionLigneParent-1>=0) && (positionColonneParent+1<=29))
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent+1][positionColonneParent-1];
-			indice++;
-		}
-		if ((positionLigneParent+1<=29) && (positionColonneParent)-1>=0))
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent-1][positionColonneParent+1];
-			indice++;
-		}
-		if ((positionLigneParent+1<=29) && (positionColonneParent+1<=29))
-		{
-			caseAdjacentes[indice]=laMap[positionLigneParent+1][positionColonneParent+1];
-			indice++;
-		}
-		
-		
-		caseAdjacentes
-		
-		
+		return this.caseEnnemi;
 	}
 	
-	
-	
-	public Position obtenirPosition()
+	public void changerCaseEnnemi(Case nvCase)
 	{
-		return this.positionEnnemi;
+		this.caseEnnemi=nvCase;
 	}
 
 	public int obtenirVie()
@@ -118,4 +54,35 @@ public abstract class Ennemi
 	{
 		return this.pointDegats;
 	}
+	
+	public void avancer(ArrayList<Case> cheminDefini, Map mapPartie)
+	{
+		
+		this.caseEnnemi.changerPosiEtat(Etat.VIDE);
+
+		int caseEnnemiPositionLigne=this.caseEnnemi.obtenirPosiCase().obtenirPositionLigne();
+		int caseEnnemiPositionColonne=this.caseEnnemi.obtenirPosiCase().obtenirPositionColonne();
+		mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.VIDE);
+		
+		for(int indice=0; indice<cheminDefini.size(); indice++)
+		{
+			if((cheminDefini.get(indice).obtenirPosiCase().obtenirPositionLigne()==caseEnnemiPositionLigne)&&(cheminDefini.get(indice).obtenirPosiCase().obtenirPositionColonne()==caseEnnemiPositionColonne))
+			{
+				if (indice-1>=0)
+				{
+					caseEnnemiPositionLigne=cheminDefini.get(indice-1).obtenirPosiCase().obtenirPositionLigne();
+					caseEnnemiPositionColonne=cheminDefini.get(indice-1).obtenirPosiCase().obtenirPositionColonne();
+					mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.ENNEMI);
+					this.changerCaseEnnemi(cheminDefini.get(indice-1));
+					break;
+				}
+				
+			}
+			
+		}
+		
+		
+	}
+	
+	
 }

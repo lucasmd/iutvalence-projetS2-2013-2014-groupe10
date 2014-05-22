@@ -1,8 +1,9 @@
-import java.awt.Toolkit;
 import java.util.*;
 
 public class TowerDefense{
 	
+	
+	public final static Position POSITION_DE_FIN=new Position(14,29);
 	/** Partie. */
 	private Partie laPartie;
 	
@@ -34,6 +35,37 @@ public class TowerDefense{
 		 *  et comment eviter d'utiliser saisieCorrecte qui est inutile dans la boucle 
 		 */
 		
+		
+		Map mapJeu=new Map();
+		
+		mapJeu.map[14][5].changerPosiEtat(Etat.TOUR);
+		mapJeu.map[14][8].changerPosiEtat(Etat.TOUR);
+		mapJeu.map[14][15].changerPosiEtat(Etat.TOUR);
+		mapJeu.map[14][16].changerPosiEtat(Etat.TOUR);
+
+		ArrayList<Case> cheminDef=mapJeu.definitionChemin(mapJeu.map[14][0]);
+		Ennemi ennemiGea=new EnnemiGEA();
+		/*mapJeu.afficherEnnemi(ennemiGea);
+		ennemiGea.avancer(cheminDef,mapJeu);*/
+		mapJeu.afficherEnnemi(ennemiGea);
+		
+		
+		while ((ennemiGea.obtenirCase().obtenirPosiCase()!=POSITION_DE_FIN))
+		{
+			ennemiGea.avancer(cheminDef,mapJeu);
+			mapJeu.afficherEnnemi(ennemiGea);
+			mapJeu.afficherMap();
+			if (ennemiGea.obtenirCase().obtenirPosiCase().obtenirPositionLigne()==14)
+			{
+				if(ennemiGea.obtenirCase().obtenirPosiCase().obtenirPositionColonne()==29)
+				{
+					break;
+				}
+			}
+			System.out.println("/n/n");
+		}
+		mapJeu.afficherMap();
+		
 		int choixMenu=1;
 		
 		//gestion erreur choix menu
@@ -48,7 +80,7 @@ public class TowerDefense{
 			{
 				break;
 			}
-			System.out.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ une rubrique valide\n");
+			System.out.println(" Vous n'avez pas séléctionné une rubrique valide\n");
 		}
 		
 		switch (choixMenu)
@@ -78,7 +110,7 @@ public class TowerDefense{
 				{
 					break;
 				}
-				System.out.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ un niveau valide\n");
+				System.out.println(" Vous n'avez pas séléctionné un niveau valide\n");
 			}
 			
 			

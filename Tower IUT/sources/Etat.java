@@ -1,7 +1,25 @@
 
 public enum Etat 
 {
-	VIDE,
-	TOUR,
-	ENNEMI;
+	VIDE(" "),
+	TOUR("T"),
+	ENNEMI("E");
+	
+	private final String representation;
+    
+    /**
+     * Constructeur d'une couleur
+     * @param representation
+     */
+    Etat(String representation) 
+    {
+        this.representation = representation;
+    }
+
+    /** affiche la representation texte de la couleur lorsque l'on demande d'afficher la couleur*/
+    @Override
+    public String toString() 
+    {
+        return representation;
+    }
 }
