@@ -13,20 +13,20 @@ public class Tour
 	private int puissanceAttaque;
 	private int pointDeVie;
 	private EnumTour typeTour;
-	private Case positionTour;
+	private Case caseTour;
 
 	private final static int PERIMETRE_PETITE_TOUR = 2;
-	private final static int PRIX_PETITE_TOUR = 5;
+	public final static int PRIX_PETITE_TOUR = 5;
 	private final static int PUISSANCE_ATTAQUE_PETITE_TOUR = 2;
 	private final static int POINT_DE_VIE_PETITE_TOUR = 5;
 
 	private final static int PERIMETRE_MOYENNE_TOUR = 4;
-	private final static int PRIX_MOYENNE_TOUR = 10;
+	public final static int PRIX_MOYENNE_TOUR = 10;
 	private final static int PUISSANCE_ATTAQUE_MOYENNE_TOUR = 5;
 	private final static int POINT_DE_VIE_MOYENNE_TOUR = 10;
 
 	private final static int PERIMETRE_GRANDE_TOUR = 4;
-	private final static int PRIX_GRANDE_TOUR = 25;
+	public final static int PRIX_GRANDE_TOUR = 25;
 	private final static int PUISSANCE_ATTAQUE_GRANDE_TOUR = 15;
 	private final static int POINT_DE_VIE_GRANDE_TOUR = 15;
 
@@ -44,7 +44,7 @@ public class Tour
 
 			if (typeTour == EnumTour.petiteTour)
 			{
-				this.positionTour = positionTour;
+				this.caseTour = positionTour;
 				this.perimettreAttaque = PERIMETRE_PETITE_TOUR;
 				this.prix = PRIX_PETITE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_PETITE_TOUR;
@@ -52,7 +52,7 @@ public class Tour
 			}
 			else if (typeTour == EnumTour.moyenneTour)
 			{
-				this.positionTour = positionTour;
+				this.caseTour = positionTour;
 				this.perimettreAttaque = PERIMETRE_MOYENNE_TOUR;
 				this.prix = PRIX_MOYENNE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_MOYENNE_TOUR;
@@ -60,7 +60,7 @@ public class Tour
 			}
 			else if (typeTour == EnumTour.grosseTour)
 			{
-				this.positionTour = positionTour;
+				this.caseTour = positionTour;
 				this.perimettreAttaque = PERIMETRE_GRANDE_TOUR;
 				this.prix = PRIX_GRANDE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_GRANDE_TOUR;
@@ -74,7 +74,7 @@ public class Tour
 	
 	public void suppressionTour()
 	{
-		this.positionTour.changerPosiEtat(Etat.VIDE);
+		this.caseTour.changerPosiEtat(Etat.VIDE);
 		/**TODO Comment supprimer ma tour ?*/
 		//this.finalize();
 	}
