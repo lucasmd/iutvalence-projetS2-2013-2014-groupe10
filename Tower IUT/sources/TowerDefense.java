@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.SwingUtilities;
+
 public class TowerDefense{
 	
 	
@@ -18,7 +20,7 @@ public class TowerDefense{
 	
 	public static void main (String[] args)
 	{
-		
+		SwingUtilities.invokeLater(new JeuxIHM());
 		TowerDefense.afficherMenu();
 		
 		
