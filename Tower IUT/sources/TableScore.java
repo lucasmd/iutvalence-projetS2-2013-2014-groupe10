@@ -19,7 +19,7 @@ public class TableScore {
 				PrintWriter fichierSortie = new PrintWriter(bw);
 				fichierSortie.println("Classement;Pseudo;Score");
 				for (int i = 1; i <= nombreDeScoreMax; i++)
-					fichierSortie.println(i + ";;");
+					fichierSortie.println(i + ";Null;0");
 				fichierSortie.close();
 			} catch (Exception e) {
 			}
@@ -56,13 +56,21 @@ public class TableScore {
 			ligne = br.readLine();
 			chaine += ligne + "\n";
 			while ((ligne = br.readLine()) != null) {
-				System.out.println(ligne.replaceAll(".*;.*;", ""));
+				int scoreLigne = new Integer(ligne.split(";")[2]);
+				System.out.println(scoreLigne);
 				chaine += ligne + "\n";
+				System.out.println(chaine);
+				if (scoreLigne < score) {
+					chaine += "num;laxe;1000\n";
+				}
 			}
 			br.close();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		/** TODO Rajouter la partie qui compare avec les scores, et qui ajoute au bon endroit si il le faut. */
+		/**
+		 * TODO Rajouter la partie qui compare avec les scores, et qui ajoute au
+		 * bon endroit si il le faut.
+		 */
 	}
 }

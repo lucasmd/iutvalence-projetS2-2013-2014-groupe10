@@ -23,10 +23,11 @@ public class TowerDefense{
 		
 		TableScore score = new TableScore();
 		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
-		/*score.afficherScore();
-		score.modifierScore(new Joueur("Alex"));*/
+		Joueur j = new Joueur("Alex");
+		score.afficherScore();
+		j.mettreAJourScore(1000);
+		score.modifierScore(j);
 		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
-		
 		
 		SwingUtilities.invokeLater(new MenuIHM());
 		TowerDefense.afficherMenu();
