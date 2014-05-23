@@ -69,6 +69,41 @@ public class Case {
 			
 			return caseAdjacentes;
 		}
+	 
+	 public ArrayList<Case> trouverCaseAdjacentes(int nombreDeCaseAdjacentes)
+		{
+			ArrayList<Case> caseAdjacentes= new ArrayList<Case>(); 
+			
+			int positionLigneParent=this.obtenirPosiCase().obtenirPositionLigne();
+			int positionColonneParent=this.obtenirPosiCase().obtenirPositionColonne();
+			
+			int longueurMaxLigne=nombreDeCaseAdjacentes*2+1;
+			int longueurMaxColonne=nombreDeCaseAdjacentes*2+1;
+			
+			
+			int positionLigneCaseDepart=positionLigneParent-nombreDeCaseAdjacentes;
+			int positionColonneCaseDepart=positionColonneParent-nombreDeCaseAdjacentes;
+			
+			
+			
+
+			for (int indiceLigne=0; indiceLigne<longueurMaxLigne; indiceLigne++)
+			{
+				for (int indiceColonne=0; indiceColonne<longueurMaxColonne; indiceColonne++)
+				{
+					if(((positionLigneCaseDepart+indiceLigne)>=0)&&((positionLigneCaseDepart+indiceLigne)<=Map.NOMBRE_LIGNE-1))
+					{
+						if(((positionColonneCaseDepart+indiceColonne)>=0)&&((positionColonneCaseDepart+indiceColonne)<=Map.NOMBRE_COLONNE-1))
+						{
+							caseAdjacentes.add(new Case(positionLigneCaseDepart+indiceLigne, positionColonneCaseDepart+indiceColonne));
+						}
+					}
+				}
+			}
+			//caseAdjacentes.remove(new Case(positionLigneParent,positionColonneParent));
+			
+			return caseAdjacentes;
+		}
 
 	 
 }
