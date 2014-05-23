@@ -11,7 +11,7 @@ public class Map
 	/** Tableau de case quiformelamap. */
 	public Case[][] map ;
 	/**
-	 * liste de case représentant le chemin le plus court
+	 * liste de case reprï¿½sentant le chemin le plus court
 	 */
 	public ArrayList<Case> cheminLePlusCourt;
 	
@@ -43,6 +43,11 @@ public class Map
 			System.out.println("\n");
 		 }
 	 }
+	public void changerChemin()
+	{
+		this.cheminLePlusCourt.removeAll(cheminLePlusCourt);
+		this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);
+	}
 	
 	/** choisislaprochaine case pour lechemin */
 

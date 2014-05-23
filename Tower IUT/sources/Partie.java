@@ -451,6 +451,8 @@ public class Partie
 		int numTour=0;
 		int numEnnemi=0;
 		
+		this.carteDeLaPartie.changerChemin();
+		
 		while((finDuTour==false)&&(this.vieJoueur>0))
 		{
 			
@@ -480,7 +482,7 @@ public class Partie
 					finDuTour=true;
 				}
 			}
-			System.out.println("Tour n°"+ numTour);
+			System.out.println("Tour nï¿½"+ numTour);
 			numTour++;
 			
 			
