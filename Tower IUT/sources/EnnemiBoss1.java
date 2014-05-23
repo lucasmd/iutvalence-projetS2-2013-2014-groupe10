@@ -1,11 +1,13 @@
 
-public class EnnemiGEA extends Ennemi
-{	
+
+
+public class EnnemiBoss1 extends Ennemi
+{
 	public final static Case CASE_PAR_DEFAUT_DEPART=new Case(14,0);
 	
-	public EnnemiGEA()
+	public EnnemiBoss1()
 	{
-		super("gea", 5, 1, CASE_PAR_DEFAUT_DEPART);
+		super("boss1", 60, 2, CASE_PAR_DEFAUT_DEPART);
 		
 	}
 	
@@ -13,6 +15,5 @@ public class EnnemiGEA extends Ennemi
 	{
 		
 	}
-
 
 }

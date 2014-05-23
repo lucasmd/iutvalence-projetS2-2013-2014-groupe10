@@ -18,7 +18,12 @@ public class Partie
 	 * permet d'adapter la difficult� de la partie
 	 */
 	private int niveau;
-
+	
+	/**
+	 * tableau d'ennemi present sur la carte
+	 */
+	private Ennemi[] ennemiAfficher;
+	
 	/**
 	 * repr�sente la quantit�e d'argent poss�d� par le joueur
 	 */

@@ -1,6 +1,7 @@
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
+
 /**
  * 
  * @author Groupe 10
@@ -8,6 +9,8 @@ import java.util.ArrayList;
  */
 public abstract class Ennemi 
 {
+	public final static Position POSITION_DE_FIN=new Position(14,29);
+	
 	private Case caseEnnemi;
 	private String nomEnnemi;
 	private int vie_Ennemi;
@@ -55,7 +58,7 @@ public abstract class Ennemi
 		return this.pointDegats;
 	}
 	
-	public void avancer(ArrayList<Case> cheminDefini, Map mapPartie)
+	public void avancer(Map mapPartie)
 	{
 		
 		this.caseEnnemi.changerPosiEtat(Etat.VIDE);
@@ -64,25 +67,50 @@ public abstract class Ennemi
 		int caseEnnemiPositionColonne=this.caseEnnemi.obtenirPosiCase().obtenirPositionColonne();
 		mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.VIDE);
 		
-		for(int indice=0; indice<cheminDefini.size(); indice++)
+		for(int indice=0; indice<mapPartie.cheminLePlusCourt.size(); indice++)
 		{
-			if((cheminDefini.get(indice).obtenirPosiCase().obtenirPositionLigne()==caseEnnemiPositionLigne)&&(cheminDefini.get(indice).obtenirPosiCase().obtenirPositionColonne()==caseEnnemiPositionColonne))
+			if((mapPartie.cheminLePlusCourt.get(indice).obtenirPosiCase().obtenirPositionLigne()==caseEnnemiPositionLigne)&&(mapPartie.cheminLePlusCourt.get(indice).obtenirPosiCase().obtenirPositionColonne()==caseEnnemiPositionColonne))
 			{
 				if (indice-1>=0)
 				{
-					caseEnnemiPositionLigne=cheminDefini.get(indice-1).obtenirPosiCase().obtenirPositionLigne();
-					caseEnnemiPositionColonne=cheminDefini.get(indice-1).obtenirPosiCase().obtenirPositionColonne();
+					caseEnnemiPositionLigne=mapPartie.cheminLePlusCourt.get(indice-1).obtenirPosiCase().obtenirPositionLigne();
+					caseEnnemiPositionColonne=mapPartie.cheminLePlusCourt.get(indice-1).obtenirPosiCase().obtenirPositionColonne();
 					mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.ENNEMI);
-					this.changerCaseEnnemi(cheminDefini.get(indice-1));
+					this.changerCaseEnnemi(mapPartie.cheminLePlusCourt.get(indice-1));
 					break;
-				}
-				
-			}
-			
+				}				
+			}			
 		}
-		
-		
 	}
 	
+	public void testVictoireEnnemie(Map carteJeu, Partie partieDonnee)
+	{
+		if (this.obtenirCase().obtenirPosiCase().obtenirPositionLigne()==14)
+		{
+			if(this.obtenirCase().obtenirPosiCase().obtenirPositionColonne()==29)
+			{
+				carteJeu.effacerEnnemi(this);
+				partieDonnee.miseAJourDesVies(this.pointDegats);
+			}
+		}
+	}
+	
+	public void testMortEnnemie(Map carteJeu)
+	{
+		if (this.vie_Ennemi==0)
+			carteJeu.effacerEnnemi(this);
+	}
+	
+	
+	/*public void avancerVersFin(Map mapDeJeu, ArrayList<Case> chemin)
+	{
+		while ((this.obtenirCase().obtenirPosiCase()!=POSITION_DE_FIN))
+		{
+			this.avancer(mapDeJeu);
+			mapDeJeu.afficherEnnemi(this);
+			mapDeJeu.afficherMap();
+			
+		}
+	}*/
 	
 }
