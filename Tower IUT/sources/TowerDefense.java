@@ -15,7 +15,7 @@ public class TowerDefense{
 	/** Options du jeu. */
 	private Option lesOptions;
 	
-	/** Règles du jeu. */
+	/** RÃ¨gles du jeu. */
 	private Regles lesRegles;
 	
 	public static void main (String[] args)
@@ -28,7 +28,7 @@ public class TowerDefense{
 		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
 		
 		
-		SwingUtilities.invokeLater(new JeuxIHM());
+		SwingUtilities.invokeLater(new MenuIHM());
 		TowerDefense.afficherMenu();
 	}
 	
@@ -55,7 +55,7 @@ public class TowerDefense{
 			{
 				break;
 			}
-			System.out.println(" Vous n'avez pas s�l�ctionn� une rubrique valide\n");
+			System.out.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ une rubrique valide\n");
 		}
 		
 		switch (choixMenu)
@@ -85,7 +85,7 @@ public class TowerDefense{
 				{
 					break;
 				}
-				System.out.println(" Vous n'avez pas s�l�ctionn� un niveau valide\n");
+				System.out.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ un niveau valide\n");
 			}
 			
 			
