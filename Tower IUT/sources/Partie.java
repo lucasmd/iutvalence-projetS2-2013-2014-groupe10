@@ -416,5 +416,27 @@ public class Partie
 	{
 		return vieJoueur;
 	}
+	
+	public void lancerUnTour(int nbTour)
+	{
+		boolean finDuTour=false;
+		int numTour=0;
+		int numEnnemi=0;
+		
+		while(finDuTour==false)
+		{
+			if (numTour%2==0)
+			{
+				this.vaguePartie[nbTour].lancerUnEnnemi(numEnnemi, ennemiAfficher, this.carteDeLaPartie);
+				numEnnemi++;
+			}
+			for(int indice=0; indice<this.listeTour.size(); indice++)
+			{
+				this.listeTour.get(indice).attaquer();
+			}
+			this.vaguePartie[nbTour].faireAvancerLaVague(ennemiAfficher, this.carteDeLaPartie);
+			numTour++;
+		}
+	}
 
 }
