@@ -58,11 +58,11 @@ public class Partie
 	 */
 	public static final int VIE_JOUEUR_PAR_DEFAUT = 20;
 
-	public static final int NOMBRE_DE_VAGUE_NIVEAU1 = 20;
+	public static final int NOMBRE_DE_VAGUE_NIVEAU1 = 4;
 
-	public static final int NOMBRE_DE_VAGUE_NIVEAU2 = 30;
+	public static final int NOMBRE_DE_VAGUE_NIVEAU2 = 6;
 
-	public static final int NOMBRE_DE_VAGUE_NIVEAU3 = 40;
+	public static final int NOMBRE_DE_VAGUE_NIVEAU3 = 8;
 
 	/**
 	 * Creer une partie pour un joueur avec un niveau defini
@@ -86,26 +86,33 @@ public class Partie
 		{
 			case 1:
 				this.vaguePartie = new Vague[NOMBRE_DE_VAGUE_NIVEAU1];
-				for (int i = 0; i < NOMBRE_DE_VAGUE_NIVEAU1; i++)
-				{
-					this.vaguePartie[i] = new Vague(niveau);
-				}
+				this.vaguePartie[0]= new Vague1();
+				this.vaguePartie[1]= new Vague1();
+				this.vaguePartie[2]= new Vague1();
+				this.vaguePartie[3]= new Vague2();				
+				
 				break;
 
 			case 2:
 				this.vaguePartie = new Vague[NOMBRE_DE_VAGUE_NIVEAU2];
-				for (int i = 0; i < NOMBRE_DE_VAGUE_NIVEAU2; i++)
-				{
-					this.vaguePartie[i] = new Vague(niveau);
-				}
+				this.vaguePartie[0]= new Vague1();
+				this.vaguePartie[1]= new Vague1();
+				this.vaguePartie[2]= new Vague2();
+				this.vaguePartie[3]= new Vague2();
+				this.vaguePartie[2]= new Vague2();
+				this.vaguePartie[3]= new Vague3();
 				break;
 
 			case 3:
 				this.vaguePartie = new Vague[NOMBRE_DE_VAGUE_NIVEAU3];
-				for (int i = 0; i < NOMBRE_DE_VAGUE_NIVEAU3; i++)
-				{
-					this.vaguePartie[i] = new Vague(niveau);
-				}
+				this.vaguePartie[0]= new Vague1();
+				this.vaguePartie[1]= new Vague1();
+				this.vaguePartie[2]= new Vague1();
+				this.vaguePartie[3]= new Vague3();
+				this.vaguePartie[0]= new Vague2();
+				this.vaguePartie[1]= new Vague2();
+				this.vaguePartie[2]= new Vague2();
+				this.vaguePartie[3]= new Vague4();
 				break;
 
 		}

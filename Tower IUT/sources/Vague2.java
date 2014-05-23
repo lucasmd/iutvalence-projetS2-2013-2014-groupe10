@@ -1,5 +1,5 @@
 
-public class Vague2 
+public class Vague2 extends Vague
 {
 	private Ennemi[] tabEnnemiVague;
 	
