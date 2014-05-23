@@ -17,10 +17,12 @@ public class Resolution extends Option {
     
     /** Retourne la résolution du jeu. */
     public int[] obtenirResolutionJeu(){
-    	resolutionJeu = new int[2];
+    	int[] n=null;
+    	/*resolutionJeu = new int[2];*/
     	/**TODO Remplacer f par le nom de la fenetre. (Frame f = new Frame();) */
-    	int largeur = f.getSize().width;
-    	int hauteur = f.getSize().height;
+    	/*int largeur = f.getSize().width;
+    	int hauteur = f.getSize().height;*/
+    	return n;
     }
     
     /** Modifie la résolution du jeu. */

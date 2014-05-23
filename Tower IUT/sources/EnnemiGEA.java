@@ -9,10 +9,6 @@ public class EnnemiGEA extends Ennemi
 		
 	}
 	
-	public void attaquer(Tour tourAttaque)
-	{
-		
-	}
 
 
 }

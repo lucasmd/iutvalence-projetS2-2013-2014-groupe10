@@ -31,13 +31,7 @@ public abstract class Ennemi
 		vie_Ennemi = vie;
 		pointDegats = degat;
 	}
-	/**
-	 * Methode qui permet d'attaquer une tour
-	 * @param tourAttaque
-	 */
-	public abstract void attaquer(Tour tourAttaque);
-	//faire des methode pour obetenir l'etat des position dessous dessus droite gauche
-		
+	
 	public Case obtenirCase()
 	{
 		return this.caseEnnemi;
@@ -83,25 +77,31 @@ public abstract class Ennemi
 		}
 	}
 	
-	public void testVictoireEnnemie(Map carteJeu, Partie partieDonnee)
+	public void testVictoireEnnemie( Partie partieDonnee)
 	{
 		if (this.obtenirCase().obtenirPosiCase().obtenirPositionLigne()==14)
 		{
 			if(this.obtenirCase().obtenirPosiCase().obtenirPositionColonne()==29)
 			{
-				carteJeu.effacerEnnemi(this);
-				partieDonnee.miseAJourDesVies(this.pointDegats);
+				partieDonnee.obtenirCarteDeLaPartie().effacerEnnemi(this);
+				partieDonnee.obtenirEnnemiAfficher().remove(partieDonnee.obtenirEnnemiAfficher().indexOf(this));
+				partieDonnee.miseAJourDesVies(-this.pointDegats);
 			}
 		}
 	}
 	
-	public void testMortEnnemie(Map carteJeu)
+	public void testMortEnnemie(Map carteJeu, ArrayList<Ennemi> listeEnnemiAffiche)
 	{
-		if (this.vie_Ennemi==0)
+		if (this.vie_Ennemi<=0)
 			carteJeu.effacerEnnemi(this);
+			listeEnnemiAffiche.remove(listeEnnemiAffiche.indexOf(this));
+			
 	}
 	
-	
+	public void perdreVie(int degats)
+	{
+		this.vie_Ennemi=this.vie_Ennemi-degats;
+	}
 	/*public void avancerVersFin(Map mapDeJeu, ArrayList<Case> chemin)
 	{
 		while ((this.obtenirCase().obtenirPosiCase()!=POSITION_DE_FIN))

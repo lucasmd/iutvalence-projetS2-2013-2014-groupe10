@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public abstract class Vague 
 {
 	public final static Position POSITION_DE_FIN=new Position(14,29);
-	private Ennemi[] tabEnnemi;
+	protected Ennemi[] tabEnnemi;
 	
 	/**
 	 * Constructeur
@@ -15,19 +15,23 @@ public abstract class Vague
 		//il faut creer un tableau de vague en fonction du niveau
 	}
 	
-	public void lancerUnEnnemi(int place,Ennemi[] ennemiAfficher,Map mapDeJeu)
+	public void lancerUnEnnemi(int place,ArrayList<Ennemi> ennemiAfficher,Map mapDeJeu)
 	{
-		ennemiAfficher[place]=this.tabEnnemi[place];
+		ennemiAfficher.add(place,this.tabEnnemi[place]);
 		mapDeJeu.afficherEnnemi(tabEnnemi[place]);
 	}
 	
-	public void faireAvancerLaVague(Ennemi[] ennemiAfficher,Map mapDeJeu)
+	public void faireAvancerLaVague(ArrayList<Ennemi> ennemiAfficher,Map mapDeJeu)
 	{
-		for(int index=0; index<ennemiAfficher.length; index++)
+		for(int index=0; index<ennemiAfficher.size(); index++)
 		{
-			ennemiAfficher[index].avancer(mapDeJeu);
-			mapDeJeu.afficherEnnemi(ennemiAfficher[index]);
+			ennemiAfficher.get(index).avancer(mapDeJeu);
+			mapDeJeu.afficherEnnemi(ennemiAfficher.get(index));
 		}
+	}
+	
+	public Ennemi[] obtenirTabEnnemi() {
+		return tabEnnemi;
 	}
 	/**
 	 * Lancement de la vague

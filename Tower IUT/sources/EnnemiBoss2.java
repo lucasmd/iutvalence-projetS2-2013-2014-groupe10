@@ -11,8 +11,5 @@ public class EnnemiBoss2 extends Ennemi
 		
 	}
 	
-	public void attaquer(Tour tourAttaque)
-	{
-		
-	}
+
 }

@@ -8,9 +8,5 @@ public class EnnemiTC extends Ennemi
 		
 	}
 	
-	public void attaquer(Tour tourAttaque)
-	{
-		
-	}
 
 }

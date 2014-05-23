@@ -1,19 +1,20 @@
 
 public class Vague3 extends Vague
 {
-	private Ennemi[] tabEnnemiVagueBoss;
+	
 	
 	public Vague3()
 	{
+		tabEnnemi= new Ennemi[15];
 		for(int indice=0; indice<10; indice++)
 		{
-			this.tabEnnemiVagueBoss[indice]=new EnnemiGEA();
+			this.tabEnnemi[indice]=new EnnemiGEA();
 		}
 		for(int indice=10; indice<15; indice++)
 		{
-			this.tabEnnemiVagueBoss[indice]=new EnnemiTC();
+			this.tabEnnemi[indice]=new EnnemiTC();
 		}
-		this.tabEnnemiVagueBoss[15]=new EnnemiBoss1();
+		this.tabEnnemi[15]=new EnnemiBoss1();
 	}
 
 }

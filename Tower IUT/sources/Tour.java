@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Définition d'une tour
  * 
@@ -79,8 +81,23 @@ public class Tour
 		//this.finalize();
 	}
 
-	public void attaquer()
+	public void attaquer(ArrayList<Ennemi> tabEnnemi, Map mapDePartie)
 	{
+		ArrayList<Case> listeCaseAction=this.caseTour.trouverCaseAdjacentes(this.perimettreAttaque,mapDePartie);
+		for (int indice=0; indice<listeCaseAction.size(); indice++)
+		{
+			if(listeCaseAction.get(indice).obtenirCaseEtat()==Etat.ENNEMI)
+			{
+				for(int index=0; index<tabEnnemi.size(); index++)
+				{
+					if(listeCaseAction.get(indice).obtenirPosiCase()==tabEnnemi.get(index).obtenirCase().obtenirPosiCase())
+					{
+						tabEnnemi.get(index).perdreVie(this.puissanceAttaque);
+						tabEnnemi.get(index).testMortEnnemie(mapDePartie, tabEnnemi);
+					}
+				}
+			}
+		}
 		
 
 	}

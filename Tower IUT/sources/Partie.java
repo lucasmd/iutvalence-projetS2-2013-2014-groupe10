@@ -22,7 +22,7 @@ public class Partie
 	/**
 	 * tableau d'ennemi present sur la carte
 	 */
-	private Ennemi[] ennemiAfficher;
+	private ArrayList<Ennemi> ennemiAfficher;
 	
 	/**
 	 * reprï¿½sente la quantitï¿½e d'argent possï¿½dï¿½ par le joueur
@@ -47,6 +47,8 @@ public class Partie
 	private Map carteDeLaPartie;
 
 	private ArrayList<Tour> listeTour;
+	
+	private int numTour;
 
 	/**
 	 * argent par defaut du joueur
@@ -64,6 +66,7 @@ public class Partie
 
 	public static final int NOMBRE_DE_VAGUE_NIVEAU3 = 8;
 
+
 	/**
 	 * Creer une partie pour un joueur avec un niveau defini
 	 * 
@@ -80,6 +83,8 @@ public class Partie
 		this.vieJoueur = VIE_JOUEUR_PAR_DEFAUT;
 		this.carteDeLaPartie = new Map();
 		this.listeTour = new ArrayList<Tour>();
+		this.numTour=0;
+		this.ennemiAfficher=new ArrayList<Ennemi>();
 
 		/** TODO Generation des vagues a changer */
 		switch (niveau)
@@ -141,6 +146,8 @@ public class Partie
 						choixMenu = saisieClavierNiveau.nextInt();
 						int positionX;
 						int positionY;
+						
+						/**TODO Empecher la creation d'une tour sur 14/0 */
 						
 						switch (choixMenu)
 						{
@@ -214,6 +221,7 @@ public class Partie
 								{
 									System.out.println("Argent insufisant");
 								}
+								break;
 									
 							case 2:
 								
@@ -368,7 +376,9 @@ public class Partie
 						}
 						break;
 					case 2 :
-						/** TODO Lancer Vague*/
+						this.lancerUnTour(numTour);
+						this.numTour++;
+						
 						break;
 					default:
 						System.out.println("Choix menu invalide");
@@ -424,25 +434,59 @@ public class Partie
 		return vieJoueur;
 	}
 	
+	public Map obtenirCarteDeLaPartie() 
+	{
+		return carteDeLaPartie;
+	}
+	public ArrayList<Ennemi> obtenirEnnemiAfficher() 
+	{
+		return ennemiAfficher;
+	}
+	
+	/**TODO Mettre a jour le score + test attaque de tour */
+	
 	public void lancerUnTour(int nbTour)
 	{
 		boolean finDuTour=false;
 		int numTour=0;
 		int numEnnemi=0;
 		
-		while(finDuTour==false)
+		while((finDuTour==false)&&(this.vieJoueur>0))
 		{
-			if (numTour%2==0)
+			
+			if ((numTour%2==0)&&(numEnnemi<this.vaguePartie[nbTour].obtenirTabEnnemi().length))
 			{
 				this.vaguePartie[nbTour].lancerUnEnnemi(numEnnemi, ennemiAfficher, this.carteDeLaPartie);
 				numEnnemi++;
 			}
+			
 			for(int indice=0; indice<this.listeTour.size(); indice++)
 			{
-				this.listeTour.get(indice).attaquer();
+				this.listeTour.get(indice).attaquer(ennemiAfficher, this.carteDeLaPartie);
 			}
 			this.vaguePartie[nbTour].faireAvancerLaVague(ennemiAfficher, this.carteDeLaPartie);
+			for(int index=0; index<ennemiAfficher.size(); index++)
+			{
+				ennemiAfficher.get(index).testVictoireEnnemie(this);
+			}
+			
+			this.carteDeLaPartie.afficherMap();
+			
+			if (numEnnemi==this.vaguePartie[nbTour].obtenirTabEnnemi().length)
+			{
+				if(this.ennemiAfficher.size()==0)
+				{
+					System.out.println("Fin du tour");
+					finDuTour=true;
+				}
+			}
+			System.out.println("Tour n°"+ numTour);
 			numTour++;
+			
+			
+			
+			
+			
 		}
 	}
 

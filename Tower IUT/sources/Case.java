@@ -70,7 +70,7 @@ public class Case {
 			return caseAdjacentes;
 		}
 	 
-	 public ArrayList<Case> trouverCaseAdjacentes(int nombreDeCaseAdjacentes)
+	 public ArrayList<Case> trouverCaseAdjacentes(int nombreDeCaseAdjacentes, Map cartePartie)
 		{
 			ArrayList<Case> caseAdjacentes= new ArrayList<Case>(); 
 			
@@ -95,7 +95,7 @@ public class Case {
 					{
 						if(((positionColonneCaseDepart+indiceColonne)>=0)&&((positionColonneCaseDepart+indiceColonne)<=Map.NOMBRE_COLONNE-1))
 						{
-							caseAdjacentes.add(new Case(positionLigneCaseDepart+indiceLigne, positionColonneCaseDepart+indiceColonne));
+							caseAdjacentes.add(cartePartie.map[positionLigneCaseDepart+indiceLigne][positionColonneCaseDepart+indiceColonne]);
 						}
 					}
 				}

@@ -10,10 +10,6 @@ public class EnnemiBoss1 extends Ennemi
 		super("boss1", 60, 2, CASE_PAR_DEFAUT_DEPART);
 		
 	}
-	
-	public void attaquer(Tour tourAttaque)
-	{
-		
-	}
+
 
 }
