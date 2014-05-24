@@ -19,15 +19,15 @@ public class TableScore {
 				PrintWriter fichierSortie = new PrintWriter(bw);
 				fichierSortie.println("Classement;Pseudo;Score");
 				for (int i = 1; i <= nombreDeScoreMax; i++)
-					fichierSortie.println(i + ";Null;0");
+					fichierSortie.println(i + "; ; ");
 				fichierSortie.close();
 			} catch (Exception e) {
 			}
 		}
 	}
 
-	/** Affiche les scores. */
-	public void afficherScore() {
+	/** Affiche les scores pour console. */
+	public String afficherScoreConsole() {
 		String chaine = "";
 		try {
 			InputStream ips = new FileInputStream(fichier);
@@ -35,13 +35,34 @@ public class TableScore {
 			BufferedReader br = new BufferedReader(ipsr);
 			String ligne;
 			while ((ligne = br.readLine()) != null) {
-				System.out.println(ligne.replace(';', ' '));
-				chaine += ligne + "\n";
+				chaine += ligne.replace(';', ' ') + "\n";
 			}
 			br.close();
+			
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		return chaine;
+	}
+	
+	/** Affiche les scores pour IHM. */
+	public String afficherScoreIHM() {
+		String chaine = "<html><table>";
+		try {
+			InputStream ips = new FileInputStream(fichier);
+			InputStreamReader ipsr = new InputStreamReader(ips);
+			BufferedReader br = new BufferedReader(ipsr);
+			String ligne;
+			while ((ligne = br.readLine()) != null) {
+				chaine += "<tr><td>"+ligne.replace(";", "</td><td>") + "</td></tr>";
+			}
+			br.close();
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		chaine += "</table></html>";
+		return chaine;
 	}
 
 	/** Modifie les scores. */
@@ -52,25 +73,33 @@ public class TableScore {
 			InputStream ips = new FileInputStream(fichier);
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
-			String ligne;
-			ligne = br.readLine();
+			String ligne= br.readLine();
+			String dernLigne = "";
 			chaine += ligne + "\n";
+			int nombreTours = 1;
 			while ((ligne = br.readLine()) != null) {
+				nombreTours++;
 				int scoreLigne = new Integer(ligne.split(";")[2]);
-				System.out.println(scoreLigne);
-				chaine += ligne + "\n";
-				System.out.println(chaine);
-				if (scoreLigne < score) {
-					chaine += "num;laxe;1000\n";
+				if (scoreLigne <= score) {
+					chaine += ligne.split(";")[0]+";"+joueur.obtenirPseudo()+";"+joueur.obtenirScoreJoueur()+"\n";
+					chaine += ligne.split(";")[0]+";"+ligne.split(";")[1]+";"+ligne.split(";")[2]+"\n";
+					while ((ligne = br.readLine()) != null) {
+						nombreTours++;
+						chaine += nombreTours+";"+ligne.split(";")[1]+";"+ligne.split(";")[2]+"\n";
+					}
+					dernLigne = ligne;
+					System.out.println(chaine);
+					br.close();
+					return;
 				}
+				chaine += ligne + "\n";
+				dernLigne = ligne;
 			}
+			System.out.println(chaine);
 			br.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		/**
-		 * TODO Rajouter la partie qui compare avec les scores, et qui ajoute au
-		 * bon endroit si il le faut.
-		 */
 	}
 }
