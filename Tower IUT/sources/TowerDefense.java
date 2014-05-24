@@ -19,28 +19,21 @@ public class TowerDefense {
 
 	public static void main(String[] args) {
 
-		TableScore score = new TableScore();
-		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
-		Joueur j = new Joueur("PseudoDuJoueur");
-		j.mettreAJourScore(998);
-		// score.modifierScore(j);
-		/** NE PAS SUPPRIMER, C EST POUR LES TESTS DES SCORES ! */
-
 		final Scanner reader = new Scanner(System.in, "UTF-8");
 		boolean choixInterface = false;
 		String consoleOuGraph = "";
 		while (!choixInterface) {
 			System.out
-					.println("Mode console tapez 'c', mode graphique tapez 'g'.");
+					.println("Choix du type d'interface\n --------\n 1 Console\n 2 Graphique\n --------\n Votre choix ? ");
 			consoleOuGraph = reader.nextLine();
-			if ((consoleOuGraph.equalsIgnoreCase("c"))
-					|| (consoleOuGraph.equalsIgnoreCase("g"))) {
+			if ((consoleOuGraph.equalsIgnoreCase("1"))
+					|| (consoleOuGraph.equalsIgnoreCase("2"))) {
 				choixInterface = true;
 			}
 		}
-		if (consoleOuGraph.equalsIgnoreCase("g")) {
+		if (consoleOuGraph.equalsIgnoreCase("2")) {
 			SwingUtilities.invokeLater(new MenuIHM());
-		} else if (consoleOuGraph.equalsIgnoreCase("c")) {
+		} else if (consoleOuGraph.equalsIgnoreCase("1")) {
 			TowerDefense.afficherMenu();
 		}
 	}

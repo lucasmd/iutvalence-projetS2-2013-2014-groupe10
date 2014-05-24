@@ -1,11 +1,11 @@
 import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 public class TableScore {
 
 	/** Nombre maximum de scores enregistrés. */
-	private int nombreDeScoreMax = 10;
+	private static final int NOMBRE_SCORE_MAX = 10;
 	/** Chemin du fichier des scores. */
 	private String fichier = "score.csv";
 
@@ -18,8 +18,6 @@ public class TableScore {
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter fichierSortie = new PrintWriter(bw);
 				fichierSortie.println("Classement;Pseudo;Score");
-				for (int i = 1; i <= nombreDeScoreMax; i++)
-					fichierSortie.println(i + "; ; ");
 				fichierSortie.close();
 			} catch (Exception e) {
 			}
@@ -38,13 +36,13 @@ public class TableScore {
 				chaine += ligne.replace(';', ' ') + "\n";
 			}
 			br.close();
-			
+
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 		return chaine;
 	}
-	
+
 	/** Affiche les scores pour IHM. */
 	public String afficherScoreIHM() {
 		String chaine = "<html><table>";
@@ -54,10 +52,11 @@ public class TableScore {
 			BufferedReader br = new BufferedReader(ipsr);
 			String ligne;
 			while ((ligne = br.readLine()) != null) {
-				chaine += "<tr><td>"+ligne.replace(";", "</td><td>") + "</td></tr>";
+				chaine += "<tr><td>" + ligne.replace(";", "</td><td>")
+						+ "</td></tr>";
 			}
 			br.close();
-			
+
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -73,33 +72,87 @@ public class TableScore {
 			InputStream ips = new FileInputStream(fichier);
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
-			String ligne= br.readLine();
-			String dernLigne = "";
+			String ligne = br.readLine();
 			chaine += ligne + "\n";
-			int nombreTours = 1;
+			int num = 0;
 			while ((ligne = br.readLine()) != null) {
-				nombreTours++;
+				num++;
+				int numLigne = new Integer(ligne.split(";")[0]);
 				int scoreLigne = new Integer(ligne.split(";")[2]);
 				if (scoreLigne <= score) {
-					chaine += ligne.split(";")[0]+";"+joueur.obtenirPseudo()+";"+joueur.obtenirScoreJoueur()+"\n";
-					chaine += ligne.split(";")[0]+";"+ligne.split(";")[1]+";"+ligne.split(";")[2]+"\n";
-					while ((ligne = br.readLine()) != null) {
-						nombreTours++;
-						chaine += nombreTours+";"+ligne.split(";")[1]+";"+ligne.split(";")[2]+"\n";
+					String chaineT = num + ";" + joueur.obtenirPseudo() + ";"
+							+ joueur.obtenirScoreJoueur() + "\n";
+					num++;
+					chaineT += num + ";" + ligne.split(";")[1] + ";"
+							+ ligne.split(";")[2];
+					try {
+						String fichierTemp = "temp.csv";
+						FileWriter fw = new FileWriter(fichierTemp);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter fichierSortie = new PrintWriter(bw);
+						while (((ligne = br.readLine()) != null)
+								&& num <= NOMBRE_SCORE_MAX - 1) {
+							num++;
+							fichierSortie.println(num + ";"
+									+ ligne.split(";")[1] + ";"
+									+ ligne.split(";")[2]);
+						}
+						fichierSortie.close();
+						InputStream ipsT = new FileInputStream(fichierTemp);
+						InputStreamReader ipsrT = new InputStreamReader(ipsT);
+						BufferedReader brT = new BufferedReader(ipsrT);
+						String ligneT = "";
+						while ((ligneT = brT.readLine()) != null) {
+							chaineT += "\n" + ligneT;
+						}
+						chaine += chaineT;
+						try {
+							FileWriter fw2 = new FileWriter(fichier);
+							BufferedWriter bw2 = new BufferedWriter(fw2);
+							PrintWriter fichierSortie2 = new PrintWriter(bw2);
+							fichierSortie2.println(chaine);
+							fichierSortie2.close();
+						} catch (Exception e) {
+						}
+						br.close();
+						brT.close();
+						return;
+					} catch (Exception e) {
 					}
-					dernLigne = ligne;
-					System.out.println(chaine);
+				}
+				if (numLigne == NOMBRE_SCORE_MAX - 1) {
+					chaine += num + ";" + joueur.obtenirPseudo() + ";"
+							+ joueur.obtenirScoreJoueur() + "\n";
+					num++;
+					chaine += num + ";" + ligne.split(";")[1] + ";"
+							+ ligne.split(";")[2] + "\n";
+					try {
+						FileWriter fw3 = new FileWriter(fichier);
+						BufferedWriter bw3 = new BufferedWriter(fw3);
+						PrintWriter fichierSortie3 = new PrintWriter(bw3);
+						fichierSortie3.print(chaine);
+						fichierSortie3.close();
+					} catch (Exception e) {
+					}
 					br.close();
 					return;
 				}
 				chaine += ligne + "\n";
-				dernLigne = ligne;
 			}
-			System.out.println(chaine);
+			num++;
+			chaine += num + ";" + joueur.obtenirPseudo() + ";"
+					+ joueur.obtenirScoreJoueur() + "\n";
+			try {
+				FileWriter fw3 = new FileWriter(fichier);
+				BufferedWriter bw3 = new BufferedWriter(fw3);
+				PrintWriter fichierSortie3 = new PrintWriter(bw3);
+				fichierSortie3.print(chaine);
+				fichierSortie3.close();
+			} catch (Exception e) {
+			}
 			br.close();
-		}
-		catch (Exception e) {
-			System.out.println(e.toString());
+			return;
+		} catch (Exception e) {
 		}
 	}
 }
