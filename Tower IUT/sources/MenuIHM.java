@@ -1,6 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
@@ -42,40 +46,43 @@ public class MenuIHM implements Runnable, ActionListener, KeyListener {
 
 	private void initialiserLInterfaceGraphique() {
 		this.fenetre = new JFrame();
+		Font police = new Font("Arial", Font.BOLD, 15);
 
 		this.Options = new JButton("Options");
 		this.Options.addActionListener(this);
+		Options.setFont(police);
 
 		this.Quitter = new JButton("Quitter");
 		this.Quitter.addActionListener(this);
+		Quitter.setFont(police);
 
 		this.Jouer = new JButton("Jouer");
 		this.Jouer.addActionListener(this);
+		Jouer.setFont(police);
 
 		this.Score = new JButton("Score");
 		this.Score.addActionListener(this);
+		Score.setFont(police);
 
 		this.Regles = new JButton("Regles");
 		this.Regles.addActionListener(this);
+		Regles.setFont(police);
 
 		this.fenetre.setTitle("Menu TowerIUT");
-		this.fenetre.setSize(500, 300);
+		this.fenetre.setSize(600, 500);
 		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		// Instanciation d'un objet JPanel
-		JPanel pan = new JPanel();
+		fenetre.setLayout(new GridLayout(5, 1));
 		// Définition de sa couleur de fond
-		pan.setBackground(Color.WHITE);
-		pan.add(this.Jouer);
-		pan.add(this.Score);
-		pan.add(this.Regles);
-		pan.add(this.Options);
-		pan.add(this.Quitter);
-		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
+		fenetre.add(this.Jouer);
+		fenetre.add(this.Score);
+		fenetre.add(this.Regles);
+		fenetre.add(this.Options);
+		fenetre.add(this.Quitter);
 
 		// Verouillage des dimensions de la fenêtre
 		this.fenetre.setResizable(true);
-		this.fenetre.setContentPane(pan);
 		this.fenetre.setLocationRelativeTo(null);
 		this.fenetre.setVisible(true);
 
@@ -105,6 +112,7 @@ public class MenuIHM implements Runnable, ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Font police = new Font("Arial", Font.BOLD, 15);
 		if (e.getSource() == Jouer) {
 			SwingUtilities.invokeLater(new JeuxIHM());
 		} else if (e.getSource() == Regles) {
@@ -116,6 +124,7 @@ public class MenuIHM implements Runnable, ActionListener, KeyListener {
 			fenetreRegles.setLocationRelativeTo(null);
 			Regles r = new Regles();
 			texteRegles = new JLabel(r.afficherRegles(),JLabel.CENTER);
+			texteRegles.setFont(police);
 			this.fenetreRegles.add(texteRegles);
 			this.fenetreRegles.setVisible(true);
 			
@@ -128,6 +137,7 @@ public class MenuIHM implements Runnable, ActionListener, KeyListener {
 			fenetreScores.setLocationRelativeTo(null);
 			TableScore score = new TableScore();
 			scores = new JLabel(score.afficherScoreIHM(),JLabel.CENTER);
+			scores.setFont(police);
 			this.fenetreScores.add(scores);
 			this.fenetreScores.setVisible(true);
 			

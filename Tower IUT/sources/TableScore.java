@@ -87,6 +87,7 @@ public class TableScore {
 							+ ligne.split(";")[2];
 					try {
 						String fichierTemp = "temp.csv";
+						File temp = new File(fichierTemp);
 						FileWriter fw = new FileWriter(fichierTemp);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter fichierSortie = new PrintWriter(bw);
@@ -116,6 +117,7 @@ public class TableScore {
 						}
 						br.close();
 						brT.close();
+						temp.delete();
 						return;
 					} catch (Exception e) {
 					}
