@@ -1,6 +1,10 @@
+import java.awt.Font;
 import java.io.*;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 public class TableScore {
 
@@ -8,9 +12,28 @@ public class TableScore {
 	private static final int NOMBRE_SCORE_MAX = 10;
 	/** Chemin du fichier des scores. */
 	private String fichier = "score.csv";
+	
+	private JFrame fenetre;
+	private JDialog fenetreScores;
+	private JLabel scores;
 
-	/** Créer un fichier de score vide. */
 	public TableScore() {
+		File score = new File(fichier);
+		if (!score.exists()) {
+			try {
+				FileWriter fw = new FileWriter(fichier);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter fichierSortie = new PrintWriter(bw);
+				fichierSortie.println("Classement;Pseudo;Score");
+				fichierSortie.close();
+			} catch (Exception e) {
+			}
+		}
+	}
+	
+	/** Créer un fichier de score vide. */
+	public TableScore(JFrame parent) {
+		this.fenetre = parent;
 		File score = new File(fichier);
 		if (!score.exists()) {
 			try {
@@ -44,7 +67,7 @@ public class TableScore {
 	}
 
 	/** Affiche les scores pour IHM. */
-	public String afficherScoreIHM() {
+	public void afficherScoreIHM() {
 		String chaine = "<html><table>";
 		try {
 			InputStream ips = new FileInputStream(fichier);
@@ -52,8 +75,7 @@ public class TableScore {
 			BufferedReader br = new BufferedReader(ipsr);
 			String ligne;
 			while ((ligne = br.readLine()) != null) {
-				chaine += "<tr><td>" + ligne.replace(";", "</td><td>")
-						+ "</td></tr>";
+				chaine += "<tr><td align='center'>" + ligne.replace(";", "</td><td align='center'>") + "</td></tr>";
 			}
 			br.close();
 
@@ -61,7 +83,17 @@ public class TableScore {
 			System.out.println(e.toString());
 		}
 		chaine += "</table></html>";
-		return chaine;
+		Font police = new Font("Arial", Font.BOLD, 16);
+		this.fenetreScores = new JDialog(fenetre, "Scores", true);
+		this.fenetreScores
+				.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.fenetreScores.setSize(500, 400);
+		this.fenetreScores.setResizable(true);
+		fenetreScores.setLocationRelativeTo(null);
+		scores = new JLabel(chaine, JLabel.CENTER);
+		scores.setFont(police);
+		this.fenetreScores.add(scores);
+		this.fenetreScores.setVisible(true);
 	}
 
 	/** Modifie les scores. */
@@ -107,14 +139,7 @@ public class TableScore {
 							chaineT += "\n" + ligneT;
 						}
 						chaine += chaineT;
-						try {
-							FileWriter fw2 = new FileWriter(fichier);
-							BufferedWriter bw2 = new BufferedWriter(fw2);
-							PrintWriter fichierSortie2 = new PrintWriter(bw2);
-							fichierSortie2.println(chaine);
-							fichierSortie2.close();
-						} catch (Exception e) {
-						}
+						ecrireDansFichier(fichier, chaine);
 						br.close();
 						brT.close();
 						temp.delete();
@@ -123,19 +148,12 @@ public class TableScore {
 					}
 				}
 				if (numLigne == NOMBRE_SCORE_MAX - 1) {
-					chaine += num + ";" + joueur.obtenirPseudo() + ";"
-							+ joueur.obtenirScoreJoueur() + "\n";
-					num++;
 					chaine += num + ";" + ligne.split(";")[1] + ";"
 							+ ligne.split(";")[2] + "\n";
-					try {
-						FileWriter fw3 = new FileWriter(fichier);
-						BufferedWriter bw3 = new BufferedWriter(fw3);
-						PrintWriter fichierSortie3 = new PrintWriter(bw3);
-						fichierSortie3.print(chaine);
-						fichierSortie3.close();
-					} catch (Exception e) {
-					}
+					num++;
+					chaine += num + ";" + joueur.obtenirPseudo() + ";"
+							+ joueur.obtenirScoreJoueur() + "\n";
+					ecrireDansFichier(fichier, chaine);
 					br.close();
 					return;
 				}
@@ -144,16 +162,20 @@ public class TableScore {
 			num++;
 			chaine += num + ";" + joueur.obtenirPseudo() + ";"
 					+ joueur.obtenirScoreJoueur() + "\n";
-			try {
-				FileWriter fw3 = new FileWriter(fichier);
-				BufferedWriter bw3 = new BufferedWriter(fw3);
-				PrintWriter fichierSortie3 = new PrintWriter(bw3);
-				fichierSortie3.print(chaine);
-				fichierSortie3.close();
-			} catch (Exception e) {
-			}
+			ecrireDansFichier(fichier, chaine);
 			br.close();
 			return;
+		} catch (Exception e) {
+		}
+	}
+
+	public void ecrireDansFichier(String chemin, String texte) {
+		try {
+			FileWriter fw = new FileWriter(chemin);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter fichierSortie = new PrintWriter(bw);
+			fichierSortie.print(texte);
+			fichierSortie.close();
 		} catch (Exception e) {
 		}
 	}

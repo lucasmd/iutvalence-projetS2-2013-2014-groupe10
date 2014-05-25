@@ -9,16 +9,22 @@ public class TowerDefense {
 	private Partie laPartie;
 
 	/** Tableau des scores. */
-	private TableScore leTableauDesScores;
+	private static TableScore leTableauDesScores;
 
 	/** Options du jeu. */
-	private Option lesOptions;
+	private static Option lesOptions;
 
 	/** RÃ¨gles du jeu. */
-	private Regles lesRegles;
+	private static Regles lesRegles;
 
 	public static void main(String[] args) {
 
+		Joueur j = new Joueur("Maj");
+		j.mettreAJourScore(1000);
+		TableScore ts = new TableScore();
+		ts.modifierScore(j);
+		System.out.println(ts.afficherScoreConsole());
+		
 		final Scanner reader = new Scanner(System.in, "UTF-8");
 		boolean choixInterface = false;
 		String consoleOuGraph = "";
@@ -39,7 +45,9 @@ public class TowerDefense {
 	}
 
 	public static void afficherMenu() {
-
+		lesRegles = new Regles();
+		leTableauDesScores = new TableScore();
+		lesOptions = new Option();
 		Scanner saisieClavierMenu = new Scanner(System.in);
 
 		/**
@@ -103,18 +111,15 @@ public class TowerDefense {
 				break;
 
 			case 2:
-				Regles regle = new Regles();
-				System.out.println(regle.afficherRegles() + "\n");
+				System.out.println(lesRegles.afficherRegles() + "\n");
 				break;
 
 			case 3:
-				Option option = new Option();
-				System.out.println(option.afficheOption() + "\n");
+				System.out.println(lesOptions.afficheOption() + "\n");
 				break;
 
 			case 4:
-				TableScore score = new TableScore();
-				System.out.println(score.afficherScoreConsole() + "\n");
+				System.out.println(leTableauDesScores.afficherScoreConsole() + "\n");
 				break;
 
 			case 5:
