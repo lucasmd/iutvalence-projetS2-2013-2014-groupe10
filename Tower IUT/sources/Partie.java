@@ -104,8 +104,8 @@ public class Partie
 				this.vaguePartie[1]= new Vague1();
 				this.vaguePartie[2]= new Vague2();
 				this.vaguePartie[3]= new Vague2();
-				this.vaguePartie[2]= new Vague2();
-				this.vaguePartie[3]= new Vague3();
+				this.vaguePartie[4]= new Vague2();
+				this.vaguePartie[5]= new Vague3();
 				break;
 
 			case 3:
@@ -114,10 +114,10 @@ public class Partie
 				this.vaguePartie[1]= new Vague1();
 				this.vaguePartie[2]= new Vague1();
 				this.vaguePartie[3]= new Vague3();
-				this.vaguePartie[0]= new Vague2();
-				this.vaguePartie[1]= new Vague2();
-				this.vaguePartie[2]= new Vague2();
-				this.vaguePartie[3]= new Vague4();
+				this.vaguePartie[4]= new Vague2();
+				this.vaguePartie[5]= new Vague2();
+				this.vaguePartie[6]= new Vague2();
+				this.vaguePartie[7]= new Vague4();
 				break;
 
 		}
@@ -189,8 +189,8 @@ public class Partie
 												.println("position incorrecte (0-30)");
 									}
 
-									if (carteDeLaPartie.map[positionX][positionY]
-											.obtenirCaseEtat() == Etat.VIDE)
+									if ((carteDeLaPartie.map[positionX][positionY]
+											.obtenirCaseEtat() == Etat.VIDE)&& (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
 									{
 										try
 										{
@@ -376,8 +376,23 @@ public class Partie
 						}
 						break;
 					case 2 :
-						this.lancerUnTour(numTour);
-						this.numTour++;
+						if(numTour>=this.vaguePartie.length)
+						{
+							System.out.println("vous avez gangé, passez au niveau suivant :)");
+							return;
+						}
+						else if  (this.vieJoueur<=0)
+						{
+							System.out.println("vous avez perdu! try again");
+							return;
+						}
+						else
+						{
+							this.lancerUnTour(numTour);
+							this.numTour++;
+						}
+						System.out.println(this.vieJoueur);
+						System.out.println(this.joueurDeLaPartie.obtenirScoreJoueur());
 						
 						break;
 					default:
@@ -453,43 +468,41 @@ public class Partie
 		
 		this.carteDeLaPartie.changerChemin();
 		
-		while((finDuTour==false)&&(this.vieJoueur>0))
-		{
-			
-			if ((numTour%2==0)&&(numEnnemi<this.vaguePartie[nbTour].obtenirTabEnnemi().length))
+			while((finDuTour==false)&&(this.vieJoueur>0))
 			{
-				this.vaguePartie[nbTour].lancerUnEnnemi(numEnnemi, ennemiAfficher, this.carteDeLaPartie);
-				numEnnemi++;
-			}
-			
-			for(int indice=0; indice<this.listeTour.size(); indice++)
-			{
-				this.listeTour.get(indice).attaquer(ennemiAfficher, this.carteDeLaPartie);
-			}
-			this.vaguePartie[nbTour].faireAvancerLaVague(ennemiAfficher, this.carteDeLaPartie);
-			for(int index=0; index<ennemiAfficher.size(); index++)
-			{
-				ennemiAfficher.get(index).testVictoireEnnemie(this);
-			}
-			
-			this.carteDeLaPartie.afficherMap();
-			
-			if (numEnnemi==this.vaguePartie[nbTour].obtenirTabEnnemi().length)
-			{
-				if(this.ennemiAfficher.size()==0)
+				if (numEnnemi==this.vaguePartie[nbTour].obtenirTabEnnemi().length)
 				{
-					System.out.println("Fin du tour");
-					finDuTour=true;
+					if(this.ennemiAfficher.size()==0)
+					{
+						System.out.println("Fin du tour");
+						finDuTour=true;
+						break;
+					}
 				}
+				if ((numTour%2==0)&&(numEnnemi<this.vaguePartie[nbTour].obtenirTabEnnemi().length))
+				{
+					this.vaguePartie[nbTour].lancerUnEnnemi(numEnnemi, ennemiAfficher, this.carteDeLaPartie);
+					numEnnemi++;
+				}
+				this.carteDeLaPartie.afficherMap();
+				for(int indice=0; indice<this.listeTour.size(); indice++)
+				{
+					this.listeTour.get(indice).attaquer(ennemiAfficher, this.carteDeLaPartie, this.joueurDeLaPartie);
+				}
+				this.vaguePartie[nbTour].faireAvancerLaVague(ennemiAfficher, this.carteDeLaPartie);
+				for(int index=0; index<ennemiAfficher.size(); index++)
+				{
+					ennemiAfficher.get(index).testVictoireEnnemie(this);
+				}
+				
+				this.carteDeLaPartie.afficherMap();
+				
+				
+				System.out.println("Tour n�"+ numTour);
+				numTour++;
+				
 			}
-			System.out.println("Tour n�"+ numTour);
-			numTour++;
-			
-			
-			
-			
-			
 		}
-	}
+	
 
 }

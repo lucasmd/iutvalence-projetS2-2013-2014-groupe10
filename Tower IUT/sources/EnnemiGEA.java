@@ -5,7 +5,7 @@ public class EnnemiGEA extends Ennemi
 	
 	public EnnemiGEA()
 	{
-		super("gea", 5, 1, CASE_PAR_DEFAUT_DEPART);
+		super("gea", 5, 1, CASE_PAR_DEFAUT_DEPART,10);
 		
 	}
 	

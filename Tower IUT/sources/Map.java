@@ -6,7 +6,8 @@ public class Map
 	
 	public final static int NOMBRE_COLONNE=30;
 	public final static int NOMBRE_LIGNE=30;
-	public final static Case CASE_PAR_DEFAUT_DEPART=new Case(14,0);
+	
+	
 	
 	/** Tableau de case quiformelamap. */
 	public Case[][] map ;

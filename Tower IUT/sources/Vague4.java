@@ -4,7 +4,7 @@ public class Vague4 extends Vague
 	
 	public Vague4()
 	{
-		tabEnnemi= new Ennemi[15];
+		tabEnnemi= new Ennemi[16];
 		for(int indice=0; indice<5; indice++)
 		{
 			this.tabEnnemi[indice]=new EnnemiGEA();

@@ -19,11 +19,6 @@ public class TowerDefense {
 
 	public static void main(String[] args) {
 
-		Joueur j = new Joueur("Maj");
-		j.mettreAJourScore(1000);
-		TableScore ts = new TableScore();
-		ts.modifierScore(j);
-		System.out.println(ts.afficherScoreConsole());
 		
 		final Scanner reader = new Scanner(System.in, "UTF-8");
 		boolean choixInterface = false;

@@ -15,7 +15,7 @@ public abstract class Ennemi
 	private String nomEnnemi;
 	private int vie_Ennemi;
 	private int pointDegats;
-
+	private int scoreGagne;
 
 	/**
 	 * Constructeur ennemi
@@ -24,12 +24,13 @@ public abstract class Ennemi
 	 * @param degat
 	 * @param posiDepart
 	 */
-	public Ennemi(String nom, int vie, int degat, Case caseDepart)
+	public Ennemi(String nom, int vie, int degat, Case caseDepart, int score)
 	{
 		caseEnnemi = caseDepart;
 		nomEnnemi = nom;
 		vie_Ennemi = vie;
 		pointDegats = degat;
+		scoreGagne=score;
 	}
 	
 	public Case obtenirCase()
@@ -55,7 +56,7 @@ public abstract class Ennemi
 	public void avancer(Map mapPartie)
 	{
 		
-		this.caseEnnemi.changerPosiEtat(Etat.VIDE);
+		
 
 		int caseEnnemiPositionLigne=this.caseEnnemi.obtenirPosiCase().obtenirPositionLigne();
 		int caseEnnemiPositionColonne=this.caseEnnemi.obtenirPosiCase().obtenirPositionColonne();
@@ -90,11 +91,14 @@ public abstract class Ennemi
 		}
 	}
 	
-	public void testMortEnnemie(Map carteJeu, ArrayList<Ennemi> listeEnnemiAffiche)
+	public void testMortEnnemie(Map carteJeu, ArrayList<Ennemi> listeEnnemiAffiche, Joueur joueur)
 	{
 		if (this.vie_Ennemi<=0)
+		{
 			carteJeu.effacerEnnemi(this);
 			listeEnnemiAffiche.remove(listeEnnemiAffiche.indexOf(this));
+			joueur.mettreAJourScore(this.scoreGagne);
+		}
 			
 	}
 	
@@ -102,15 +106,6 @@ public abstract class Ennemi
 	{
 		this.vie_Ennemi=this.vie_Ennemi-degats;
 	}
-	/*public void avancerVersFin(Map mapDeJeu, ArrayList<Case> chemin)
-	{
-		while ((this.obtenirCase().obtenirPosiCase()!=POSITION_DE_FIN))
-		{
-			this.avancer(mapDeJeu);
-			mapDeJeu.afficherEnnemi(this);
-			mapDeJeu.afficherMap();
-			
-		}
-	}*/
+	
 	
 }

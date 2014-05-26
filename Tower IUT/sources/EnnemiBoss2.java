@@ -7,7 +7,7 @@ public class EnnemiBoss2 extends Ennemi
 	
 	public EnnemiBoss2()
 	{
-		super("boss2", 100, 2, CASE_PAR_DEFAUT_DEPART);
+		super("boss2", 100, 2, CASE_PAR_DEFAUT_DEPART,150);
 		
 	}
 	

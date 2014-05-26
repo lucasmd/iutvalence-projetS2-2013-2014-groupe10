@@ -17,7 +17,7 @@ public class Tour
 	private EnumTour typeTour;
 	private Case caseTour;
 
-	private final static int PERIMETRE_PETITE_TOUR = 2;
+	private final static int PERIMETRE_PETITE_TOUR = 1;
 	public final static int PRIX_PETITE_TOUR = 5;
 	private final static int PUISSANCE_ATTAQUE_PETITE_TOUR = 2;
 	private final static int POINT_DE_VIE_PETITE_TOUR = 5;
@@ -81,7 +81,7 @@ public class Tour
 		//this.finalize();
 	}
 
-	public void attaquer(ArrayList<Ennemi> tabEnnemi, Map mapDePartie)
+	public void attaquer(ArrayList<Ennemi> tabEnnemi, Map mapDePartie, Joueur joueur)
 	{
 		ArrayList<Case> listeCaseAction=this.caseTour.trouverCaseAdjacentes(this.perimettreAttaque,mapDePartie);
 		for (int indice=0; indice<listeCaseAction.size(); indice++)
@@ -93,7 +93,7 @@ public class Tour
 					if(listeCaseAction.get(indice).obtenirPosiCase()==tabEnnemi.get(index).obtenirCase().obtenirPosiCase())
 					{
 						tabEnnemi.get(index).perdreVie(this.puissanceAttaque);
-						tabEnnemi.get(index).testMortEnnemie(mapDePartie, tabEnnemi);
+						tabEnnemi.get(index).testMortEnnemie(mapDePartie, tabEnnemi, joueur );
 					}
 				}
 			}

@@ -4,7 +4,7 @@ public class EnnemiTC extends Ennemi
 	
 	public EnnemiTC()
 	{
-		super("tc", 10, 1, CASE_PAR_DEFAUT_DEPART);
+		super("tc", 10, 1, CASE_PAR_DEFAUT_DEPART,20);
 		
 	}
 	

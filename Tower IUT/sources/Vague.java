@@ -17,7 +17,8 @@ public abstract class Vague
 	
 	public void lancerUnEnnemi(int place,ArrayList<Ennemi> ennemiAfficher,Map mapDeJeu)
 	{
-		ennemiAfficher.add(place,this.tabEnnemi[place]);
+		int placeAfficher=ennemiAfficher.size();
+		ennemiAfficher.add(placeAfficher,this.tabEnnemi[place]);
 		mapDeJeu.afficherEnnemi(tabEnnemi[place]);
 	}
 	
