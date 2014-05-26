@@ -1,12 +1,17 @@
+import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-public class TableScore {
+public class TableScore implements ActionListener{
 
 	/** Nombre maximum de scores enregistrés. */
 	private static final int NOMBRE_SCORE_MAX = 10;
@@ -16,6 +21,8 @@ public class TableScore {
 	private JFrame fenetre;
 	private JDialog fenetreScores;
 	private JLabel scores;
+	private JButton valider;
+	private JButton annuler;
 
 	public TableScore() {
 		File score = new File(fichier);
@@ -93,7 +100,26 @@ public class TableScore {
 		scores = new JLabel(chaine, JLabel.CENTER);
 		scores.setFont(police);
 		this.fenetreScores.add(scores);
+		
+		JPanel barreBas = new JPanel();
+	    valider = new JButton("Valider");
+	    valider.addActionListener(this);
+		this.valider.setFont(police);
+	    annuler = new JButton("Annuler");
+	    annuler.addActionListener(this);
+		this.annuler.setFont(police);
+	    barreBas.add(valider);
+	    barreBas.add(annuler);
+	    this.fenetreScores.add(barreBas, BorderLayout.SOUTH);
 		this.fenetreScores.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == valider) {
+		}
+		else if (e.getSource() == annuler) {
+			fenetreScores.dispose();
+		}
 	}
 
 	/** Modifie les scores. */
