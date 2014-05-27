@@ -38,9 +38,19 @@ public class Tour
 	 * @param positionTour position où l'on souhaite creer la tour
 	 * @throws CasePleineException si la case est pleine on ne peut pas creer de tour
 	 */
-	public Tour(EnumTour typeTour, Case positionTour, Joueur joueur)
-			throws CasePleineException, ArgentInsuffisant
-	{
+	public Tour(EnumTour typeTour, Case positionTour, Joueur joueur, Map carte)
+			throws CasePleineException, ArgentInsuffisant, CheminInfesable
+	{ 
+		carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.TOUR);
+		try
+		{
+			carte.changerChemin();
+		} 
+		catch (CheminInfesable e)
+		{ 
+			carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.VIDE);
+			throw e;
+		}
 		if (positionTour.obtenirCaseEtat() == Etat.VIDE)
 		{
 
@@ -54,6 +64,8 @@ public class Tour
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_PETITE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
 				joueur.modifierQtArgent(-PRIX_PETITE_TOUR);
+				
+				
 				
 				}
 				else
@@ -87,6 +99,9 @@ public class Tour
 				else
 					throw new ArgentInsuffisant();
 			}
+			
+			
+			
 		}
 		else
 			throw new CasePleineException();

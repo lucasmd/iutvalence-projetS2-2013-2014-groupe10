@@ -75,7 +75,7 @@ public class Partie
 		this.joueurDeLaPartie = joueur;
 		this.niveau = niveau;
 		this.vieJoueur = VIE_JOUEUR_PAR_DEFAUT;
-		this.carteDeLaPartie = new Map();
+		try{this.carteDeLaPartie = new Map();} catch (CheminInfesable e){}
 		this.listeTour = new ArrayList<Tour>();
 		this.numTour=0;
 		this.ennemiAfficher=new ArrayList<Ennemi>();
@@ -121,6 +121,15 @@ public class Partie
 	// a completer
 	public void jouer()
 	{
+		this.carteDeLaPartie.map[12][0].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[12][1].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[12][2].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[13][2].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[14][2].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[15][2].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[16][2].changerPosiEtat(Etat.TOUR);
+		this.carteDeLaPartie.map[16][1].changerPosiEtat(Etat.TOUR);
+		
 
 		while (this.vieJoueur > 0)
 		{
@@ -189,7 +198,7 @@ public class Partie
 										try
 										{
 											listeTour
-													.add(new Tour(EnumTour.petiteTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie));
+													.add(new Tour(EnumTour.petiteTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie, this.carteDeLaPartie));
 											carteDeLaPartie.map[positionX][positionY]
 													.changerPosiEtat(Etat.TOUR);
 										} catch (CasePleineException e)
@@ -199,6 +208,11 @@ public class Partie
 										catch (ArgentInsuffisant e)
 										{
 											
+										}
+										catch (CheminInfesable e)
+										{
+											System.out.println("Vous ne pouvez pas poser de tour");
+											break;
 										}
 										/** TODO a supprimer */
 										System.out.println("Petite Tour Créée");
@@ -261,7 +275,7 @@ public class Partie
 									{
 										try
 										{
-											listeTour.add(new Tour(EnumTour.moyenneTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie));
+											listeTour.add(new Tour(EnumTour.moyenneTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie, this.carteDeLaPartie));
 											carteDeLaPartie.map[positionX][positionY].changerPosiEtat(Etat.TOUR);
 										} catch (CasePleineException e)
 										{
@@ -270,6 +284,11 @@ public class Partie
 										catch (ArgentInsuffisant e)
 										{
 											
+										}
+										catch (CheminInfesable e)
+										{
+											System.out.println("Vous ne pouvez pas poser de tour");
+											break;
 										}
 										/** TODO a supprimer */
 										System.out.println(" Moyenne Tour Créée");
@@ -334,7 +353,7 @@ public class Partie
 										try
 										{
 											listeTour
-													.add(new Tour(EnumTour.grosseTour,carteDeLaPartie.map[positionX][positionY], this.joueurDeLaPartie));
+													.add(new Tour(EnumTour.grosseTour,carteDeLaPartie.map[positionX][positionY], this.joueurDeLaPartie, this.carteDeLaPartie));
 											carteDeLaPartie.map[positionX][positionY]
 													.changerPosiEtat(Etat.TOUR);
 											
@@ -345,6 +364,11 @@ public class Partie
 										catch (ArgentInsuffisant e)
 										{
 											
+										}
+										catch (CheminInfesable e)
+										{
+											System.out.println("Vous ne pouvez pas poser de tour");
+											break;
 										}
 										/** TODO a supprimer */
 										System.out.println(" Grosse Tour Créée");
@@ -455,7 +479,7 @@ public class Partie
 		int numTour=0;
 		int numEnnemi=0;
 		
-		this.carteDeLaPartie.changerChemin();
+		try{this.carteDeLaPartie.changerChemin();} catch (CheminInfesable e){}
 		
 			while((finDuTour==false)&&(this.vieJoueur>0))
 			{

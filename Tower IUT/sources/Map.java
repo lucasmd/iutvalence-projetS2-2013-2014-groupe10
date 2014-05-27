@@ -17,7 +17,7 @@ public class Map
 	public ArrayList<Case> cheminLePlusCourt;
 	
 	/** Constructeurpermettant d'initialiser laMapavecunetaillede 50/50 */
-	public Map()
+	public Map() throws CheminInfesable
 	{
 		map= new Case[NOMBRE_LIGNE][NOMBRE_COLONNE]; 
 		for(int colonne=0; colonne<NOMBRE_COLONNE; colonne++)
@@ -27,7 +27,13 @@ public class Map
 				map[ligne][colonne]=new Case(ligne,colonne);
 			}
 		 }
+		
+		try{
 		this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);
+		} catch (CheminInfesable e)
+		{
+			throw e;
+		}
 	}
 	
 	
@@ -44,10 +50,15 @@ public class Map
 			System.out.println("\n");
 		 }
 	 }
-	public void changerChemin()
+	public void changerChemin() throws CheminInfesable
 	{
+		try{
 		this.cheminLePlusCourt.removeAll(cheminLePlusCourt);
 		this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);
+		} catch (CheminInfesable e)
+		{
+			throw e;
+		}
 	}
 	
 	/** choisislaprochaine case pour lechemin */
@@ -68,7 +79,7 @@ public class Map
 	}
 	
 	/**Permetdedefinirlecheminle plus court*/
-	public ArrayList<Case> definitionChemin(Case caseDeDepart)
+	public ArrayList<Case> definitionChemin(Case caseDeDepart) throws CheminInfesable
 	{
 
 		ArrayList<CaseAvecParent> listeCaseTraitee= new ArrayList<CaseAvecParent>();//closeListe
@@ -109,7 +120,24 @@ public class Map
 		{
 			prochaineCase=ChoixProchaineCase(listeCaseATraitee);
 			listeCaseATraitee.remove(listeCaseATraitee.indexOf(prochaineCase));
-			listeCaseTraitee.add(listeCaseTraitee.size(),prochaineCase);
+			int nbApparitionProchaineCase=0;
+			for(int indice=0; indice<listeCaseTraitee.size(); indice++)
+			{
+				if(listeCaseTraitee.get(indice).obtenirPosiCase().equals(prochaineCase.obtenirPosiCase()))
+				{
+					nbApparitionProchaineCase++;
+				}
+
+			}
+			if(nbApparitionProchaineCase<5)
+			{
+				listeCaseTraitee.add(listeCaseTraitee.size(),prochaineCase);
+			}
+			else
+			{
+				throw new CheminInfesable();
+			}	
+			
 			
 			if ((listeCaseTraitee.get(listeCaseTraitee.size()-1).obtenirPosiCase().obtenirPositionLigne()==14)&&(listeCaseTraitee.get(listeCaseTraitee.size()-1).obtenirPosiCase().obtenirPositionColonne()==29))
 			{

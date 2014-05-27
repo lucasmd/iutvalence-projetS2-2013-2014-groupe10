@@ -35,7 +35,16 @@ public class Position {
 	public int obtenirPositionColonne() {
 		return this.posiColonne;
 	}
-
+	
+	public boolean equals(Position posi)
+	{
+		if(this.posiColonne==posi.obtenirPositionColonne())
+		{
+			if(this.posiLigne==posi.obtenirPositionLigne())
+				return true;
+		}
+		return false;
+	}
 	/**
 	 * Retourne le numéro de ligne
 	 */
