@@ -23,7 +23,7 @@ public class Option implements ActionListener {
 	private JLabel jLabVolume;
 	private JLabel jLabResolution;
 	private JSlider jSlidVolume;
-	JComboBox<String> jComboResolution;
+	JComboBox jComboResolution;
 	private JSplitPane splitBas, splitHaut, splitGlobal;
 	private JButton valider;
     private JButton annuler;
@@ -68,7 +68,7 @@ public class Option implements ActionListener {
 		jSlidVolume.setMajorTickSpacing(20);
 		jSlidVolume.setFont(police);
 		String[] tabResolution = {"Normal", "Plein écrand"};
-		jComboResolution = new JComboBox<String>(tabResolution);
+		jComboResolution = new JComboBox(tabResolution);
 	    jComboResolution.setPreferredSize(new Dimension(150, 30));
 	    jComboResolution.setFont(police);
 	    JPanel hautG = new JPanel();      

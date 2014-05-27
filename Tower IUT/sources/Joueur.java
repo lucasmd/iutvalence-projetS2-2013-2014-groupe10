@@ -1,12 +1,12 @@
 /**
- * Permet de représenter un Joueur
+ * Permet de reprï¿½senter un Joueur
  * @author Chevalier-Maxime
  *
  */
 public class Joueur
 {
 	/**
-	 * Chaine de caractères contenant le pseudo du Joueur
+	 * Chaine de caractï¿½res contenant le pseudo du Joueur
 	 */
 	private final String pseudo;
 	
@@ -14,6 +14,11 @@ public class Joueur
 	 * Entier contenant la valeur du score du joueur
 	 */
 	private int scoreJoueur;
+	
+	/**
+	 * reprï¿½sente la quantitï¿½e d'argent possï¿½dï¿½ par le joueur
+	 */
+	private int qtArgent;
 	
 	
 	/**
@@ -24,6 +29,7 @@ public class Joueur
 	{
 		this.pseudo=pseudoJoueur;
 		this.scoreJoueur=0;
+		this.qtArgent=Partie.ARGENT_PAR_DEFAUT;
 	}
 	
 	/**
@@ -45,14 +51,22 @@ public class Joueur
 	}
 	
 	/**
-	 * Permet de mettre à jour le score du joueur en lui ajoutant (ou soustrayant) un score.
-	 * @param scoreAAjouter score à ajouté
+	 * Permet de mettre ï¿½ jour le score du joueur en lui ajoutant (ou soustrayant) un score.
+	 * @param scoreAAjouter score ï¿½ ajoutï¿½
 	 */
 	public void mettreAJourScore(int scoreAAjouter)
 	{
 		this.scoreJoueur=this.scoreJoueur+scoreAAjouter;
 	}
 	
+	public int obtenirQtArgent()
+	{
+		return qtArgent;
+	}
 	
+	public void modifierQtArgent(int argent)
+	{
+		this.qtArgent=this.qtArgent+argent;
+	}
 	
 }

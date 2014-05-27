@@ -98,7 +98,7 @@ public class Map
 		{
 			if ((this.map[prochaineCase.trouverCaseAdjacentesAvecParent().get(indice).obtenirPosiCase().obtenirPositionLigne()][prochaineCase.trouverCaseAdjacentesAvecParent().get(indice).obtenirPosiCase().obtenirPositionColonne()].obtenirCaseEtat()==Etat.VIDE))
 			{
-				listeCaseATraitee.add(indice+1,prochaineCase.trouverCaseAdjacentesAvecParent().get(indice));
+				listeCaseATraitee.add(listeCaseATraitee.size(),prochaineCase.trouverCaseAdjacentesAvecParent().get(indice));
 			}
 		}
 		
