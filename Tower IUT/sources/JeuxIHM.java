@@ -1,13 +1,20 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.JPanel;
 
@@ -21,8 +28,10 @@ import java.awt.event.KeyListener;
  * T�che g�rant l'IHM (cr�ation, affichage)
  * 
  */
-public class JeuxIHM implements Runnable, ActionListener, KeyListener {
+public class JeuxIHM implements Runnable, ActionListener, KeyListener
+{
 	private JFrame fenetre;
+	private JDialog fenetreNiveauEtPseudo;
 	private JButton Tower1;
 	private JButton Tower2;
 	private JButton Tower3;
@@ -33,12 +42,21 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JMenuItem JMIoptions;
 	private JMenuItem JMIquitter;
 	private MenuIHM partie;
+	private JButton valider;
+	private JButton annuler;
+	private JLabel Pseudo;
+	private JRadioButton niv1Button;
+	private JRadioButton niv2Button;
+	private JRadioButton niv3Button;
+	private JTextField pseudochoix;
 
-	public JeuxIHM(MenuIHM p) {
+	public JeuxIHM(MenuIHM p)
+	{
 		this.partie = p;
 	}
 
-	private void initialiserLInterfaceGraphique() {
+	private void initialiserLInterfaceGraphique()
+	{
 		this.fenetre = new JFrame();
 
 		barreDeMenu = new JMenuBar();
@@ -73,7 +91,7 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		JMIquitter.setFont(police);
 
 		this.fenetre.setTitle("TowerIUT");
-		this.fenetre.setSize(1000, 1000);
+		this.fenetre.setSize(740, 1000);
 		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.Tower1 = new JButton(new ImageIcon("docs/Tower1.png"));
@@ -83,13 +101,45 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		this.Tower3 = new JButton(new ImageIcon("docs/Tower3.png"));
 		this.Tower3.addActionListener(this);
 
+		niv1Button = new JRadioButton("Niveau 1");
+		niv1Button.setMnemonic(KeyEvent.VK_B);
+		niv1Button.setFont(police);
+		niv1Button.setActionCommand("Niveau 1");
+		niv1Button.setSelected(true);
+
+		niv2Button = new JRadioButton("Niveau 2");
+		niv2Button.setMnemonic(KeyEvent.VK_C);
+		niv2Button.setFont(police);
+		niv2Button.setActionCommand("Niveau 2");
+
+		niv3Button = new JRadioButton("Niveau 3");
+		niv3Button.setMnemonic(KeyEvent.VK_D);
+		niv3Button.setFont(police);
+		niv3Button.setActionCommand("Niveau 3");
+
+		// Group the radio buttons.
+		ButtonGroup group = new ButtonGroup();
+		group.add(niv1Button);
+		group.add(niv2Button);
+		group.add(niv3Button);
+
+		// Register a listener for the radio buttons.
+		niv1Button.addActionListener(this);
+		niv2Button.addActionListener(this);
+		niv3Button.addActionListener(this);
+
+		pseudochoix = new JTextField();
+		pseudochoix.setFont(police);
+		pseudochoix.setPreferredSize(new Dimension(100, 30));
+
 		// Instanciation d'un objet JPanel
 		JPanel pan2 = new JPanel();
 		// D�finition de sa couleur de fond
 		pan2.setBackground(Color.WHITE);
 
 		pan2.setLayout(new GridLayout(30, 30));
-		for (int i = 0; i < Map.NOMBRE_LIGNE * Map.NOMBRE_COLONNE; i++) {
+		for (int i = 0; i < Map.NOMBRE_LIGNE * Map.NOMBRE_COLONNE; i++)
+		{
 			pan2.add(new JButton(new ImageIcon("docs/sol.png")));
 
 		}
@@ -107,14 +157,13 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		splitPaneBas.setBottomComponent(pan3);
 		splitPaneBas.setEnabled(false);
 		splitPaneBas.setBorder(null);
-		splitPaneBas.setResizeWeight(0.1);
+		splitPaneBas.setResizeWeight(0.3);
 		splitPaneBas.setDividerSize(0);
 
 		// Verouillage des dimensions de la fen�tre
 		this.fenetre.setResizable(true);
 
-		JSplitPane splitPaneIntermediaire = new JSplitPane(
-				JSplitPane.VERTICAL_SPLIT);
+		JSplitPane splitPaneIntermediaire = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		// splitPaneIntermediaire.add(pan2);
 		// splitPaneIntermediaire.add(splitPaneBas);
 
@@ -128,34 +177,119 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		this.fenetre.setContentPane(splitPaneIntermediaire);
 		this.fenetre.setVisible(true);
 
+		// Instanciation d'un objet JPanel
+		JPanel panneauChoixDuNiveau = new JPanel();
+		// D�finition de sa couleur de fond
+		panneauChoixDuNiveau.add(niv1Button);
+		panneauChoixDuNiveau.add(niv2Button);
+		panneauChoixDuNiveau.add(niv3Button);
+
+		this.Pseudo = new JLabel("Pseudo");
+
+		JPanel panneauChoixDuPseudo = new JPanel();
+		panneauChoixDuPseudo.add(Pseudo);
+		panneauChoixDuPseudo.add(pseudochoix);
+
+		JSplitPane ChoixDuNiveauEtPseudo = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		ChoixDuNiveauEtPseudo.setBottomComponent(panneauChoixDuPseudo);
+		ChoixDuNiveauEtPseudo.setTopComponent(panneauChoixDuNiveau);
+		ChoixDuNiveauEtPseudo.setEnabled(false);
+		ChoixDuNiveauEtPseudo.setBorder(null);
+		ChoixDuNiveauEtPseudo.setResizeWeight(0.5);
+		ChoixDuNiveauEtPseudo.setDividerSize(0);
+
+		this.fenetreNiveauEtPseudo = new JDialog(fenetre, "Choix du niveau et du pseudo", true);
+		this.fenetreNiveauEtPseudo.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.fenetreNiveauEtPseudo.setSize(600, 500);
+		this.fenetreNiveauEtPseudo.setResizable(true);
+		this.fenetreNiveauEtPseudo.setLocationRelativeTo(null);
+		this.fenetreNiveauEtPseudo.add(ChoixDuNiveauEtPseudo);
+
+		JPanel barreBas = new JPanel();
+		valider = new JButton("Valider");
+		valider.setFont(police);
+		valider.addActionListener(this);
+		this.valider.setFont(police);
+		annuler = new JButton("Annuler");
+		annuler.setFont(police);
+		annuler.addActionListener(this);
+		this.annuler.setFont(police);
+		barreBas.add(valider);
+		barreBas.add(annuler);
+		this.fenetreNiveauEtPseudo.add(barreBas, BorderLayout.SOUTH);
+		this.fenetreNiveauEtPseudo.setVisible(true);
+
 	}
 
-	public void run() {
+	public void run()
+	{
 		this.initialiserLInterfaceGraphique();
 	}
 
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e)
+	{
 
 	}
 
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e)
+	{
 
 	}
 
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e)
+	{
 
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == JMIoptions) {
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == JMIoptions)
+		{
 			partie.options.afficheOptionIHM();
 
-		} else if (e.getSource() == JMIquitter) {
+		}
+		else if (e.getSource() == JMIquitter)
+		{
 			fenetre.dispose();
-		} else if (e.getSource() == JMIscores) {
+		}
+		else if (e.getSource() == JMIscores)
+		{
 			partie.scores.afficherScoreIHM();
-		} else if (e.getSource() == JMIregles) {
+		}
+		else if (e.getSource() == JMIregles)
+		{
 			partie.regles.afficherReglesIHM();
+		}
+
+		if (e.getSource() == valider)
+		{
+			int niveauChoisi = 1;
+			boolean choix1 = niv1Button.isSelected();
+		    if(choix1 == true)
+		    {
+		    	niveauChoisi=1;
+		    }
+		    boolean choix2 = niv2Button.isSelected();
+		    if(choix2 == true)
+		    {
+		    	niveauChoisi=2;
+		    }
+		    boolean choix3 = niv3Button.isSelected();
+		    if(choix3 == true)
+		    {
+		    	niveauChoisi=3;
+		    }
+		   
+		    String joueur = this.pseudochoix.getText().toString();
+		    Joueur pseudoJoueur = new Joueur (joueur);
+		    Partie partie = new Partie(pseudoJoueur, niveauChoisi);
+		    
+		    fenetreNiveauEtPseudo.dispose();
+		    
+		}
+		else if (e.getSource() == annuler)
+		{
+			fenetreNiveauEtPseudo.dispose();
 		}
 	}
 }
