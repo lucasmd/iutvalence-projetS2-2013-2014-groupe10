@@ -16,8 +16,7 @@ public class Regles implements ActionListener {
 	private JFrame fenetre;
 	private JDialog fenetreRegles;
 	private JLabel regles;
-	private JButton valider;
-	private JButton annuler;
+	private JButton ok;
 
 	public Regles() {
 		this.texteDesRegles = "Vous devez emp�cher les GEA et les TC d'entrer dans la salle informatique...";
@@ -42,22 +41,16 @@ public class Regles implements ActionListener {
 		this.fenetreRegles.add(regles);
 		
 		JPanel barreBas = new JPanel();
-	    valider = new JButton("Valider");
-	    valider.addActionListener(this);
-		this.valider.setFont(police);
-	    annuler = new JButton("Annuler");
-	    annuler.addActionListener(this);
-		this.annuler.setFont(police);
-	    barreBas.add(valider);
-	    barreBas.add(annuler);
+	    ok = new JButton("Ok");
+	    ok.addActionListener(this);
+		this.ok.setFont(police);
+	    barreBas.add(ok);
 	    this.fenetreRegles.add(barreBas, BorderLayout.SOUTH);
 		this.fenetreRegles.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == valider) {
-		}
-		else if (e.getSource() == annuler) {
+		if (e.getSource() == ok) {
 			fenetreRegles.dispose();
 		}
 	}

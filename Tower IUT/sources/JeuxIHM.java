@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import javax.swing.JPanel;
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JMenuItem JMIoptions;
 	private JMenuItem JMIquitter;
 	private MenuIHM partie;
+	private ActionListener abonnement;
+	private BCase bouton;
 
 	public JeuxIHM(MenuIHM p) {
 		this.partie = p;
@@ -90,7 +93,10 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 
 		pan2.setLayout(new GridLayout(30, 30));
 		for (int i = 0; i < Map.NOMBRE_LIGNE * Map.NOMBRE_COLONNE; i++) {
-			pan2.add(new JButton(new ImageIcon("docs/sol.png")));
+			//pan2.add(new JButton(new ImageIcon("docs/sol.png")));
+			bouton = new BCase(Map.NOMBRE_LIGNE,Map.NOMBRE_COLONNE, abonnement);
+			bouton.addActionListener(this);
+			pan2.add(bouton);
 
 		}
 		// SwingUtilities.windowForComponent(pan2).pack();
@@ -149,13 +155,15 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == JMIoptions) {
 			partie.options.afficheOptionIHM();
-
 		} else if (e.getSource() == JMIquitter) {
 			fenetre.dispose();
 		} else if (e.getSource() == JMIscores) {
 			partie.scores.afficherScoreIHM();
 		} else if (e.getSource() == JMIregles) {
 			partie.regles.afficherReglesIHM();
+		} else if (e.getSource() == bouton) {
+			this.abonnement = this;
+			System.out.println(bouton.obtenirLigne()+bouton.obtenirColonne());
 		}
 	}
 }
