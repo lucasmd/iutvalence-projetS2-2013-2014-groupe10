@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.JPanel;
 
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +28,7 @@ import java.awt.event.KeyListener;
  * Tï¿½che gï¿½rant l'IHM (crï¿½ation, affichage)
  * 
  */
-public class JeuxIHM implements Runnable, ActionListener, KeyListener
-{
+public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JFrame fenetre;
 	private JDialog fenetreNiveauEtPseudo;
 	private JButton Tower1;
@@ -50,17 +48,13 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 	private JRadioButton niv2Button;
 	private JRadioButton niv3Button;
 	private JTextField pseudochoix;
+	private EnumTour typeTour = EnumTour.petiteTour;
 
-	private ActionListener abonnement;
-	private BCase bouton;
-
-	public JeuxIHM(MenuIHM p)
-	{
+	public JeuxIHM(MenuIHM p) {
 		this.partie = p;
 	}
 
-	private void initialiserLInterfaceGraphique()
-	{
+	private void initialiserLInterfaceGraphique() {
 		this.fenetre = new JFrame();
 
 		barreDeMenu = new JMenuBar();
@@ -143,12 +137,18 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 
 		pan2.setLayout(new GridLayout(30, 30));
 
-		for (int i = 0; i < Map.NOMBRE_LIGNE * Map.NOMBRE_COLONNE; i++) {
-			//pan2.add(new JButton(new ImageIcon("docs/sol.png")));
-			bouton = new BCase(Map.NOMBRE_LIGNE,Map.NOMBRE_COLONNE, abonnement);
-			bouton.addActionListener(this);
-			pan2.add(bouton);
-
+		for (int i = 0; i < Map.NOMBRE_LIGNE; i++) {
+			for (int j = 0; j < Map.NOMBRE_COLONNE; j++) {
+				if((i==0) && (j == 14)){
+					pan2.add(new BCase(i, j));
+				}
+				else if((i == 29) && (j == 14)){
+					pan2.add(new BCase(i, j));
+				}
+				else {
+					pan2.add(new BCase(i, j, this));
+				}
+			}
 		}
 		// SwingUtilities.windowForComponent(pan2).pack();
 
@@ -170,7 +170,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 		// Verouillage des dimensions de la fenï¿½tre
 		this.fenetre.setResizable(true);
 
-		JSplitPane splitPaneIntermediaire = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		JSplitPane splitPaneIntermediaire = new JSplitPane(
+				JSplitPane.VERTICAL_SPLIT);
 		// splitPaneIntermediaire.add(pan2);
 		// splitPaneIntermediaire.add(splitPaneBas);
 
@@ -197,7 +198,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 		panneauChoixDuPseudo.add(Pseudo);
 		panneauChoixDuPseudo.add(pseudochoix);
 
-		JSplitPane ChoixDuNiveauEtPseudo = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		JSplitPane ChoixDuNiveauEtPseudo = new JSplitPane(
+				JSplitPane.VERTICAL_SPLIT);
 		ChoixDuNiveauEtPseudo.setBottomComponent(panneauChoixDuPseudo);
 		ChoixDuNiveauEtPseudo.setTopComponent(panneauChoixDuNiveau);
 		ChoixDuNiveauEtPseudo.setEnabled(false);
@@ -205,8 +207,10 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 		ChoixDuNiveauEtPseudo.setResizeWeight(0.5);
 		ChoixDuNiveauEtPseudo.setDividerSize(0);
 
-		this.fenetreNiveauEtPseudo = new JDialog(fenetre, "Choix du niveau et du pseudo", true);
-		this.fenetreNiveauEtPseudo.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.fenetreNiveauEtPseudo = new JDialog(fenetre,
+				"Choix du niveau et du pseudo", true);
+		this.fenetreNiveauEtPseudo
+				.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.fenetreNiveauEtPseudo.setSize(600, 500);
 		this.fenetreNiveauEtPseudo.setResizable(true);
 		this.fenetreNiveauEtPseudo.setLocationRelativeTo(null);
@@ -228,77 +232,74 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 
 	}
 
-	public void run()
-	{
+	public void run() {
 		this.initialiserLInterfaceGraphique();
 	}
 
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 
 	}
 
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 
 	}
 
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 
 	}
 
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == JMIoptions)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == JMIoptions) {
 			partie.options.afficheOptionIHM();
 
 		} else if (e.getSource() == JMIquitter) {
 			fenetre.dispose();
-		}
-		else if (e.getSource() == JMIscores)
-		{
+		} else if (e.getSource() == JMIscores) {
 			partie.scores.afficherScoreIHM();
-		}
-		else if (e.getSource() == JMIregles)
-		{
+		} else if (e.getSource() == JMIregles) {
 			partie.regles.afficherReglesIHM();
-		} else if (e.getSource() == bouton) {
-			this.abonnement = this;
-			System.out.println(bouton.obtenirLigne()+bouton.obtenirColonne());
+		} else if (e.getSource() == Tower1) {
+			this.typeTour = EnumTour.petiteTour;
+		} else if (e.getSource() == Tower2) {
+			this.typeTour = EnumTour.moyenneTour;
+		} else if (e.getSource() == Tower3) {
+			this.typeTour = EnumTour.grosseTour;
 		}
 
-		//Création du JDialog qui demande le choix du niveau et du pseudo
-		if (e.getSource() == valider)
-		{
+		// Crï¿½ation du JDialog qui demande le choix du niveau et du pseudo
+		else if (e.getSource() == valider) {
 			int niveauChoisi = 1;
 			boolean choix1 = niv1Button.isSelected();
-		    if(choix1 == true)
-		    {
-		    	niveauChoisi=1;
-		    }
-		    boolean choix2 = niv2Button.isSelected();
-		    if(choix2 == true)
-		    {
-		    	niveauChoisi=2;
-		    }
-		    boolean choix3 = niv3Button.isSelected();
-		    if(choix3 == true)
-		    {
-		    	niveauChoisi=3;
-		    }
-		   
-		    String joueur = this.pseudochoix.getText().toString();
-		    Joueur pseudoJoueur = new Joueur (joueur);
-		    Partie partie = new Partie(pseudoJoueur, niveauChoisi);
-		    
-		    fenetreNiveauEtPseudo.dispose();
-		    
-		}
-		else if (e.getSource() == annuler)
-		{
+			if (choix1 == true) {
+				niveauChoisi = 1;
+			}
+			boolean choix2 = niv2Button.isSelected();
+			if (choix2 == true) {
+				niveauChoisi = 2;
+			}
+			boolean choix3 = niv3Button.isSelected();
+			if (choix3 == true) {
+				niveauChoisi = 3;
+			}
+
+			String joueur = this.pseudochoix.getText().toString();
+			Joueur pseudoJoueur = new Joueur(joueur);
+			Partie partie = new Partie(pseudoJoueur, niveauChoisi);
+
 			fenetreNiveauEtPseudo.dispose();
+
+		} else if (e.getSource() == annuler) {
+			fenetreNiveauEtPseudo.dispose();
+		} else {
+			BCase bcase = (BCase) e.getSource();
+			System.out.println("Ligne : " + bcase.obtenirLigne()
+					+ " Colonne : " + bcase.obtenirColonne());
+			if (bcase.obtenirType() != null) {
+
+			} else {
+				bcase.poserTour(typeTour);
+			}
+			System.out.println("Type : " + bcase.obtenirType());
 		}
 	}
 }
