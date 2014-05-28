@@ -282,9 +282,12 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 				niveauChoisi = 3;
 			}
 
-			String joueur = this.pseudochoix.getText().toString();
-			Joueur pseudoJoueur = new Joueur(joueur);
-			Partie partie = new Partie(pseudoJoueur, niveauChoisi);
+			String pseudoJoueur = this.pseudochoix.getText().toString();
+			Joueur joueur = new Joueur(pseudoJoueur);
+			
+			/**TODO il faut ajouter en parametre le tableau des scores, mais comment l'avoir dans cette IHM ? (Max)*/
+			
+			Partie partie = new Partie(pseudoJoueur, niveauChoisi,);
 
 			fenetreNiveauEtPseudo.dispose();
 

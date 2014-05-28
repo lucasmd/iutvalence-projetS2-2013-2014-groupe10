@@ -41,6 +41,8 @@ public class Tour
 	public Tour(EnumTour typeTour, Case positionTour, Joueur joueur, Map carte)
 			throws CasePleineException, ArgentInsuffisant, CheminInfesable
 	{ 
+		if (positionTour.obtenirCaseEtat() == Etat.VIDE)
+		{
 		carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.TOUR);
 		try
 		{
@@ -51,8 +53,7 @@ public class Tour
 			carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.VIDE);
 			throw e;
 		}
-		if (positionTour.obtenirCaseEtat() == Etat.VIDE)
-		{
+		
 
 			if (typeTour == EnumTour.petiteTour)
 			{
@@ -63,7 +64,7 @@ public class Tour
 				this.prix = PRIX_PETITE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_PETITE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
-				joueur.modifierQtArgent(-PRIX_PETITE_TOUR);
+				joueur.enleverArgent(PRIX_PETITE_TOUR);
 				
 				
 				
@@ -80,7 +81,7 @@ public class Tour
 				this.prix = PRIX_MOYENNE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_MOYENNE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
-				joueur.modifierQtArgent(-PRIX_MOYENNE_TOUR);
+				joueur.enleverArgent(PRIX_MOYENNE_TOUR);
 				}
 				else
 					throw new ArgentInsuffisant();
@@ -94,7 +95,7 @@ public class Tour
 				this.prix = PRIX_GRANDE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_GRANDE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_GRANDE_TOUR;
-				joueur.modifierQtArgent(-PRIX_GRANDE_TOUR);
+				joueur.enleverArgent(PRIX_GRANDE_TOUR);
 				}
 				else
 					throw new ArgentInsuffisant();

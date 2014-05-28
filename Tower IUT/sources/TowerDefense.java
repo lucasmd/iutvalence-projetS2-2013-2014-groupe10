@@ -99,7 +99,7 @@ public class TowerDefense {
 							.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ un niveau valide\n");
 				}
 
-				Partie partie = new Partie(JoueurDeLaPartie, choixNiveau);
+				Partie partie = new Partie(JoueurDeLaPartie, choixNiveau, leTableauDesScores);
 
 				System.out.println("Je joue et je termine ma partie");
 				partie.jouer();

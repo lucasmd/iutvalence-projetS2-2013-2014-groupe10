@@ -64,9 +64,15 @@ public class Joueur
 		return qtArgent;
 	}
 	
-	public void modifierQtArgent(int argent)
+	public void ajouterArgent(int argent)
 	{
-		this.qtArgent=this.qtArgent+argent;
+		this.qtArgent=this.qtArgent+Math.abs(argent);
+	}
+
+	public void enleverArgent(int argent)
+	{
+		// TODO Auto-generated method stub
+		this.qtArgent=this.qtArgent-Math.abs(argent);
 	}
 	
 }

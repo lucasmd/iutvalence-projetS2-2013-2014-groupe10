@@ -44,6 +44,8 @@ public class Partie
 	private ArrayList<Tour> listeTour;
 	
 	private int numTour;
+	
+	private TableScore tabScore;
 
 	/**
 	 * argent par defaut du joueur
@@ -70,7 +72,7 @@ public class Partie
 	 * @param niveau
 	 *            Niveau de la partie
 	 */
-	public Partie(Joueur joueur, int niveau)
+	public Partie(Joueur joueur, int niveau, TableScore tableScore)
 	{
 		this.joueurDeLaPartie = joueur;
 		this.niveau = niveau;
@@ -79,7 +81,7 @@ public class Partie
 		this.listeTour = new ArrayList<Tour>();
 		this.numTour=0;
 		this.ennemiAfficher=new ArrayList<Ennemi>();
-
+		this.tabScore=tableScore;
 		/** TODO Generation des vagues a changer */
 		switch (niveau)
 		{
@@ -121,14 +123,6 @@ public class Partie
 	// a completer
 	public void jouer()
 	{
-		this.carteDeLaPartie.map[12][0].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[12][1].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[12][2].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[13][2].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[14][2].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[15][2].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[16][2].changerPosiEtat(Etat.TOUR);
-		this.carteDeLaPartie.map[16][1].changerPosiEtat(Etat.TOUR);
 		
 
 		while (this.vieJoueur > 0)
@@ -156,8 +150,6 @@ public class Partie
 						{
 							case 1:
 								
-								if(this.joueurDeLaPartie.obtenirQtArgent()>= Tour.PRIX_PETITE_TOUR)
-								{
 								while (true)
 								{
 									while (true)
@@ -192,26 +184,25 @@ public class Partie
 												.println("position incorrecte (0-30)");
 									}
 
-									if ((carteDeLaPartie.map[positionX][positionY]
-											.obtenirCaseEtat() == Etat.VIDE)&& (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
+									if ((carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
 									{
 										try
 										{
-											listeTour
-													.add(new Tour(EnumTour.petiteTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie, this.carteDeLaPartie));
-											carteDeLaPartie.map[positionX][positionY]
-													.changerPosiEtat(Etat.TOUR);
+											listeTour.add(new Tour(EnumTour.petiteTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie, this.carteDeLaPartie));
+											
 										} catch (CasePleineException e)
 										{
-
+											System.out.println("Position occupé");
+											break;
 										}
 										catch (ArgentInsuffisant e)
 										{
-											
+											System.out.println("Argent insufisant");
+											break;
 										}
 										catch (CheminInfesable e)
 										{
-											System.out.println("Vous ne pouvez pas poser de tour");
+											System.out.println("Vous ne pouvez pas poser de tour 'Chemin infesable'");
 											break;
 										}
 										/** TODO a supprimer */
@@ -219,23 +210,12 @@ public class Partie
 										break;
 
 									}
-									else
-									{
-										System.out.println("Position occupé");
-										break;
-									} 
-								}
-								}
-								else
-								{
-									System.out.println("Argent insufisant");
 								}
 								break;
 									
 							case 2:
 								
-								if(this.joueurDeLaPartie.obtenirQtArgent()>= Tour.PRIX_MOYENNE_TOUR)
-								{
+								
 								while (true)
 								{
 									while (true)
@@ -270,24 +250,24 @@ public class Partie
 												.println("position incorrecte (0-30)");
 									}
 
-									if ((carteDeLaPartie.map[positionX][positionY]
-											.obtenirCaseEtat() == Etat.VIDE)&& (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
+									if ((carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
 									{
 										try
 										{
 											listeTour.add(new Tour(EnumTour.moyenneTour,carteDeLaPartie.map[positionX][positionY],this.joueurDeLaPartie, this.carteDeLaPartie));
-											carteDeLaPartie.map[positionX][positionY].changerPosiEtat(Etat.TOUR);
 										} catch (CasePleineException e)
 										{
-											
+											System.out.println("Position occupé");
+											break;
 										}
 										catch (ArgentInsuffisant e)
 										{
-											
+											System.out.println("Argent insufisant");
+											break;
 										}
 										catch (CheminInfesable e)
 										{
-											System.out.println("Vous ne pouvez pas poser de tour");
+											System.out.println("Vous ne pouvez pas poser de tour 'Chemin infesable'");
 											break;
 										}
 										/** TODO a supprimer */
@@ -295,24 +275,12 @@ public class Partie
 										break;
 
 									}
-									else
-									{
-										System.out.println("Position occupé");
-										break;
-									}
-								}
-								}
-								else
-								{
-									System.out.println("Argent insufisant");
 								}
 
 								break;
 								
 							case 3:
 								
-								if(this.joueurDeLaPartie.obtenirQtArgent()>= Tour.PRIX_GRANDE_TOUR)
-								{
 								while (true)
 								{
 									while (true)
@@ -347,27 +315,26 @@ public class Partie
 												.println("position incorrecte (0-30)");
 									}
 
-									if ((carteDeLaPartie.map[positionX][positionY]
-											.obtenirCaseEtat() == Etat.VIDE) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
+									if ((carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][0]) && (carteDeLaPartie.map[positionX][positionY]!=carteDeLaPartie.map[14][29]))
 									{
 										try
 										{
 											listeTour
 													.add(new Tour(EnumTour.grosseTour,carteDeLaPartie.map[positionX][positionY], this.joueurDeLaPartie, this.carteDeLaPartie));
-											carteDeLaPartie.map[positionX][positionY]
-													.changerPosiEtat(Etat.TOUR);
 											
 										} catch (CasePleineException e)
 										{
-
+											System.out.println("Position occupé");
+											break;
 										}
 										catch (ArgentInsuffisant e)
 										{
-											
+											System.out.println("Argent insufisant");
+											break;
 										}
 										catch (CheminInfesable e)
 										{
-											System.out.println("Vous ne pouvez pas poser de tour");
+											System.out.println("Vous ne pouvez pas poser de tour 'Chemin infesable'");
 											break;
 										}
 										/** TODO a supprimer */
@@ -375,16 +342,6 @@ public class Partie
 										break;
 
 									}
-									else
-									{
-										System.out.println("Position occupé");
-										break;
-									}
-								}
-								}
-								else
-								{
-									System.out.println("Argent insufisant");
 								}
 
 								break;
@@ -412,8 +369,8 @@ public class Partie
 							this.lancerUnTour(numTour);
 							this.numTour++;
 						}
-						System.out.println(this.vieJoueur);
-						System.out.println(this.joueurDeLaPartie.obtenirScoreJoueur());
+						System.out.println("Vie : "+this.vieJoueur);
+						System.out.println("Score : "+this.joueurDeLaPartie.obtenirScoreJoueur());
 						
 						break;
 					default:
@@ -423,7 +380,7 @@ public class Partie
 				carteDeLaPartie.afficherMap();
 			}
 		}
-
+		this.tabScore.modifierScore(this.joueurDeLaPartie);
 	}
 	
 	
