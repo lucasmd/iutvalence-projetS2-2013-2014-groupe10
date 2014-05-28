@@ -37,6 +37,8 @@ public class MenuIHM implements Runnable, ActionListener, KeyListener {
 		this.Quitter = new JButton("Quitter");
 		this.Quitter.addActionListener(this);
 		Quitter.setFont(police);
+		
+		//Initialisation de boutons
 
 		this.Jouer = new JButton("Jouer");
 		this.Jouer.addActionListener(this);

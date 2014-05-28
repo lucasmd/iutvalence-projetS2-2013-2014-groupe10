@@ -261,6 +261,7 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 			partie.regles.afficherReglesIHM();
 		}
 
+		//Création du JDialog qui demande le choix du niveau et du pseudo
 		if (e.getSource() == valider)
 		{
 			int niveauChoisi = 1;
