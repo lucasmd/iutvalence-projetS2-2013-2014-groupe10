@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.JPanel;
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +50,9 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 	private JRadioButton niv2Button;
 	private JRadioButton niv3Button;
 	private JTextField pseudochoix;
+
+	private ActionListener abonnement;
+	private BCase bouton;
 
 	public JeuxIHM(MenuIHM p)
 	{
@@ -138,9 +142,12 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 		pan2.setBackground(Color.WHITE);
 
 		pan2.setLayout(new GridLayout(30, 30));
-		for (int i = 0; i < Map.NOMBRE_LIGNE * Map.NOMBRE_COLONNE; i++)
-		{
-			pan2.add(new JButton(new ImageIcon("docs/sol.png")));
+
+		for (int i = 0; i < Map.NOMBRE_LIGNE * Map.NOMBRE_COLONNE; i++) {
+			//pan2.add(new JButton(new ImageIcon("docs/sol.png")));
+			bouton = new BCase(Map.NOMBRE_LIGNE,Map.NOMBRE_COLONNE, abonnement);
+			bouton.addActionListener(this);
+			pan2.add(bouton);
 
 		}
 		// SwingUtilities.windowForComponent(pan2).pack();
@@ -247,9 +254,7 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 		{
 			partie.options.afficheOptionIHM();
 
-		}
-		else if (e.getSource() == JMIquitter)
-		{
+		} else if (e.getSource() == JMIquitter) {
 			fenetre.dispose();
 		}
 		else if (e.getSource() == JMIscores)
@@ -259,6 +264,9 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener
 		else if (e.getSource() == JMIregles)
 		{
 			partie.regles.afficherReglesIHM();
+		} else if (e.getSource() == bouton) {
+			this.abonnement = this;
+			System.out.println(bouton.obtenirLigne()+bouton.obtenirColonne());
 		}
 
 		//Création du JDialog qui demande le choix du niveau et du pseudo

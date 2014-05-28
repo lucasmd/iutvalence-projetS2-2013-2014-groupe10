@@ -38,36 +38,70 @@ public class Tour
 	 * @param positionTour position où l'on souhaite creer la tour
 	 * @throws CasePleineException si la case est pleine on ne peut pas creer de tour
 	 */
-	public Tour(EnumTour typeTour, Case positionTour)
-			throws CasePleineException
-	{
+	public Tour(EnumTour typeTour, Case positionTour, Joueur joueur, Map carte)
+			throws CasePleineException, ArgentInsuffisant, CheminInfesable
+	{ 
+		carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.TOUR);
+		try
+		{
+			carte.changerChemin();
+		} 
+		catch (CheminInfesable e)
+		{ 
+			carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.VIDE);
+			throw e;
+		}
 		if (positionTour.obtenirCaseEtat() == Etat.VIDE)
 		{
 
 			if (typeTour == EnumTour.petiteTour)
 			{
+				if (joueur.obtenirQtArgent()>=PRIX_PETITE_TOUR)
+				{
 				this.caseTour = positionTour;
 				this.perimettreAttaque = PERIMETRE_PETITE_TOUR;
 				this.prix = PRIX_PETITE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_PETITE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
+				joueur.modifierQtArgent(-PRIX_PETITE_TOUR);
+				
+				
+				
+				}
+				else
+					throw new ArgentInsuffisant();
 			}
 			else if (typeTour == EnumTour.moyenneTour)
 			{
+				if (joueur.obtenirQtArgent()>=PRIX_MOYENNE_TOUR)
+				{
 				this.caseTour = positionTour;
 				this.perimettreAttaque = PERIMETRE_MOYENNE_TOUR;
 				this.prix = PRIX_MOYENNE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_MOYENNE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_PETITE_TOUR;
+				joueur.modifierQtArgent(-PRIX_MOYENNE_TOUR);
+				}
+				else
+					throw new ArgentInsuffisant();
 			}
 			else if (typeTour == EnumTour.grosseTour)
 			{
+				if (joueur.obtenirQtArgent()>=PRIX_GRANDE_TOUR)
+				{
 				this.caseTour = positionTour;
 				this.perimettreAttaque = PERIMETRE_GRANDE_TOUR;
 				this.prix = PRIX_GRANDE_TOUR;
 				this.puissanceAttaque = PUISSANCE_ATTAQUE_GRANDE_TOUR;
 				this.pointDeVie = POINT_DE_VIE_GRANDE_TOUR;
+				joueur.modifierQtArgent(-PRIX_GRANDE_TOUR);
+				}
+				else
+					throw new ArgentInsuffisant();
 			}
+			
+			
+			
 		}
 		else
 			throw new CasePleineException();

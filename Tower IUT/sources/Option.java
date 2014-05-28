@@ -23,7 +23,9 @@ public class Option implements ActionListener {
 	private JLabel jLabVolume;
 	private JLabel jLabResolution;
 	private JSlider jSlidVolume;
+
 	private JComboBox jComboResolution;
+
 	private JSplitPane splitBas, splitHaut, splitGlobal;
 	private JButton valider;
     private JButton annuler;

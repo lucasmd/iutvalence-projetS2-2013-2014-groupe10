@@ -21,8 +21,7 @@ public class TableScore implements ActionListener{
 	private JFrame fenetre;
 	private JDialog fenetreScores;
 	private JLabel scores;
-	private JButton valider;
-	private JButton annuler;
+	private JButton ok;
 
 	public TableScore() {
 		File score = new File(fichier);
@@ -102,22 +101,16 @@ public class TableScore implements ActionListener{
 		this.fenetreScores.add(scores);
 		
 		JPanel barreBas = new JPanel();
-	    valider = new JButton("Valider");
-	    valider.addActionListener(this);
-		this.valider.setFont(police);
-	    annuler = new JButton("Annuler");
-	    annuler.addActionListener(this);
-		this.annuler.setFont(police);
-	    barreBas.add(valider);
-	    barreBas.add(annuler);
+	    ok = new JButton("Ok");
+	    ok.addActionListener(this);
+		this.ok.setFont(police);
+	    barreBas.add(ok);
 	    this.fenetreScores.add(barreBas, BorderLayout.SOUTH);
 		this.fenetreScores.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == valider) {
-		}
-		else if (e.getSource() == annuler) {
+		if (e.getSource() == ok) {
 			fenetreScores.dispose();
 		}
 	}
