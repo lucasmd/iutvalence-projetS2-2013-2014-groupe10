@@ -55,7 +55,8 @@ public abstract class Ennemi {
 
 		for (int indice = 0; indice < mapPartie.chemin.size(); indice++) 
 		{
-			if ((mapPartie.chemin.get(indice).obtenirPosiCase().obtenirPositionLigne() == caseEnnemiPositionLigne)&& (mapPartie.chemin.get(indice).obtenirPosiCase().obtenirPositionColonne() == caseEnnemiPositionColonne)) {
+			if ((mapPartie.chemin.get(indice).obtenirPosiCase().obtenirPositionLigne() == caseEnnemiPositionLigne)&& (mapPartie.chemin.get(indice).obtenirPosiCase().obtenirPositionColonne() == caseEnnemiPositionColonne)) 
+			{
 				if (indice +1< mapPartie.chemin.size()) 
 				{
 					caseEnnemiPositionLigne = mapPartie.chemin.get(indice + 1).obtenirPosiCase().obtenirPositionLigne();

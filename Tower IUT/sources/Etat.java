@@ -4,7 +4,7 @@ public enum Etat
 	VIDE(" "),
 	TOUR("T"),
 	ENNEMI("E"),
-	CHEMIN("°");
+	CHEMIN("_");
 	
 	private final String representation;
     

@@ -34,39 +34,40 @@ public class Map
 		for(int indice=0; indice<4; indice++)
 		{
 			this.map[14][indice].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[14][indice]);
+			
 		}
-		for(int indice=14; indice>4; indice--)
+		for(int indice=13; indice>4; indice--)
 		{
 			this.map[indice][3].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[indice][3]);
 		}
-		for(int indice=3; indice<14; indice++)
+		for(int indice=4; indice<15; indice++)
 		{
 			this.map[5][indice].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[5][indice]);
 		}
-		for(int indice=5; indice<24; indice++)
+		for(int indice=6; indice<25; indice++)
 		{
 			this.map[indice][14].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[indice][14]);
 		}
-		for(int indice=14; indice<27; indice++)
+		for(int indice=15; indice<27; indice++)
 		{
 			this.map[24][indice].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[24][indice]);
 		}
-		for(int indice=24; indice>13; indice--)
+		for(int indice=23; indice>13; indice--)
 		{
 			this.map[indice][26].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[indice][26]);
 		}
-		for(int indice=26; indice<30; indice++)
+		for(int indice=27; indice<30; indice++)
 		{
 			this.map[14][indice].changerPosiEtat(Etat.CHEMIN);
+			this.chemin.add(map[14][indice]);
 		}
-		for(int colonne=0; colonne<NOMBRE_COLONNE; colonne++)
-		 { 
-			for(int ligne=0; ligne<NOMBRE_LIGNE; ligne++)
-			{
-				if(map[ligne][colonne].obtenirCaseEtat()==Etat.CHEMIN)
-					{this.chemin.add(map[ligne][colonne]);}
-			}
-		 }
+		
 		/*try{this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);}catch (CheminInfesable e){}*/
 	}
 	
