@@ -15,8 +15,9 @@ public class BCase extends JButton {
 		this.ligne = numL;
 		this.colonne = numC;
 		this.addActionListener(abonnement);
+		this.setIcon(new ImageIcon("docs/sol.png"));
 	}
-	
+
 	public BCase(int numL, int numC) {
 		this.ligne = numL;
 		this.colonne = numC;
@@ -24,14 +25,21 @@ public class BCase extends JButton {
 		this.setEnabled(false);
 	}
 
-	public void poserTour(EnumTour typeTour) {
+	public void poserTour(EnumTour typeTour, Joueur joueur) {
 		this.typeTour = typeTour;
-		if (typeTour == EnumTour.petiteTour)
+		if (typeTour == EnumTour.petiteTour){
 			this.setIcon(new ImageIcon("docs/tower1.png"));
-		else if (typeTour == EnumTour.moyenneTour)
+			joueur.enleverArgent(Tour.PRIX_PETITE_TOUR);
+		}
+		else if (typeTour == EnumTour.moyenneTour){
 			this.setIcon(new ImageIcon("docs/tower2.png"));
-		else if (typeTour == EnumTour.grosseTour)
+			joueur.enleverArgent(Tour.PRIX_MOYENNE_TOUR);
+		}
+		else if (typeTour == EnumTour.grosseTour){
 			this.setIcon(new ImageIcon("docs/tower3.png"));
+			joueur.enleverArgent(Tour.PRIX_GRANDE_TOUR);
+		}
+		
 	}
 
 	public void poserEnnemi(Ennemi typeEnnemi) {
