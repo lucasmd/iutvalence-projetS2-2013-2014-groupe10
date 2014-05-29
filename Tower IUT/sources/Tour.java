@@ -39,20 +39,11 @@ public class Tour
 	 * @throws CasePleineException si la case est pleine on ne peut pas creer de tour
 	 */
 	public Tour(EnumTour typeTour, Case positionTour, Joueur joueur, Map carte)
-			throws CasePleineException, ArgentInsuffisant, CheminInfesable
+			throws CasePleineException, ArgentInsuffisant
 	{ 
 		if (positionTour.obtenirCaseEtat() == Etat.VIDE)
 		{
 		carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.TOUR);
-		try
-		{
-			carte.changerChemin();
-		} 
-		catch (CheminInfesable e)
-		{ 
-			carte.map[positionTour.obtenirPosiCase().obtenirPositionLigne()][positionTour.obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.VIDE);
-			throw e;
-		}
 		
 
 			if (typeTour == EnumTour.petiteTour)

@@ -49,29 +49,19 @@ public abstract class Ennemi {
 
 	public void avancer(Map mapPartie) {
 
-		int caseEnnemiPositionLigne = this.caseEnnemi.obtenirPosiCase()
-				.obtenirPositionLigne();
-		int caseEnnemiPositionColonne = this.caseEnnemi.obtenirPosiCase()
-				.obtenirPositionColonne();
-		mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne]
-				.changerPosiEtat(Etat.VIDE);
+		int caseEnnemiPositionLigne = this.caseEnnemi.obtenirPosiCase().obtenirPositionLigne();
+		int caseEnnemiPositionColonne = this.caseEnnemi.obtenirPosiCase().obtenirPositionColonne();
+		mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.CHEMIN);
 
-		for (int indice = 0; indice < mapPartie.cheminLePlusCourt.size(); indice++) {
-			if ((mapPartie.cheminLePlusCourt.get(indice).obtenirPosiCase()
-					.obtenirPositionLigne() == caseEnnemiPositionLigne)
-					&& (mapPartie.cheminLePlusCourt.get(indice)
-							.obtenirPosiCase().obtenirPositionColonne() == caseEnnemiPositionColonne)) {
-				if (indice - 1 >= 0) {
-					caseEnnemiPositionLigne = mapPartie.cheminLePlusCourt
-							.get(indice - 1).obtenirPosiCase()
-							.obtenirPositionLigne();
-					caseEnnemiPositionColonne = mapPartie.cheminLePlusCourt
-							.get(indice - 1).obtenirPosiCase()
-							.obtenirPositionColonne();
-					mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne]
-							.changerPosiEtat(Etat.ENNEMI);
-					this.changerCaseEnnemi(mapPartie.cheminLePlusCourt
-							.get(indice - 1));
+		for (int indice = 0; indice < mapPartie.chemin.size(); indice++) 
+		{
+			if ((mapPartie.chemin.get(indice).obtenirPosiCase().obtenirPositionLigne() == caseEnnemiPositionLigne)&& (mapPartie.chemin.get(indice).obtenirPosiCase().obtenirPositionColonne() == caseEnnemiPositionColonne)) {
+				if (indice +1< mapPartie.chemin.size()) 
+				{
+					caseEnnemiPositionLigne = mapPartie.chemin.get(indice + 1).obtenirPosiCase().obtenirPositionLigne();
+					caseEnnemiPositionColonne = mapPartie.chemin.get(indice + 1).obtenirPosiCase().obtenirPositionColonne();
+					mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.ENNEMI);
+					this.changerCaseEnnemi(mapPartie.chemin.get(indice + 1));
 					break;
 				}
 			}

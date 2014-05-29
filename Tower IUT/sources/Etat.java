@@ -3,7 +3,8 @@ public enum Etat
 {
 	VIDE(" "),
 	TOUR("T"),
-	ENNEMI("E");
+	ENNEMI("E"),
+	CHEMIN("°");
 	
 	private final String representation;
     

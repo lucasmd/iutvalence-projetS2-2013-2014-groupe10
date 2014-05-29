@@ -16,10 +16,14 @@ public class Map
 	 */
 	public ArrayList<Case> cheminLePlusCourt;
 	
+	public ArrayList<Case> chemin;
+	
 	/** Constructeurpermettant d'initialiser laMapavecunetaillede 50/50 */
-	public Map() throws CheminInfesable
+	public Map()
 	{
 		map= new Case[NOMBRE_LIGNE][NOMBRE_COLONNE]; 
+		this.chemin=new ArrayList<Case>();
+		
 		for(int colonne=0; colonne<NOMBRE_COLONNE; colonne++)
 		 { 
 			for(int ligne=0; ligne<NOMBRE_LIGNE; ligne++)
@@ -27,13 +31,43 @@ public class Map
 				map[ligne][colonne]=new Case(ligne,colonne);
 			}
 		 }
-		
-		try{
-		this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);
-		} catch (CheminInfesable e)
+		for(int indice=0; indice<4; indice++)
 		{
-			throw e;
+			this.map[14][indice].changerPosiEtat(Etat.CHEMIN);
 		}
+		for(int indice=14; indice>4; indice--)
+		{
+			this.map[indice][3].changerPosiEtat(Etat.CHEMIN);
+		}
+		for(int indice=3; indice<14; indice++)
+		{
+			this.map[5][indice].changerPosiEtat(Etat.CHEMIN);
+		}
+		for(int indice=5; indice<24; indice++)
+		{
+			this.map[indice][14].changerPosiEtat(Etat.CHEMIN);
+		}
+		for(int indice=14; indice<27; indice++)
+		{
+			this.map[24][indice].changerPosiEtat(Etat.CHEMIN);
+		}
+		for(int indice=24; indice>13; indice--)
+		{
+			this.map[indice][26].changerPosiEtat(Etat.CHEMIN);
+		}
+		for(int indice=26; indice<30; indice++)
+		{
+			this.map[14][indice].changerPosiEtat(Etat.CHEMIN);
+		}
+		for(int colonne=0; colonne<NOMBRE_COLONNE; colonne++)
+		 { 
+			for(int ligne=0; ligne<NOMBRE_LIGNE; ligne++)
+			{
+				if(map[ligne][colonne].obtenirCaseEtat()==Etat.CHEMIN)
+					{this.chemin.add(map[ligne][colonne]);}
+			}
+		 }
+		/*try{this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);}catch (CheminInfesable e){}*/
 	}
 	
 	
@@ -50,20 +84,15 @@ public class Map
 			System.out.println("\n");
 		 }
 	 }
-	public void changerChemin() throws CheminInfesable
+	/*public void changerChemin() 
 	{
-		try{
 		this.cheminLePlusCourt.removeAll(cheminLePlusCourt);
 		this.cheminLePlusCourt= this.definitionChemin(this.map[14][0]);
-		} catch (CheminInfesable e)
-		{
-			throw e;
-		}
-	}
+	}*/
 	
 	/** choisislaprochaine case pour lechemin */
 
-	public CaseAvecParent ChoixProchaineCase(ArrayList<CaseAvecParent> listeCase)
+	/*public CaseAvecParent ChoixProchaineCase(ArrayList<CaseAvecParent> listeCase)
 	{
 		int coutF=listeCase.get(0).obtenirCoutDAcces()+listeCase.get(0).obtenirCoutDArrivee();
 		CaseAvecParent suivCase=listeCase.get(0);
@@ -76,10 +105,10 @@ public class Map
 			}
 		}
 		return suivCase;
-	}
+	}*/
 	
 	/**Permetdedefinirlecheminle plus court*/
-	public ArrayList<Case> definitionChemin(Case caseDeDepart) throws CheminInfesable
+	/*public ArrayList<Case> definitionChemin(Case caseDeDepart) 
 	{
 
 		ArrayList<CaseAvecParent> listeCaseTraitee= new ArrayList<CaseAvecParent>();//closeListe
@@ -120,24 +149,7 @@ public class Map
 		{
 			prochaineCase=ChoixProchaineCase(listeCaseATraitee);
 			listeCaseATraitee.remove(listeCaseATraitee.indexOf(prochaineCase));
-			int nbApparitionProchaineCase=0;
-			for(int indice=0; indice<listeCaseTraitee.size(); indice++)
-			{
-				if(listeCaseTraitee.get(indice).obtenirPosiCase().equals(prochaineCase.obtenirPosiCase()))
-				{
-					nbApparitionProchaineCase++;
-				}
-
-			}
-			if(nbApparitionProchaineCase<5)
-			{
-				listeCaseTraitee.add(listeCaseTraitee.size(),prochaineCase);
-			}
-			else
-			{
-				throw new CheminInfesable();
-			}	
-			
+			listeCaseTraitee.add(listeCaseTraitee.size(),prochaineCase);
 			
 			if ((listeCaseTraitee.get(listeCaseTraitee.size()-1).obtenirPosiCase().obtenirPositionLigne()==14)&&(listeCaseTraitee.get(listeCaseTraitee.size()-1).obtenirPosiCase().obtenirPositionColonne()==29))
 			{
@@ -172,7 +184,7 @@ public class Map
 		return chemin;
 		
 
-	}
+	}*/
 	
 	/**Changer l'etatdela case ousetrouve l'ennemi*/
 	public void afficherEnnemi(Ennemi ennemiAAfficher)
@@ -182,7 +194,7 @@ public class Map
 	
 	public void effacerEnnemi(Ennemi ennemiAEffacer)
 	{
-		this.map[ennemiAEffacer.obtenirCase().obtenirPosiCase().obtenirPositionLigne()][ennemiAEffacer.obtenirCase().obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.VIDE);
+		this.map[ennemiAEffacer.obtenirCase().obtenirPosiCase().obtenirPositionLigne()][ennemiAEffacer.obtenirCase().obtenirPosiCase().obtenirPositionColonne()].changerPosiEtat(Etat.CHEMIN);
 	}
 	
 	

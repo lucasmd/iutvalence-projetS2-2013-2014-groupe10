@@ -77,7 +77,7 @@ public class Partie
 		this.joueurDeLaPartie = joueur;
 		this.niveau = niveau;
 		this.vieJoueur = VIE_JOUEUR_PAR_DEFAUT;
-		try{this.carteDeLaPartie = new Map();} catch (CheminInfesable e){}
+		this.carteDeLaPartie = new Map();
 		this.listeTour = new ArrayList<Tour>();
 		this.numTour=0;
 		this.ennemiAfficher=new ArrayList<Ennemi>();
@@ -200,11 +200,7 @@ public class Partie
 											System.out.println("Argent insufisant");
 											break;
 										}
-										catch (CheminInfesable e)
-										{
-											System.out.println("Vous ne pouvez pas poser de tour 'Chemin infesable'");
-											break;
-										}
+										
 										/** TODO a supprimer */
 										System.out.println("Petite Tour Créée");
 										break;
@@ -265,11 +261,7 @@ public class Partie
 											System.out.println("Argent insufisant");
 											break;
 										}
-										catch (CheminInfesable e)
-										{
-											System.out.println("Vous ne pouvez pas poser de tour 'Chemin infesable'");
-											break;
-										}
+										
 										/** TODO a supprimer */
 										System.out.println(" Moyenne Tour Créée");
 										break;
@@ -332,11 +324,7 @@ public class Partie
 											System.out.println("Argent insufisant");
 											break;
 										}
-										catch (CheminInfesable e)
-										{
-											System.out.println("Vous ne pouvez pas poser de tour 'Chemin infesable'");
-											break;
-										}
+										
 										/** TODO a supprimer */
 										System.out.println(" Grosse Tour Créée");
 										break;
@@ -436,7 +424,7 @@ public class Partie
 		int numTour=0;
 		int numEnnemi=0;
 		
-		try{this.carteDeLaPartie.changerChemin();} catch (CheminInfesable e){}
+		/*this.carteDeLaPartie.changerChemin();*/
 		
 			while((finDuTour==false)&&(this.vieJoueur>0))
 			{
@@ -471,6 +459,4 @@ public class Partie
 				
 			}
 		}
-	
-
 }
