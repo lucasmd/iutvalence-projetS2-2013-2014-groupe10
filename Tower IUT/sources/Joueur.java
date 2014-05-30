@@ -59,16 +59,28 @@ public class Joueur
 		this.scoreJoueur=this.scoreJoueur+scoreAAjouter;
 	}
 	
+	/**
+	 * Permet d'obtenir l'argent du joueur
+	 * @return qtArgent que possède le joueur
+	 */
 	public int obtenirQtArgent()
 	{
 		return qtArgent;
 	}
 	
+	/**
+	 * Permet d'ajouter de l'argent au joueur
+	 * @param argent argent à ajouter
+	 */
 	public void ajouterArgent(int argent)
 	{
 		this.qtArgent=this.qtArgent+Math.abs(argent);
 	}
 
+	/**
+	 * Permet d'enlever de l'argent au joueur
+	 * @param argent Argent à enlever
+	 */
 	public void enleverArgent(int argent)
 	{
 		// TODO Auto-generated method stub

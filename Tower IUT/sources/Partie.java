@@ -39,12 +39,24 @@ public class Partie
 	 */
 	private Vague[] vaguePartie;
 
+	/**
+	 * Carte de la partie
+	 */
 	private Map carteDeLaPartie;
 
+	/**
+	 * liste des tours présentes sur la carte
+	 */
 	private ArrayList<Tour> listeTour;
 	
+	/**
+	 * numéros du tour de jeu
+	 */
 	private int numTour;
 	
+	/**
+	 * Tableau des scores
+	 */
 	private TableScore tabScore;
 
 	/**
@@ -57,10 +69,19 @@ public class Partie
 	 */
 	public static final int VIE_JOUEUR_PAR_DEFAUT = 20;
 
+	/**
+	 * nombre de vagues niveau 1
+	 */
 	public static final int NOMBRE_DE_VAGUE_NIVEAU1 = 4;
 
+	/**
+	 * nombre de vagues niveau 2
+	 */
 	public static final int NOMBRE_DE_VAGUE_NIVEAU2 = 6;
 
+	/**
+	 * nombre de vagues niveau 3
+	 */
 	public static final int NOMBRE_DE_VAGUE_NIVEAU3 = 8;
 
 
@@ -71,6 +92,13 @@ public class Partie
 	 *            Joueur de la partie
 	 * @param niveau
 	 *            Niveau de la partie
+	 */
+	
+	/**
+	 * Creer une partie pour un joueur avec un niveau defini
+	 * @param joueur Joueur de la partie
+	 * @param niveau Niveau de la partie
+	 * @param tableScore Tableau des scores du jeu
 	 */
 	public Partie(Joueur joueur, int niveau, TableScore tableScore)
 	{
@@ -120,7 +148,9 @@ public class Partie
 
 	}
 
-	// a completer
+	/**
+	 * Methode qui permet de jouer en mode console
+	 */
 	public void jouer()
 	{
 		
@@ -377,8 +407,7 @@ public class Partie
 	/**
 	 * Permet de mettre a jour la vie du joueur pour cette partie
 	 * 
-	 * @param vie
-	 *            vie a enlever
+	 * @param vie vie a enlever 
 	 */
 	public void miseAJourDesVies(int vie)
 	{
@@ -386,31 +415,56 @@ public class Partie
 	}
 
 
+	/**
+	 * Permet d'obtenir le joueur de la partie
+	 * @return le joueur de la partie
+	 */
 	public Joueur obtenirJoueurDeLaPartie()
 	{
 		return joueurDeLaPartie;
 	}
 
+	/**
+	 * Permet d'obtenir le niveau de la partie
+	 * @return le niveau de la partie
+	 */
 	public int obtenirNiveau()
 	{
 		return niveau;
 	}
 
 
+	/**
+	 * Permet d'obtenir le tableau de vague de la partie
+	 * @return le tableau de vaque de la partie
+	 */
 	public Vague[] obtenirVaguePartie()
 	{
 		return vaguePartie;
 	}
 
+	/**
+	 * Permet d'obtenir les vies du joueur
+	 * @return le nombre de vie du joueur
+	 */
 	public int obtenirVieJoueur()
 	{
 		return vieJoueur;
 	}
 	
+	/**
+	 * Permet d'obtenir la carte de la partie
+	 * @return la carte de la partie
+	 */
 	public Map obtenirCarteDeLaPartie() 
 	{
 		return carteDeLaPartie;
 	}
+	
+	/**
+	 * Permet d'obtenir la liste des ennemis de la partie
+	 * @return la liste des ennemis 
+	 */
 	public ArrayList<Ennemi> obtenirEnnemiAfficher() 
 	{
 		return ennemiAfficher;
@@ -418,6 +472,10 @@ public class Partie
 	
 	/**TODO Mettre a jour le score + test attaque de tour */
 	
+	/**
+	 * Permet de faire un tour de jeu. Le tour se fini si tous les ennemis de la vague sont morts, ou si le joueur n'a plus de vies.
+	 * @param nbTour numéro du tour de jeu
+	 */
 	public void lancerUnTour(int nbTour)
 	{
 		boolean finDuTour=false;
