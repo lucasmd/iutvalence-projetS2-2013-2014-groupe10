@@ -1,20 +1,21 @@
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class BCase extends JButton {
-	private int ligne;
-	private int colonne;
+	private Position position;
 	private Etat etat;
 	private EnumTour typeTour;
 	private Ennemi typeEnnemi;
+	private int x;
+	private int y;
 
 	public BCase(int numL, int numC, Etat etat, ActionListener abonnement) {
-		this.ligne = numL;
-		this.colonne = numC;
+		x = numL;
+		y = numC;
+		this.position = new Position(numL,numC);
 		this.etat = etat;
 		this.addActionListener(abonnement);
 		if(etat == Etat.TOUR){
@@ -28,40 +29,42 @@ public class BCase extends JButton {
 		}
 	}
 
-	public void poserTour(EnumTour typeTour, Joueur joueur) {
-		this.typeTour = typeTour;
-		if (typeTour == EnumTour.petiteTour){
-			this.setIcon(new ImageIcon("docs/tower1.png"));
-			joueur.enleverArgent(Tour.PRIX_PETITE_TOUR);
-		}
-		else if (typeTour == EnumTour.moyenneTour){
-			this.setIcon(new ImageIcon("docs/tower2.png"));
-			joueur.enleverArgent(Tour.PRIX_MOYENNE_TOUR);
-		}
-		else if (typeTour == EnumTour.grosseTour){
-			this.setIcon(new ImageIcon("docs/tower3.png"));
-			joueur.enleverArgent(Tour.PRIX_GRANDE_TOUR);
-		}
-		
+	public int obtenirX(){
+		return x;
 	}
-
-	public void poserEnnemi(Ennemi typeEnnemi) {
-		this.typeEnnemi = typeEnnemi;
+	
+	public int obtenirY(){
+		return y;
 	}
-
-	public int obtenirLigne() {
-		return ligne;
-	}
-
-	public int obtenirColonne() {
-		return colonne;
-	}
+	
+	public Position obtenirPosition()
+	 {
+		 return position;
+	 }
 	
 	public Etat obtenirEtat(){
 		return etat;
 	}
-
-	public EnumTour obtenirType(){
-		return typeTour;
+	
+	public void changerEtat(Etat nouvelEtat, EnumTour typeTour)
+	{
+		this.typeTour = typeTour;
+		this.etat = nouvelEtat;
+		if(typeTour == EnumTour.petiteTour)
+			this.setIcon(new ImageIcon("docs/tower1.png"));
+		else if(typeTour == EnumTour.moyenneTour)
+			this.setIcon(new ImageIcon("docs/tower2.png"));
+		else if(typeTour == EnumTour.grosseTour)
+			this.setIcon(new ImageIcon("docs/tower3.png"));
+	}
+	
+	public void changerEtat(Etat nouvelEtat, Ennemi typeEnnemi)
+	{
+		this.typeEnnemi = typeEnnemi;
+		this.etat = nouvelEtat;
+		if(typeEnnemi.obtenirNomEnnemi() == "gea")
+			this.setIcon(new ImageIcon("docs/gea.png"));
+		if(typeEnnemi.obtenirNomEnnemi() == "tc")
+			this.setIcon(new ImageIcon("docs/tc.png"));
 	}
 }
