@@ -24,6 +24,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Création de la classe permettant d'afficher la JFrame ou se trouve la grille de jeu 
+ *
+ */
 public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JFrame fenetre;
 	private JDialog fenetreNiveauEtPseudo;

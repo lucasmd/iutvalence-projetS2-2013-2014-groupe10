@@ -16,6 +16,9 @@ import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
+/**
+ * Classe permettant de gérer l'IHM pour le Jdialog des options
+ */
 public class Option implements ActionListener {
 
 	private JFrame fenetre;

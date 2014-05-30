@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.io.Console;
 
+/**
+ * Classe pour définir la Map et créer une nouvelle map prete a jouer
+ */
 public class Map
  {
 	
