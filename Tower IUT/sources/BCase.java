@@ -1,67 +1,71 @@
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/** Bouton du plateau de jeu */
 public class BCase extends JButton {
+	
+	/** position du bouton */
+	private Position position;
+	
+	/** Etat du bouton */
+	private Etat etat;
+	
 	private int ligne;
 	private int colonne;
-	private Etat etat;
+	
+	/** Type de tour  */
 	private EnumTour typeTour;
-	private Ennemi typeEnnemi;
 
+	/** Créer un bouton sur le plateau de jeu  */
 	public BCase(int numL, int numC, Etat etat, ActionListener abonnement) {
 		this.ligne = numL;
 		this.colonne = numC;
+		this.position = new Position(numL, numC);
 		this.etat = etat;
 		this.addActionListener(abonnement);
 		if(etat == Etat.TOUR){
-			this.setBackground(Color.red);
+			setBackground(Color.blue);
 		}
 		else if(etat == Etat.ENNEMI){
-			this.setBackground(Color.blue);
+			setBackground(Color.red);
 		}
 		else if(etat == Etat.CHEMIN){
-			this.setBackground(Color.white);
+			setBackground(Color.white);
 		}
 	}
 
-	public void poserTour(EnumTour typeTour, Joueur joueur) {
-		this.typeTour = typeTour;
-		if (typeTour == EnumTour.petiteTour){
-			this.setIcon(new ImageIcon("docs/tower1.png"));
-			joueur.enleverArgent(Tour.PRIX_PETITE_TOUR);
-		}
-		else if (typeTour == EnumTour.moyenneTour){
-			this.setIcon(new ImageIcon("docs/tower2.png"));
-			joueur.enleverArgent(Tour.PRIX_MOYENNE_TOUR);
-		}
-		else if (typeTour == EnumTour.grosseTour){
-			this.setIcon(new ImageIcon("docs/tower3.png"));
-			joueur.enleverArgent(Tour.PRIX_GRANDE_TOUR);
-		}
-		
-	}
-
-	public void poserEnnemi(Ennemi typeEnnemi) {
-		this.typeEnnemi = typeEnnemi;
-	}
-
-	public int obtenirLigne() {
+	/** Permet d'obtenir la position x */
+	public int obtenirX() {
 		return ligne;
 	}
 
-	public int obtenirColonne() {
+	/** Permet d'obtenir la position y */
+	public int obtenirY() {
 		return colonne;
 	}
-	
-	public Etat obtenirEtat(){
+
+	/** Permet d'obtenir la position */
+	public Position obtenirPosition() {
+		return position;
+	}
+
+	/** Permet d'obtenir l'etat */
+	public Etat obtenirEtat() {
 		return etat;
 	}
 
-	public EnumTour obtenirType(){
-		return typeTour;
+	/** Permet de placer une tour */
+	public void changerEtat(Etat nouvelEtat, EnumTour typeTour) {
+		this.typeTour = typeTour;
+		this.etat = nouvelEtat;
+		if (this.typeTour == EnumTour.petiteTour)
+			this.setIcon(new ImageIcon("docs/tower1.png"));
+		else if (typeTour == EnumTour.moyenneTour)
+			this.setIcon(new ImageIcon("docs/tower2.png"));
+		else if (typeTour == EnumTour.grosseTour)
+			this.setIcon(new ImageIcon("docs/tower3.png"));
 	}
 }

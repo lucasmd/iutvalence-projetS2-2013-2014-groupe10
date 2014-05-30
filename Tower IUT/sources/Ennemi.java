@@ -1,4 +1,3 @@
-import java.security.SecureRandom;
 import java.util.ArrayList;
 
 /**
@@ -130,6 +129,10 @@ public abstract class Ennemi
 	public void perdreVie(int degats) 
 	{
 		this.vie_Ennemi = this.vie_Ennemi - degats;
+	}
+	
+	public String obtenirNomEnnemi() {
+		return nomEnnemi;
 	}
 
 }
