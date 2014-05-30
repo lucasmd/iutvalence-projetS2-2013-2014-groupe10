@@ -25,7 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Création de la classe permettant d'afficher la JFrame ou se trouve la grille de jeu 
+ * Crï¿½ation de la classe permettant d'afficher la JFrame ou se trouve la grille de jeu 
  *
  */
 public class JeuxIHM implements Runnable, ActionListener, KeyListener {
@@ -245,7 +245,7 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		} else if (e.getSource() == Tower3) {
 			this.typeTour = EnumTour.grosseTour;
 		} else if (e.getSource() == lancerVague){
-			partie.lancerUnTourIHM(nbTour,this);
+			partie.lancerUnTour(nbTour,this);
 		}
 		else if (e.getSource() == valider) {
 			int niveauChoisi = 1;

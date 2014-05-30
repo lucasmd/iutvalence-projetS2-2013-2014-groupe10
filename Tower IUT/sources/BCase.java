@@ -66,5 +66,9 @@ public class BCase extends JButton {
 			this.setIcon(new ImageIcon("docs/gea.png"));
 		if(typeEnnemi.obtenirNomEnnemi() == "tc")
 			this.setIcon(new ImageIcon("docs/tc.png"));
+		if(typeEnnemi.obtenirNomEnnemi() == "boss1")
+			this.setIcon(new ImageIcon("docs/boss1.png"));
+		if(typeEnnemi.obtenirNomEnnemi() == "boss2")
+			this.setIcon(new ImageIcon("docs/boss2.png"));
 	}
 }
