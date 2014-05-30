@@ -25,7 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Cr�ation de la classe permettant d'afficher la JFrame ou se trouve la grille de jeu 
+ * Afficher la JFrame ou se trouve la grille de jeu 
  *
  */
 public class JeuxIHM implements Runnable, ActionListener, KeyListener {
@@ -49,18 +49,19 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JRadioButton niv3Button;
 	private JTextField pseudochoix;
 	private EnumTour typeTour = EnumTour.petiteTour;
-	private Joueur joueur1;
+	protected Joueur joueur1;
 	private JButton lancerVague;
 	int nbTour=0;
 	private JLabel argent;
 	protected Partie partie;
-	private Tour tour;
 	protected JPanel plateauJeu;
+	protected JLabel score;
 
+	/** Permet d'avoir le parent */
 	public JeuxIHM(MenuIHM p) {
 		this.initial = p;
 	}
-
+	
 	private void initialiserLInterfaceGraphique() {
 		/** Fenetre de jeu */
 		this.fenetre = new JFrame();
@@ -98,7 +99,6 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		plateauJeu = new JPanel();
 		plateauJeu.setBackground(Color.WHITE);
 		plateauJeu.setLayout(new GridLayout(30, 30));
-		
 		for (int i = 0; i < Map.NOMBRE_LIGNE; i++) {
 			for (int j = 0; j < Map.NOMBRE_COLONNE; j++) {
 				plateauJeu.add(new BCase(i, j, partie.carteDeLaPartie.map[i][j].obtenirCaseEtat(), this));
@@ -125,6 +125,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		this.lancerVague = new JButton("Lancer une vague");
 		this.lancerVague.addActionListener(this);
 		barreJeu.add(this.lancerVague);
+		score = new JLabel("Score : "+this.joueur1.obtenirScoreJoueur());
+		barreJeu.add(score);
 		
 		/** Jeu complet */
 		JSplitPane complet = new JSplitPane(JSplitPane.VERTICAL_SPLIT, plateauJeu, barreJeu);
@@ -137,9 +139,11 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		this.fenetre.setVisible(true);
 	}
 
+	/** Fenetre de demande du pseudo et du niveau */
 	private void demandePseudoNiveau() {
 		Font police = new Font("Arial", Font.BOLD, 16);
 		
+		/** Bouton de niveau */
 		niv1Button = new JRadioButton("Niveau 1");
 		niv1Button.setMnemonic(KeyEvent.VK_B);
 		niv1Button.setFont(police);
@@ -156,17 +160,18 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		niv3Button.setFont(police);
 		niv3Button.setActionCommand("Niveau 3");
 
-		// Group the radio buttons.
+		/** groupe des boutons */
 		ButtonGroup group = new ButtonGroup();
 		group.add(niv1Button);
 		group.add(niv2Button);
 		group.add(niv3Button);
 
-		// Register a listener for the radio buttons.
+		/** Ajout de l'écouteur */
 		niv1Button.addActionListener(this);
 		niv2Button.addActionListener(this);
 		niv3Button.addActionListener(this);
 
+		/** champ du pseudo */
 		pseudochoix = new JTextField();
 		pseudochoix.setFont(police);
 		pseudochoix.setPreferredSize(new Dimension(100, 30));
@@ -270,7 +275,11 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 			initial.fenetre.dispose();
 		} else if (e.getSource() == annuler) {
 			fenetreNiveauEtPseudo.dispose();
-		} else {
+		} else if (e.getSource() == niv1Button || e.getSource() == niv2Button || e.getSource() == niv3Button){
+			
+		}
+		
+		else {
 			BCase bcase = (BCase) e.getSource();
 			if (bcase.obtenirEtat() == Etat.VIDE) {
 				try{

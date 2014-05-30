@@ -2,8 +2,6 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.crypto.spec.PSource;
-
 /**
  * Repr�sente l'�tat d'avancement du joueur et les vagues qu'il reste avant la
  * fin de la partie
@@ -512,18 +510,14 @@ public class Partie {
 
 			for (int i = 0; i < Map.NOMBRE_LIGNE; i++) {
 				for (int j = 0; j < Map.NOMBRE_COLONNE; j++) {
-					jeu.plateauJeu.add(new BCase(i, j,
-							jeu.partie.carteDeLaPartie.map[i][j]
-									.obtenirCaseEtat(), jeu));
+					jeu.plateauJeu.add(new BCase(i, j, jeu.partie.carteDeLaPartie.map[i][j].obtenirCaseEtat(), jeu));
 				}
 			}
 			jeu.plateauJeu.validate();
 			nbTour++;
 			// this.carteDeLaPartie.afficherMap();
-			this.vaguePartie[nbTour].faireAvancerLaVague(ennemiAfficher,
-					this.carteDeLaPartie);
-			
-
+			this.vaguePartie[nbTour].faireAvancerLaVague(ennemiAfficher,this.carteDeLaPartie);
+			jeu.score.setText("Score : "+jeu.joueur1.obtenirScoreJoueur());
 			numTour++;
 
 		}

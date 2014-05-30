@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.io.Console;
 
 /**
- * Classe pour définir la Map et créer une nouvelle map prete a jouer
+ * Classe pour dï¿½finir la Map et crï¿½er une nouvelle map prete a jouer
  */
 public class Map
  {
