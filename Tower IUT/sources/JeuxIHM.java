@@ -25,7 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Création de la classe permettant d'afficher la JFrame ou se trouve la grille de jeu 
+ * Crï¿½ation de la classe permettant d'afficher la JFrame ou se trouve la grille de jeu 
  *
  */
 public class JeuxIHM implements Runnable, ActionListener, KeyListener {
@@ -53,7 +53,9 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JButton lancerVague;
 	int nbTour=0;
 	private JLabel argent;
-	private Partie partie;
+	protected Partie partie;
+	private Tour tour;
+	protected JPanel plateauJeu;
 
 	public JeuxIHM(MenuIHM p) {
 		this.initial = p;
@@ -93,15 +95,13 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		JMIquitter.setFont(police);
 
 		/** Plateau du jeu */
-		JPanel plateauJeu = new JPanel();
+		plateauJeu = new JPanel();
 		plateauJeu.setBackground(Color.WHITE);
 		plateauJeu.setLayout(new GridLayout(30, 30));
-
-		Map map = new Map();
 		
 		for (int i = 0; i < Map.NOMBRE_LIGNE; i++) {
 			for (int j = 0; j < Map.NOMBRE_COLONNE; j++) {
-				plateauJeu.add(new BCase(i, j, map.map[i][j].obtenirCaseEtat(), this));
+				plateauJeu.add(new BCase(i, j, partie.carteDeLaPartie.map[i][j].obtenirCaseEtat(), this));
 			}
 		}
 		
@@ -245,8 +245,7 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		} else if (e.getSource() == Tower3) {
 			this.typeTour = EnumTour.grosseTour;
 		} else if (e.getSource() == lancerVague){
-			partie.lancerUnTour(nbTour);
-			nbTour++;
+			partie.lancerUnTour(nbTour,this);
 		}
 		else if (e.getSource() == valider) {
 			int niveauChoisi = 1;
@@ -274,8 +273,16 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		} else {
 			BCase bcase = (BCase) e.getSource();
 			if (bcase.obtenirEtat() == Etat.VIDE) {
-				bcase.poserTour(typeTour, joueur1);
-				argent.setText("Argent : "+this.joueur1.obtenirQtArgent()+"$"); 
+				try{
+					partie.listeTour.add(new Tour(typeTour, partie.carteDeLaPartie.map[bcase.obtenirX()][bcase.obtenirY()], joueur1, partie.carteDeLaPartie));
+				}
+				catch(CasePleineException err){
+					System.err.println("Position occupÃ©");
+				} catch (ArgentInsuffisant err) {
+					System.err.println("Argent insufisant");
+				}
+				bcase.changerEtat(Etat.TOUR, typeTour);
+				argent.setText("Argent : "+this.joueur1.obtenirQtArgent()+"$");
 			}
 		}
 	}

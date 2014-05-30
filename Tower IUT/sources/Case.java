@@ -86,6 +86,4 @@ public class Case {
 			
 			return caseAdjacentes;
 		}
-
-	 
 }

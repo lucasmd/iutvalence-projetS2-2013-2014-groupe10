@@ -131,5 +131,9 @@ public abstract class Ennemi
 	{
 		this.vie_Ennemi = this.vie_Ennemi - degats;
 	}
+	
+	public String obtenirNomEnnemi() {
+		return nomEnnemi;
+	}
 
 }
