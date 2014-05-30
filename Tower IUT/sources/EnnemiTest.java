@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import junit.framework.*;
 
 public class EnnemiTest extends TestCase

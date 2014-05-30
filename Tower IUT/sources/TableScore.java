@@ -23,6 +23,7 @@ public class TableScore implements ActionListener{
 	private JLabel scores;
 	private JButton ok;
 
+	/** Créer un fichier de score (console) */
 	public TableScore() {
 		File score = new File(fichier);
 		if (!score.exists()) {
@@ -37,7 +38,7 @@ public class TableScore implements ActionListener{
 		}
 	}
 	
-	/** Créer un fichier de score vide. */
+	/** Créer un fichier de score vide (ihm) */
 	public TableScore(JFrame parent) {
 		this.fenetre = parent;
 		File score = new File(fichier);
@@ -188,7 +189,8 @@ public class TableScore implements ActionListener{
 		}
 	}
 
-	public void ecrireDansFichier(String chemin, String texte) {
+	/** Ecrit dans un fichier */
+	private void ecrireDansFichier(String chemin, String texte) {
 		try {
 			FileWriter fw = new FileWriter(chemin);
 			BufferedWriter bw = new BufferedWriter(fw);
