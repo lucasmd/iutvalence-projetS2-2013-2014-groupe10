@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * @author Groupe 10
  * 
  */
-public abstract class Ennemi {
+public abstract class Ennemi 
+{
 	public final static Position POSITION_DE_FIN = new Position(14, 29);
 
 	private Case caseEnnemi;
@@ -30,25 +31,45 @@ public abstract class Ennemi {
 		pointDegats = degat;
 		scoreGagne = score;
 	}
-
+	
+	/**
+	 * Accesseur qui renvoie la case de l'ennemi
+	 * @return
+	 */
 	public Case obtenirCase() {
 		return this.caseEnnemi;
 	}
-
-	public void changerCaseEnnemi(Case nvCase) {
+	/**
+	 * Permet de changer la case de l'ennemi
+	 * @param nvCase
+	 */
+	public void changerCaseEnnemi(Case nvCase) 
+	{
 		this.caseEnnemi = nvCase;
 	}
-
-	public int obtenirVie() {
+	/**
+	 * Accesseur qui renvoie la vie de l'ennemi
+	 * @return
+	 */
+	public int obtenirVie() 
+	{
 		return this.vie_Ennemi;
 	}
-
-	public int obtenirPtDegats() {
+	
+	/**
+	 * Accesseur qui renvoie les points de degat de l'ennemi
+	 * @return
+	 */
+	public int obtenirPtDegats() 
+	{
 		return this.pointDegats;
 	}
-
-	public void avancer(Map mapPartie) {
-
+	/**
+	 * Methode qui permet de faire avancer un ennemi sur la map
+	 * @param mapPartie
+	 */
+	public void avancer(Map mapPartie) 
+	{
 		int caseEnnemiPositionLigne = this.caseEnnemi.obtenirPosiCase().obtenirPositionLigne();
 		int caseEnnemiPositionColonne = this.caseEnnemi.obtenirPosiCase().obtenirPositionColonne();
 		mapPartie.map[caseEnnemiPositionLigne][caseEnnemiPositionColonne].changerPosiEtat(Etat.CHEMIN);
@@ -68,10 +89,16 @@ public abstract class Ennemi {
 			}
 		}
 	}
-
-	public void testVictoireEnnemie(Partie partieDonnee) {
-		if (this.obtenirCase().obtenirPosiCase().obtenirPositionLigne() == 14) {
-			if (this.obtenirCase().obtenirPosiCase().obtenirPositionColonne() == 29) {
+	/**
+	 * Methode qui test si l'ennemi est sur la case de fin
+	 * @param partieDonnee
+	 */
+	public void testVictoireEnnemie(Partie partieDonnee) 
+	{
+		if (this.obtenirCase().obtenirPosiCase().obtenirPositionLigne() == 14) 
+		{
+			if (this.obtenirCase().obtenirPosiCase().obtenirPositionColonne() == 29) 
+			{
 				partieDonnee.obtenirCarteDeLaPartie().effacerEnnemi(this);
 				partieDonnee.obtenirEnnemiAfficher().remove(
 						partieDonnee.obtenirEnnemiAfficher().indexOf(this));
@@ -79,18 +106,29 @@ public abstract class Ennemi {
 			}
 		}
 	}
-
+	/**
+	 * test si l' ennemi a encore des vies
+	 * @param carteJeu
+	 * @param listeEnnemiAffiche
+	 * @param joueur
+	 */
 	public void testMortEnnemie(Map carteJeu,
-			ArrayList<Ennemi> listeEnnemiAffiche, Joueur joueur) {
-		if (this.vie_Ennemi <= 0) {
+			ArrayList<Ennemi> listeEnnemiAffiche, Joueur joueur) 
+	{
+		if (this.vie_Ennemi <= 0) 
+		{
 			carteJeu.effacerEnnemi(this);
 			listeEnnemiAffiche.remove(listeEnnemiAffiche.indexOf(this));
 			joueur.mettreAJourScore(this.scoreGagne);
 		}
 
 	}
-
-	public void perdreVie(int degats) {
+	/**
+	 * Permet de faire perdre des vies au ennemis
+	 * @param degats
+	 */
+	public void perdreVie(int degats) 
+	{
 		this.vie_Ennemi = this.vie_Ennemi - degats;
 	}
 

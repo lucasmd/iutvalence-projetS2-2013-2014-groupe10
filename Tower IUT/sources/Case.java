@@ -14,62 +14,44 @@ public class Case {
 		this.posiCase= new Position(posiCaseLigne,posiCaseColonne);
 	}
 	
+	/**
+	 * Permet de changer l'etat d'une case
+	 * @param nouvelEtat
+	 */
 	public void changerPosiEtat(Etat nouvelEtat)
 	{
 		this.etatCase=nouvelEtat;
 	}
-	
+	/**
+	 * Accesseur de l'etat de la case
+	 * @return
+	 */
 	public Etat obtenirCaseEtat() 
 	{
 		return this.etatCase;
 	}
-	
+	/**
+	 * Representation textuel de la case
+	 */
 	 public String toString() 
 	 {
 	    return("|"+this.etatCase+"|");
 	 }
+	 /**
+	  * Accesseur de la position de la case
+	  * @return
+	  */
 	 public Position obtenirPosiCase()
 	 {
 		 return this.posiCase;
 	 }
 	 
-	 public ArrayList<Case> trouverCaseAdjacentes()
-		{
-			ArrayList<Case> caseAdjacentes= new ArrayList<Case>(); 
-			
-			int positionLigneParent=this.obtenirPosiCase().obtenirPositionLigne();
-			int positionColonneParent=this.obtenirPosiCase().obtenirPositionColonne();
-
-			
-			if (positionColonneParent-1>=0)
-			{
-					caseAdjacentes.add(new Case(positionLigneParent, positionColonneParent-1));
-				
-				if (positionLigneParent-1>=0)
-					caseAdjacentes.add(new Case(positionLigneParent-1, positionColonneParent-1));
-				if (positionLigneParent+1<=29)
-					caseAdjacentes.add(new Case(positionLigneParent+1, positionColonneParent-1));
-			}
-				
-			if (positionColonneParent+1<=29)
-			{	
-				caseAdjacentes.add(new Case(positionLigneParent, positionColonneParent+1));
-				if (positionLigneParent+1<=29)
-					caseAdjacentes.add(new Case(positionLigneParent+1, positionColonneParent+1));
-				
-				if(positionLigneParent-1>=0)
-					caseAdjacentes.add(new Case(positionLigneParent-1, positionColonneParent+1 ));
-			}
-			
-			if (positionLigneParent-1>=0)
-				caseAdjacentes.add(new Case(positionLigneParent-1, positionColonneParent ));
-
-			if (positionLigneParent+1<=29)
-				caseAdjacentes.add(new Case(positionLigneParent+1, positionColonneParent ));
-			
-			return caseAdjacentes;
-		}
-	 
+	 /**
+	  * Donne les cases adjacentes d'une tour
+	  * @param nombreDeCaseAdjacentes
+	  * @param cartePartie
+	  * @return
+	  */
 	 public ArrayList<Case> trouverCaseAdjacentes(int nombreDeCaseAdjacentes, Map cartePartie)
 		{
 			ArrayList<Case> caseAdjacentes= new ArrayList<Case>(); 

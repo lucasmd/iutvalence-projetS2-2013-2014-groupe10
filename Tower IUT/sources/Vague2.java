@@ -1,7 +1,9 @@
 
 public class Vague2 extends Vague
 {
-	
+	/**
+	 * Constructeur 5 gea, 10 tc
+	 */
 	public Vague2()
 	{
 		tabEnnemi= new Ennemi[15];

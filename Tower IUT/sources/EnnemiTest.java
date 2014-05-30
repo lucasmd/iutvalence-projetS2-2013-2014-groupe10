@@ -4,6 +4,9 @@ import junit.framework.*;
 
 public class EnnemiTest extends TestCase
 {
+	/**
+	 * Constructeur
+	 */
 	EnnemiTest(String nom)
 	{
 		super(nom);
