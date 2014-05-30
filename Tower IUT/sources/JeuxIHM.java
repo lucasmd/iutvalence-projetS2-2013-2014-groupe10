@@ -50,6 +50,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JTextField pseudochoix;
 	private EnumTour typeTour = EnumTour.petiteTour;
 	private Joueur joueur1;
+	private JButton LancerVague;
+	int nbTour=0;
 
 	public JeuxIHM(MenuIHM p) {
 		this.initial = p;
@@ -97,6 +99,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		this.Tower2.addActionListener(this);
 		this.Tower3 = new JButton(new ImageIcon("docs/Tower3.png"));
 		this.Tower3.addActionListener(this);
+		this.LancerVague = new JButton("Lancer une vague");
+		this.LancerVague.addActionListener(this);
 		
 		JPanel pan2 = new JPanel();
 		pan2.setBackground(Color.WHITE);
@@ -125,7 +129,8 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		pan3.add(new JLabel("$"+Tour.PRIX_GRANDE_TOUR));
 		pan3.add(this.Tower3);
 		
-		pan3.add(new JLabel("Argent : "+this.joueur1.obtenirQtArgent()));
+		pan3.add( new JLabel("Argent : "+this.joueur1.obtenirQtArgent()));
+		pan3.add(this.LancerVague);
 		
 		
 		JSplitPane splitPaneBas = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -262,10 +267,19 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 			initial.regles.afficherReglesIHM();
 		} else if (e.getSource() == Tower1) {
 			this.typeTour = EnumTour.petiteTour;
+			String pseudoJoueur = this.pseudochoix.getText().toString();
+			/**TODO les 2 lignes qui suivent n'ont pas l'effet escompté (enlever le prix de la tour au joueur),
+			 *  car je n'arrive pas à actualiser l'affichage du label*/
+			Joueur enleverargent = new Joueur(pseudoJoueur);
+			enleverargent.enleverArgent(Tour.PRIX_PETITE_TOUR);
 		} else if (e.getSource() == Tower2) {
 			this.typeTour = EnumTour.moyenneTour;
 		} else if (e.getSource() == Tower3) {
 			this.typeTour = EnumTour.grosseTour;
+		} else if (e.getSource() == LancerVague){
+			Partie lancerunevague = new Partie(joueur1, nbTour, null);
+			lancerunevague.lancerUnTour(nbTour);
+			nbTour++;
 		}
 
 		else if (e.getSource() == valider) {
