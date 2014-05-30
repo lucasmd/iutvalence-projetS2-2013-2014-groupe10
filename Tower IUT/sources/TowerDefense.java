@@ -2,6 +2,11 @@ import java.util.*;
 
 import javax.swing.SwingUtilities;
 
+/**
+ * Permet de lancer le jeu
+ * @author Maxime
+ *
+ */
 public class TowerDefense {
 
 	public final static Position POSITION_DE_FIN = new Position(14, 29);
@@ -17,6 +22,10 @@ public class TowerDefense {
 	/** RÃ¨gles du jeu. */
 	private static Regles lesRegles;
 
+	/**
+	 * Methode main qui permet de choisir entre l'affichage console et l'affichage graphique
+	 * @param args Ne prend pas de paramtres en entr�e.
+	 */
 	public static void main(String[] args) {
 
 		
@@ -38,7 +47,10 @@ public class TowerDefense {
 			TowerDefense.afficherMenu();
 		}
 	}
-
+	
+	/**
+	 * Permet d'afficher le menu en console et de jouer.
+	 */
 	public static void afficherMenu() {
 		lesRegles = new Regles();
 		leTableauDesScores = new TableScore();
@@ -64,7 +76,7 @@ public class TowerDefense {
 					break;
 				}
 				System.out
-						.println(" Vous n'avez pas sï¿½lï¿½ctionnï¿½ une rubrique valide\n");
+						.println(" Vous n'avez pas s�l�ction� une rubrique valide\n");
 			}
 
 			switch (choixMenu) {

@@ -15,6 +15,12 @@ public abstract class Vague
 		//il faut creer un tableau de vague en fonction du niveau
 	}
 	
+	/**
+	 * Permet de poser un ennemi sur sur la case de depart
+	 * @param place
+	 * @param ennemiAfficher
+	 * @param mapDeJeu
+	 */
 	public void lancerUnEnnemi(int place,ArrayList<Ennemi> ennemiAfficher,Map mapDeJeu)
 	{
 		int placeAfficher=ennemiAfficher.size();
@@ -22,6 +28,11 @@ public abstract class Vague
 		mapDeJeu.afficherEnnemi(tabEnnemi[place]);
 	}
 	
+	/**
+	 * Permet de faire avancer les ennemis present sur la map 
+	 * @param ennemiAfficher
+	 * @param mapDeJeu
+	 */
 	public void faireAvancerLaVague(ArrayList<Ennemi> ennemiAfficher,Map mapDeJeu)
 	{
 		for(int index=0; index<ennemiAfficher.size(); index++)
@@ -31,32 +42,15 @@ public abstract class Vague
 		}
 	}
 	
-	public Ennemi[] obtenirTabEnnemi() {
+	/**
+	 * Accesseur du tableau d'ennemi
+	 * @return
+	 */
+	public Ennemi[] obtenirTabEnnemi() 
+	{
 		return tabEnnemi;
 	}
-	/**
-	 * Lancement de la vague
-	 */
-	/*public void LancerVague(Map mapDeJeu, ArrayList<Case> chemin, Partie partieDonnee)
-	{
-		
-			
-			
-				
-					while ((ennemiAfficher[index].obtenirCase().obtenirPosiCase()!=POSITION_DE_FIN))
-					{
-						mapDeJeu.afficherEnnemi(ennemiAfficher[index]);
-						mapDeJeu.afficherMap();
-						if (ennemiAfficher[index].obtenirCase().obtenirPosiCase().obtenirPositionLigne()==14)
-						{
-							if(ennemiAfficher[index].obtenirCase().obtenirPosiCase().obtenirPositionColonne()==29)
-							{
-								mapDeJeu.effacerEnnemi(ennemiAfficher[index]);
-								partieDonnee.mettreAJourVie(ennemiAfficher[index].obtenirPtDegats());
-							}
-						}
-					}
-				}*/
+
 				
 
 }
