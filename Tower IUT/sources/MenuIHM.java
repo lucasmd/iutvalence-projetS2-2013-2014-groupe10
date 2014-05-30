@@ -16,7 +16,7 @@ import java.awt.event.KeyListener;
  * 
  */
 public class MenuIHM implements Runnable, ActionListener, KeyListener {
-	private JFrame fenetre;
+	protected JFrame fenetre;
 	private JButton Jouer;
 	private JButton Options;
 	private JButton Scores;

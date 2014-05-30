@@ -24,10 +24,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- * Tï¿½che gï¿½rant l'IHM (crï¿½ation, affichage)
- * 
- */
 public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private JFrame fenetre;
 	private JDialog fenetreNiveauEtPseudo;
@@ -43,45 +39,48 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 	private MenuIHM initial;
 	private JButton valider;
 	private JButton annuler;
-	private JLabel Pseudo;
+	private JLabel pseudo;
 	private JRadioButton niv1Button;
 	private JRadioButton niv2Button;
 	private JRadioButton niv3Button;
 	private JTextField pseudochoix;
 	private EnumTour typeTour = EnumTour.petiteTour;
 	private Joueur joueur1;
-	private JButton LancerVague;
+	private JButton lancerVague;
 	int nbTour=0;
+	private JLabel argent;
+	private Partie partie;
 
 	public JeuxIHM(MenuIHM p) {
 		this.initial = p;
 	}
 
 	private void initialiserLInterfaceGraphique() {
+		/** Fenetre de jeu */
 		this.fenetre = new JFrame();
+		this.fenetre.setTitle("TowerIUT");
+		this.fenetre.setSize(1000, 1000);
+		this.fenetre.setLocationRelativeTo(null);
+		this.fenetre.setResizable(true);
+		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
+		/** Barre de menu */
 		barreDeMenu = new JMenuBar();
 		towerIUT = new JMenu("Tower IUT");
-
 		this.JMIscores = new JMenuItem("Scores");
 		this.JMIscores.addActionListener(this);
 		towerIUT.add(this.JMIscores);
-
 		this.JMIregles = new JMenuItem("Regles");
 		this.JMIregles.addActionListener(this);
 		towerIUT.add(this.JMIregles);
-
 		this.JMIoptions = new JMenuItem("Options");
 		this.JMIoptions.addActionListener(this);
 		towerIUT.add(this.JMIoptions);
-
 		this.JMIquitter = new JMenuItem("Quitter");
 		this.JMIquitter.addActionListener(this);
 		towerIUT.add(this.JMIquitter);
-
 		barreDeMenu.add(towerIUT);
-
 		this.fenetre.setJMenuBar(barreDeMenu);
-
 		Font police = new Font("Arial", Font.BOLD, 16);
 		towerIUT.setFont(police);
 		JMIscores.setFont(police);
@@ -89,75 +88,49 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		JMIoptions.setFont(police);
 		JMIquitter.setFont(police);
 
-		this.fenetre.setTitle("TowerIUT");
-		this.fenetre.setSize(740, 1000);
-		this.fenetre.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		/** Plateau du jeu */
+		JPanel plateauJeu = new JPanel();
+		plateauJeu.setBackground(Color.WHITE);
+		plateauJeu.setLayout(new GridLayout(30, 30));
+
+		Map map = new Map();
 		
+		for (int i = 0; i < Map.NOMBRE_LIGNE; i++) {
+			for (int j = 0; j < Map.NOMBRE_COLONNE; j++) {
+				plateauJeu.add(new BCase(i, j, map.map[i][j].obtenirCaseEtat(), this));
+			}
+		}
+		
+		/** Barre de jeu */
+		JPanel barreJeu = new JPanel();
+		barreJeu.setBackground(Color.GRAY);
 		this.Tower1 = new JButton(new ImageIcon("docs/Tower1.png"));
 		this.Tower1.addActionListener(this);
 		this.Tower2 = new JButton(new ImageIcon("docs/Tower2.png"));
 		this.Tower2.addActionListener(this);
 		this.Tower3 = new JButton(new ImageIcon("docs/Tower3.png"));
 		this.Tower3.addActionListener(this);
-		this.LancerVague = new JButton("Lancer une vague");
-		this.LancerVague.addActionListener(this);
+		barreJeu.add(new JLabel("$"+Tour.PRIX_PETITE_TOUR));
+		barreJeu.add(this.Tower1);
+		barreJeu.add(new JLabel("$"+Tour.PRIX_MOYENNE_TOUR));
+		barreJeu.add(this.Tower2);
+		barreJeu.add(new JLabel("$"+Tour.PRIX_GRANDE_TOUR));
+		barreJeu.add(this.Tower3);
+		argent = new JLabel("Argent : "+this.joueur1.obtenirQtArgent()+"$");
+		barreJeu.add(argent);
+		this.lancerVague = new JButton("Lancer une vague");
+		this.lancerVague.addActionListener(this);
+		barreJeu.add(this.lancerVague);
 		
-		JPanel pan2 = new JPanel();
-		pan2.setBackground(Color.WHITE);
-		pan2.setLayout(new GridLayout(30, 30));
-
-		for (int i = 0; i < Map.NOMBRE_LIGNE; i++) {
-			for (int j = 0; j < Map.NOMBRE_COLONNE; j++) {
-				if((i==0) && (j == 14)){
-					pan2.add(new BCase(i, j));
-				}
-				else if((i == 29) && (j == 14)){
-					pan2.add(new BCase(i, j));
-				}
-				else {
-					pan2.add(new BCase(i, j, this));
-				}
-			}
-		}
-
-		JPanel pan3 = new JPanel();
-		pan3.setBackground(Color.GRAY);
-		pan3.add(new JLabel("$"+Tour.PRIX_PETITE_TOUR));
-		pan3.add(this.Tower1);
-		pan3.add(new JLabel("$"+Tour.PRIX_MOYENNE_TOUR));
-		pan3.add(this.Tower2);
-		pan3.add(new JLabel("$"+Tour.PRIX_GRANDE_TOUR));
-		pan3.add(this.Tower3);
+		/** Jeu complet */
+		JSplitPane complet = new JSplitPane(JSplitPane.VERTICAL_SPLIT, plateauJeu, barreJeu);
+		complet.setResizeWeight(0.9);
+	    complet.setDividerSize(0);
+	    complet.setEnabled(false);
+		complet.setBorder(null);
+		this.fenetre.add(complet);
 		
-		pan3.add( new JLabel("Argent : "+this.joueur1.obtenirQtArgent()));
-		pan3.add(this.LancerVague);
-		
-		
-		JSplitPane splitPaneBas = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		splitPaneBas.setBottomComponent(pan3);
-		splitPaneBas.setEnabled(false);
-		splitPaneBas.setBorder(null);
-		splitPaneBas.setResizeWeight(0.3);
-		splitPaneBas.setDividerSize(0);
-		
-
-		this.fenetre.setResizable(true);
-
-		JSplitPane splitPaneIntermediaire = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-
-		splitPaneIntermediaire.setTopComponent(pan2);
-		splitPaneIntermediaire.setBottomComponent(splitPaneBas);
-		splitPaneIntermediaire.setEnabled(false);
-		splitPaneIntermediaire.setBorder(null);
-		splitPaneIntermediaire.setResizeWeight(0.8);
-		splitPaneIntermediaire.setDividerSize(0);
-
-		this.fenetre.setContentPane(splitPaneIntermediaire);
 		this.fenetre.setVisible(true);
-
-
-		
-
 	}
 
 	private void demandePseudoNiveau() {
@@ -194,17 +167,15 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		pseudochoix.setFont(police);
 		pseudochoix.setPreferredSize(new Dimension(100, 30));
 
-		
-		
 		JPanel panneauChoixDuNiveau = new JPanel();
 		panneauChoixDuNiveau.add(niv1Button);
 		panneauChoixDuNiveau.add(niv2Button);
 		panneauChoixDuNiveau.add(niv3Button);
 
-		this.Pseudo = new JLabel("Pseudo");
-
+		this.pseudo = new JLabel("Pseudo");
+		pseudo.setFont(police);
 		JPanel panneauChoixDuPseudo = new JPanel();
-		panneauChoixDuPseudo.add(Pseudo);
+		panneauChoixDuPseudo.add(pseudo);
 		panneauChoixDuPseudo.add(pseudochoix);
 
 		JSplitPane ChoixDuNiveauEtPseudo = new JSplitPane(
@@ -222,8 +193,6 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		this.fenetreNiveauEtPseudo.setResizable(true);
 		this.fenetreNiveauEtPseudo.setLocationRelativeTo(null);
 		this.fenetreNiveauEtPseudo.add(ChoixDuNiveauEtPseudo);
-		
-		
 		
 		JPanel barreBas = new JPanel();
 		valider = new JButton("Valider");
@@ -266,22 +235,15 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 		} else if (e.getSource() == JMIregles) {
 			initial.regles.afficherReglesIHM();
 		} else if (e.getSource() == Tower1) {
-			this.typeTour = EnumTour.petiteTour;
-			String pseudoJoueur = this.pseudochoix.getText().toString();
-			/**TODO les 2 lignes qui suivent n'ont pas l'effet escompté (enlever le prix de la tour au joueur),
-			 *  car je n'arrive pas à actualiser l'affichage du label*/
-			Joueur enleverargent = new Joueur(pseudoJoueur);
-			enleverargent.enleverArgent(Tour.PRIX_PETITE_TOUR);
+			this.typeTour = EnumTour.petiteTour;			
 		} else if (e.getSource() == Tower2) {
 			this.typeTour = EnumTour.moyenneTour;
 		} else if (e.getSource() == Tower3) {
 			this.typeTour = EnumTour.grosseTour;
-		} else if (e.getSource() == LancerVague){
-			Partie lancerunevague = new Partie(joueur1, nbTour, null);
-			lancerunevague.lancerUnTour(nbTour);
+		} else if (e.getSource() == lancerVague){
+			partie.lancerUnTour(nbTour);
 			nbTour++;
 		}
-
 		else if (e.getSource() == valider) {
 			int niveauChoisi = 1;
 			boolean choix1 = niv1Button.isSelected();
@@ -296,22 +258,20 @@ public class JeuxIHM implements Runnable, ActionListener, KeyListener {
 			if (choix3 == true) {
 				niveauChoisi = 3;
 			}
-
 			String pseudoJoueur = this.pseudochoix.getText().toString();
 			Joueur joueur = new Joueur(pseudoJoueur);
 			this.joueur1 = joueur;
-			/**TODO il faut ajouter en parametre le tableau des scores, mais comment l'avoir dans cette IHM ? (Max)*/
-			
-			Partie partie = new Partie(joueur, niveauChoisi, initial.scores);
+			partie = new Partie(joueur, niveauChoisi, initial.scores);
 			this.initialiserLInterfaceGraphique();
 			fenetreNiveauEtPseudo.dispose();
-
+			initial.fenetre.dispose();
 		} else if (e.getSource() == annuler) {
 			fenetreNiveauEtPseudo.dispose();
 		} else {
 			BCase bcase = (BCase) e.getSource();
-			if (bcase.obtenirType() == null) {
+			if (bcase.obtenirEtat() == Etat.VIDE) {
 				bcase.poserTour(typeTour, joueur1);
+				argent.setText("Argent : "+this.joueur1.obtenirQtArgent()+"$"); 
 			}
 		}
 	}

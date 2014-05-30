@@ -8,21 +8,24 @@ import javax.swing.JButton;
 public class BCase extends JButton {
 	private int ligne;
 	private int colonne;
+	private Etat etat;
 	private EnumTour typeTour;
 	private Ennemi typeEnnemi;
 
-	public BCase(int numL, int numC, ActionListener abonnement) {
+	public BCase(int numL, int numC, Etat etat, ActionListener abonnement) {
 		this.ligne = numL;
 		this.colonne = numC;
+		this.etat = etat;
 		this.addActionListener(abonnement);
-		this.setIcon(new ImageIcon("docs/sol.png"));
-	}
-
-	public BCase(int numL, int numC) {
-		this.ligne = numL;
-		this.colonne = numC;
-		this.setBackground(Color.white);
-		this.setEnabled(false);
+		if(etat == Etat.TOUR){
+			this.setBackground(Color.red);
+		}
+		else if(etat == Etat.ENNEMI){
+			this.setBackground(Color.blue);
+		}
+		else if(etat == Etat.CHEMIN){
+			this.setBackground(Color.white);
+		}
 	}
 
 	public void poserTour(EnumTour typeTour, Joueur joueur) {
@@ -44,7 +47,6 @@ public class BCase extends JButton {
 
 	public void poserEnnemi(Ennemi typeEnnemi) {
 		this.typeEnnemi = typeEnnemi;
-		// Rajouter les ennemis
 	}
 
 	public int obtenirLigne() {
@@ -54,9 +56,12 @@ public class BCase extends JButton {
 	public int obtenirColonne() {
 		return colonne;
 	}
-
-	public EnumTour obtenirType() {
-		return typeTour;
+	
+	public Etat obtenirEtat(){
+		return etat;
 	}
 
+	public EnumTour obtenirType(){
+		return typeTour;
+	}
 }
